@@ -254,6 +254,68 @@
 
         <div class="abonements-grid" data-abonements-root></div>
 
+        <section class="abonement-picker card-luxe" data-abonement-picker>
+          <div class="abonement-picker__intro">
+            <p class="abonement-picker__eyebrow">Быстрый подбор</p>
+            <h3 class="abonement-picker__title">Нужна подсказка по формату?</h3>
+            <p class="abonement-picker__text">
+              Укажите возраст, цель и удобный график — подскажем, с какого абонемента лучше начать.
+            </p>
+          </div>
+
+          <div class="abonement-picker__form">
+            <label class="abonement-picker__field">
+              <span>Возраст ребёнка</span>
+              <select name="age" data-abonement-age>
+                <option value="4-6">4–6 лет</option>
+                <option value="7-11">7–11 лет</option>
+                <option value="12-16">12–16 лет</option>
+                <option value="17plus">18+ (взрослые группы)</option>
+              </select>
+            </label>
+
+            <label class="abonement-picker__field">
+              <span>Цель</span>
+              <select name="goal" data-abonement-goal>
+                <option value="stage">Сцена и уверенность</option>
+                <option value="cinema">Кино и съёмки</option>
+                <option value="speech">Речь и коммуникация</option>
+              </select>
+            </label>
+
+            <label class="abonement-picker__field">
+              <span>График</span>
+              <select name="schedule" data-abonement-schedule>
+                <option value="light">1 раз в неделю</option>
+                <option value="standard">1–2 раза в неделю</option>
+                <option value="intense">2 раза в неделю и больше</option>
+              </select>
+            </label>
+
+            <button type="button" class="btn btn-primary abonement-picker__submit" data-abonement-pick>
+              Подобрать формат
+            </button>
+          </div>
+
+          <div class="abonement-picker__result" data-abonement-result aria-live="polite">
+            <div class="abonement-picker__badge" data-abonement-result-badge>Рекомендация</div>
+            <div>
+              <p class="abonement-picker__result-title" data-abonement-result-title>Пробное занятие</p>
+              <p class="abonement-picker__result-text" data-abonement-result-text>
+                Начните с пробного урока, чтобы познакомиться с педагогом и форматом занятий.
+              </p>
+              <div class="abonement-picker__actions">
+                <a href="#contacts" class="btn btn-secondary btn-compact-mobile" data-scroll-to="contacts" data-abonement-cta-main>
+                  Оставить заявку
+                </a>
+                <button type="button" class="btn btn-ghost btn-compact-mobile" data-scroll-to="contacts">
+                  Спросить администратора
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <div class="section-abonements-cta">
           <div class="section-abonements-cta-text">
             <h3 class="section-abonements-cta-title">
@@ -338,6 +400,14 @@
             <span class="badge badge--glass">Камерный зал до 50 зрителей</span>
             <span class="badge badge--glass">Декабрь–январь</span>
             </div>
+            <div class="snow-queen-switch" data-snow-switch>
+              <p class="snow-queen-switch__label">Выберите формат</p>
+              <div class="snow-queen-switch__buttons">
+                <button type="button" class="tracks-toggle-btn tracks-toggle-btn--primary" data-snow-mode="class">Для школьных классов</button>
+                <button type="button" class="tracks-toggle-btn" data-snow-mode="family">Для семьи и друзей</button>
+              </div>
+              <p class="snow-queen-switch__hint" data-snow-hint aria-live="polite">Загрузим подсказку под ваш формат.</p>
+            </div>
             <div class="snow-queen-layout">
               <figure class="snow-queen-poster">
                 <img src="assets/img/posters/snow-queen.png" alt="Постер новогодней программы «Снежная королева»" />
@@ -346,7 +416,7 @@
               <div class="snow-queen-details card-luxe">
                 <h3 class="snow-queen-details-title">Подробнее о квесте-спектакле «Снежная Королева»</h3>
                 <div class="snow-queen-details-columns">
-                  <div class="snow-queen-details-column">
+                  <div class="snow-queen-details-column" data-snow-column="class">
                     <h4 class="snow-queen-details-heading">Для школьных классов и детских садов</h4>
                     <ul class="snow-queen-list">
                       <li>4–6 этапов поискового квеста по залу и фойе.</li>
@@ -356,7 +426,7 @@
                       <li>Продолжительность программы — около 2 часов.</li>
                     </ul>
                   </div>
-                  <div class="snow-queen-details-column">
+                  <div class="snow-queen-details-column" data-snow-column="family">
                     <h4 class="snow-queen-details-heading">Для семейных визитов</h4>
                     <ul class="snow-queen-list">
                       <li>Отдельные показы с камерной рассадкой (до 50 зрителей).</li>
@@ -1324,6 +1394,17 @@
         </header>
 
         <div class="faq">
+          <div class="faq-search" data-faq-search>
+            <label class="faq-search__field">
+              <span>Найдите ответ</span>
+              <input type="search" placeholder="Например: оплата, возраст, расписание" data-faq-query />
+            </label>
+            <div class="faq-search__meta">
+              <span class="faq-search__hint">Мы будем подсвечивать подходящие вопросы по мере набора.</span>
+              <button type="button" class="btn btn-ghost btn-compact-mobile" data-faq-reset>Сбросить</button>
+              <span class="faq-search__count" data-faq-count aria-live="polite"></span>
+            </div>
+          </div>
 
           <div class="faq-item">
             <button class="faq-question" type="button" aria-expanded="false">

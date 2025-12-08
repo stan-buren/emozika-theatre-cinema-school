@@ -2074,6 +2074,39 @@ body.has-modal-open {
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
 }
 
+.snow-queen-switch {
+  margin: 0 auto 16px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f0f4ff;
+  display: grid;
+  gap: 6px;
+  max-width: 720px;
+}
+
+.snow-queen-switch__label {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.snow-queen-switch__buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.snow-queen-switch__hint {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(240, 244, 255, 0.82);
+}
+
 
 @keyframes snow-glow-header {
   0% {
@@ -2127,6 +2160,18 @@ body.has-modal-open {
 .snow-queen-details-columns {
   display: grid;
   gap: 16px;
+}
+
+.snow-queen-details-column {
+  padding: 8px;
+  border-radius: 12px;
+  transition: box-shadow var(--motion-normal) ease, transform var(--motion-normal) ease, background var(--motion-normal) ease;
+}
+
+.snow-queen-details-column.is-active {
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 12px 36px rgba(10, 4, 26, 0.25);
+  transform: translateY(-2px);
 }
 
 @media (min-width: 768px) {
@@ -3602,6 +3647,130 @@ body.has-modal-open {
   display: grid;
   gap: 20px;
   margin-top: 28px;
+}
+
+/* Подбор абонемента */
+
+.abonement-picker {
+  margin-top: 28px;
+  display: grid;
+  gap: 18px;
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--color-surface);
+  border: 1px solid rgba(8, 2, 26, 0.06);
+  box-shadow: 0 14px 32px rgba(8, 2, 26, 0.08);
+}
+
+.abonement-picker__intro {
+  display: grid;
+  gap: 6px;
+}
+
+.abonement-picker__eyebrow {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.abonement-picker__title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.abonement-picker__text {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.abonement-picker__form {
+  display: grid;
+  gap: 12px;
+}
+
+.abonement-picker__field {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.abonement-picker__field span {
+  font-weight: 600;
+}
+
+.abonement-picker__field select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(8, 2, 26, 0.12);
+  background: #fff;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.abonement-picker__submit {
+  align-self: center;
+  justify-self: flex-start;
+}
+
+.abonement-picker__result {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(122, 47, 180, 0.08), rgba(255, 179, 103, 0.08));
+  border: 1px solid rgba(122, 47, 180, 0.18);
+}
+
+.abonement-picker__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(122, 47, 180, 0.16);
+  color: #461076;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.abonement-picker__result-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.abonement-picker__result-text {
+  margin: 0 0 8px;
+  color: var(--color-text-muted);
+}
+
+.abonement-picker__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+  .abonement-picker {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+
+  .abonement-picker__form {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+  }
+
+  .abonement-picker__submit {
+    justify-self: flex-end;
+  }
 }
 
 @media (min-width: 768px) {
@@ -6607,6 +6776,50 @@ gallery__video-item iframe {
 .section--faq .section-inner {
   max-width: 880px;
   margin: 0 auto;
+}
+
+.faq-search {
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid rgba(122, 47, 180, 0.12);
+  box-shadow: 0 10px 26px rgba(24, 1, 54, 0.06);
+  display: grid;
+  gap: 10px;
+}
+
+.faq-search__field {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.faq-search__field span {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.faq-search__field input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(122, 47, 180, 0.25);
+  font: inherit;
+}
+
+.faq-search__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.faq-search__count {
+  font-weight: 700;
+  color: var(--color-brand-dark);
 }
 
 .faq {

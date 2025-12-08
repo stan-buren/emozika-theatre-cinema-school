@@ -709,6 +709,81 @@ document.addEventListener("DOMContentLoaded", () => {
   // 6. Блок «Фильмы и награды»
   // ======================================
 
+  // Переключатель формата в блоке Snow Queen
+  const snowQueenSection = document.querySelector("#snow-queen");
+
+  if (snowQueenSection) {
+    const switchRoot = snowQueenSection.querySelector("[data-snow-switch]");
+    const modeButtons = switchRoot
+      ? switchRoot.querySelectorAll("[data-snow-mode]")
+      : [];
+    const hintEl = switchRoot
+      ? switchRoot.querySelector("[data-snow-hint]")
+      : null;
+    const columns = snowQueenSection.querySelectorAll("[data-snow-column]");
+    const classCta = snowQueenSection.querySelector(".snow-queen-btn--schools");
+    const familyCta = snowQueenSection.querySelector(".snow-queen-btn--family");
+
+    const modes = {
+      class: {
+        hint:
+          "Группы до 30–35 детей: квест на 4–6 этапов, спектакль, подарки и фото с актёрами.",
+        focus: "class",
+        classBtnText: "Забронировать дату для класса",
+        familyBtnText: "Купить билеты для семьи"
+      },
+      family: {
+        hint:
+          "Камерные показы до 50 зрителей: есть даты с квестом и без, рекомендуемый возраст 5–12 лет.",
+        focus: "family",
+        classBtnText: "Заявка на класс",
+        familyBtnText: "Купить семейные билеты"
+      }
+    };
+
+    function setMode(mode) {
+      const config = modes[mode] || modes.class;
+
+      modeButtons.forEach((btn) => {
+        const isActive = btn.getAttribute("data-snow-mode") === mode;
+        btn.classList.toggle("tracks-toggle-btn--primary", isActive);
+        btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+        if (!isActive) {
+          btn.classList.remove("tracks-toggle-btn--primary");
+        }
+      });
+
+      columns.forEach((col) => {
+        const value = col.getAttribute("data-snow-column");
+        const active = value === config.focus;
+        col.classList.toggle("is-active", active);
+      });
+
+      if (hintEl && config.hint) {
+        hintEl.textContent = config.hint;
+      }
+
+      if (classCta && config.classBtnText) {
+        classCta.textContent = config.classBtnText;
+      }
+
+      if (familyCta && config.familyBtnText) {
+        familyCta.textContent = config.familyBtnText;
+      }
+    }
+
+    if (modeButtons.length) {
+      modeButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const value = btn.getAttribute("data-snow-mode") || "class";
+          setMode(value);
+        });
+      });
+    }
+
+    setMode("class");
+  }
+
   const filmsSection = document.querySelector("#films");
 
   if (filmsSection) {
@@ -1126,6 +1201,67 @@ document.addEventListener("DOMContentLoaded", () => {
   // 8. FAQ toggle
   // ======================================
 
+  const faqSection = document.querySelector("#faq");
+  let faqItems = [];
+
+  function setFaqExpanded(item, expand) {
+    if (!item) return;
+    const btn = item.querySelector(".faq-question");
+    const answer = item.querySelector(".faq-answer");
+    if (!btn || !answer) return;
+
+    btn.setAttribute("aria-expanded", expand ? "true" : "false");
+    answer.classList.toggle("open", expand);
+  }
+
+  if (faqSection) {
+    faqItems = Array.from(faqSection.querySelectorAll(".faq-item"));
+    const queryInput = faqSection.querySelector("[data-faq-query]");
+    const resetBtn = faqSection.querySelector("[data-faq-reset]");
+    const countEl = faqSection.querySelector("[data-faq-count]");
+
+    function filterFaq() {
+      if (!faqItems.length) return;
+
+      const value = (queryInput?.value || "").trim().toLowerCase();
+      let visibleCount = 0;
+
+      faqItems.forEach((item) => {
+        const text = item.textContent ? item.textContent.toLowerCase() : "";
+        const match = !value || text.includes(value);
+
+        item.hidden = !match;
+        setFaqExpanded(item, Boolean(value && match));
+
+        if (match) {
+          visibleCount += 1;
+        }
+      });
+
+      if (countEl) {
+        countEl.textContent = value
+          ? `Нашли ${visibleCount} из ${faqItems.length}`
+          : "";
+      }
+    }
+
+    if (queryInput) {
+      queryInput.addEventListener("input", filterFaq);
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        if (queryInput) {
+          queryInput.value = "";
+          queryInput.focus();
+        }
+        filterFaq();
+      });
+    }
+
+    filterFaq();
+  }
+
   document.addEventListener("click", (e) => {
     const btn = e.target.closest(".faq-question");
     if (!btn) return;
@@ -1135,8 +1271,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!answer) return;
 
     const expanded = btn.getAttribute("aria-expanded") === "true";
-    btn.setAttribute("aria-expanded", (!expanded).toString());
-    answer.classList.toggle("open");
+    setFaqExpanded(item, !expanded);
   });
 });
 
@@ -2127,6 +2262,103 @@ function initAbonementsSection() {
     ctaButtons.forEach((button) => {
       button.addEventListener('click', scrollToContacts);
     });
+  }
+
+  // Быстрый подбор абонемента
+  const picker = document.querySelector('[data-abonement-picker]');
+
+  if (picker) {
+    const ageSelect = picker.querySelector('[data-abonement-age]');
+    const goalSelect = picker.querySelector('[data-abonement-goal]');
+    const scheduleSelect = picker.querySelector('[data-abonement-schedule]');
+    const pickButton = picker.querySelector('[data-abonement-pick]');
+    const badgeEl = picker.querySelector('[data-abonement-result-badge]');
+    const titleEl = picker.querySelector('[data-abonement-result-title]');
+    const textEl = picker.querySelector('[data-abonement-result-text]');
+    const ctaEl = picker.querySelector('[data-abonement-cta-main]');
+
+    function getRecommendation() {
+      const age = ageSelect ? ageSelect.value : '7-11';
+      const goal = goalSelect ? goalSelect.value : 'stage';
+      const schedule = scheduleSelect ? scheduleSelect.value : 'standard';
+
+      // Базовая заготовка
+      const fallback = {
+        badge: 'Рекомендация',
+        title: 'Пробное занятие',
+        text: 'Начните с пробного урока — познакомитесь с педагогом и форматом занятий.',
+        cta: 'Записаться на пробное'
+      };
+
+      if (goal === 'cinema') {
+        return {
+          badge: 'Киноформат',
+          title: 'Съёмочный модуль + занятия',
+          text: 'Киноформат с пробами и 1–2 занятиями в неделю — ребёнок окажется на площадке и получит готовый фильм.',
+          cta: 'Записаться в киноформат'
+        };
+      }
+
+      if (age === '12-16' || schedule === 'intense') {
+        return {
+          badge: 'Интенсив',
+          title: 'Модуль на 4 месяца',
+          text: 'Глубокая программа с регулярными репетициями, сценами и итоговым спектаклем на сцене театра.',
+          cta: 'Выбрать модуль'
+        };
+      }
+
+      if (goal === 'speech') {
+        return {
+          badge: 'Речь',
+          title: 'Курс речи + студия',
+          text: 'Комбинация сценической речи и актёрки: дикция, уверенность, выступления перед аудиторией.',
+          cta: 'Уточнить расписание'
+        };
+      }
+
+      if (age === '4-6') {
+        return {
+          badge: 'Старт',
+          title: 'Пробное занятие в младшей группе',
+          text: 'Мягкое знакомство через игру и пластику. Поможет понять, готов ли малыш заниматься регулярно.',
+          cta: 'Записаться на пробу'
+        };
+      }
+
+      return fallback;
+    }
+
+    function updateRecommendation() {
+      const rec = getRecommendation();
+
+      if (badgeEl && rec.badge) {
+        badgeEl.textContent = rec.badge;
+      }
+
+      if (titleEl) {
+        titleEl.textContent = rec.title;
+      }
+
+      if (textEl) {
+        textEl.textContent = rec.text;
+      }
+
+      if (ctaEl && rec.cta) {
+        ctaEl.textContent = rec.cta;
+      }
+    }
+
+    if (pickButton) {
+      pickButton.addEventListener('click', updateRecommendation);
+    }
+
+    [ageSelect, goalSelect, scheduleSelect].forEach((field) => {
+      if (!field) return;
+      field.addEventListener('change', updateRecommendation);
+    });
+
+    updateRecommendation();
   }
 }
 
