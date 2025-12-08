@@ -1,0 +1,422 @@
+/* ==============================
+   3.5. Awards (#awards)
+   ============================== */
+
+.section-awards {
+    background: radial-gradient(circle at top, #2a1748 0, #0b0617 42%, #05020b 100%);
+    color: #f8f5ff;
+}
+
+.section-awards .section-header {
+    max-width: 720px;
+    margin: 0 auto 2.5rem auto;
+}
+
+.section-awards .section-title {
+    margin-bottom: 0.5rem;
+}
+
+.section-awards .section-subtitle {
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .section-awards {
+        padding: 52px 0;
+    }
+
+    .section-awards .section-header {
+        margin-bottom: 1.75rem;
+    }
+
+    .awards-strip {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Витрина топ-наград */
+
+.awards-strip {
+    margin-bottom: 2.5rem;
+}
+
+/* окно, внутри которого всё крутится */
+.awards-strip-viewport {
+    position: relative;
+    overflow: hidden;
+    touch-action: pan-x;
+    cursor: grab;
+}
+
+/* дорожка бейджей */
+.awards-strip-inner {
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem 0.25rem 0.75rem;
+}
+
+.awards-strip-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 26px;
+}
+
+.awards-strip-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 26px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(6, 0, 30, 0.55);
+    color: #fff;
+    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 14px;
+    cursor: pointer;
+    transition:
+        background 150ms ease,
+        border-color 150ms ease,
+        transform 150ms ease;
+}
+
+.awards-strip-btn:hover,
+.awards-strip-btn:focus-visible {
+    border-color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* мобилки: ручной горизонтальный скролл */
+@media (max-width: 1023px) {
+    .awards-strip-inner {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+    }
+
+    .awards-strip-inner::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .awards-strip-inner::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 999px;
+    }
+
+    .awards-strip-controls {
+        justify-content: center;
+        gap: 8px;
+        padding-top: 16px;
+        margin-top: 18px;
+    }
+
+    .awards-strip-btn {
+        height: 28px;
+        font-size: 1rem;
+    }
+}
+
+/* бейджи топ-наград (по одному на ленте) */
+
+.award-badge {
+    flex: 0 0 auto;
+    width: var(--award-badge-size, clamp(130px, 26vw, 170px));
+    height: var(--award-badge-size, clamp(130px, 26vw, 170px));
+    padding: 1.1rem;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.16), transparent 55%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(10, 5, 30, 0.9));
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+    color: inherit;
+    cursor: pointer;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    text-align: center;
+    transition:
+        transform var(--motion-normal) var(--motion-ease-soft),
+        box-shadow var(--motion-normal) var(--motion-ease-soft),
+        border-color var(--motion-fast) var(--motion-ease-soft),
+        background-color var(--motion-fast) var(--motion-ease-soft);
+}
+
+.award-badge:hover,
+.award-badge:focus-visible {
+    transform: translateY(-2px);
+    box-shadow:
+        0 16px 35px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    outline: none;
+}
+
+.award-badge-title {
+    font-size: 0.84rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-wrap: balance;
+}
+
+.award-badge-text {
+    font-size: 0.74rem;
+    opacity: 0.9;
+    line-height: 1.25;
+    text-wrap: balance;
+}
+
+/* особое выделение Гран-при */
+
+.award-badge--grandprix {
+    border-color: rgba(248, 197, 85, 0.9);
+    box-shadow:
+        0 16px 40px rgba(246, 202, 96, 0.35),
+        0 0 0 1px rgba(248, 197, 85, 0.8);
+}
+
+@media (max-width: 768px) {
+    .award-badge {
+        --award-badge-size: 150px;
+        padding: 0.85rem;
+        gap: 0.2rem;
+    }
+
+    .award-badge-title {
+        font-size: 0.78rem;
+        line-height: 1.15;
+    }
+
+    .award-badge-text {
+        font-size: 0.7rem;
+        line-height: 1.2;
+    }
+}
+
+/* Карточки фестивалей */
+
+.awards-festivals {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 2.25rem;
+}
+
+.awards-festivals-title {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.95;
+}
+
+.awards-festivals-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .awards-festivals-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* ==============================
+   3.5.1. Карточка фестиваля
+   ============================== */
+
+.festival-card {
+    position: relative;
+    padding: 1.5rem 1.75rem;
+    border-radius: 1.25rem;
+    background: radial-gradient(circle at top, rgba(255, 255, 255, 0.06), rgba(10, 4, 30, 0.96));
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.72),
+        0 0 0 1px rgba(255, 255, 255, 0.04);
+    overflow: hidden;
+    transition:
+        transform 200ms ease-out,
+        box-shadow 200ms ease-out,
+        border-color 200ms ease-out;
+}
+
+/* лёгкий эффект «сцены» под карточкой */
+
+.festival-card::before {
+    content: "";
+    position: absolute;
+    inset: auto -25%;
+    bottom: -20%;
+    height: 40%;
+    background: radial-gradient(circle at center top, rgba(255, 255, 255, 0.2), transparent 65%);
+    opacity: 0;
+    transform: scale(0.9);
+    pointer-events: none;
+    transition:
+        opacity 220ms ease-out,
+        transform 220ms ease-out;
+}
+
+.festival-card:hover,
+.festival-card:focus-within {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow:
+        0 22px 50px rgba(0, 0, 0, 0.85),
+        0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.festival-card:hover::before,
+.festival-card:focus-within::before {
+    opacity: 1;
+    transform: scale(1.02);
+}
+
+.festival-card header {
+    margin-bottom: 0.75rem;
+}
+
+.festival-card-title {
+    font-size: 1.05rem;
+    font-weight: 650;
+    line-height: 1.3;
+    margin-bottom: 0.15rem;
+}
+
+.festival-card-meta {
+    font-size: 0.84rem;
+    opacity: 0.78;
+    letter-spacing: 0.01em;
+}
+
+.festival-card-headline {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin-bottom: 0.85rem;
+    opacity: 0.96;
+}
+
+.festival-card-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.95rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.festival-card-list li {
+    position: relative;
+    padding-left: 1.1rem;
+    margin-bottom: 0.35rem;
+}
+
+.festival-card-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: rgba(248, 197, 85, 0.9);
+}
+
+/* теги направлений */
+
+.festival-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.festival-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(5, 2, 20, 0.9);
+}
+
+.festival-tag--theatre {
+    border-color: rgba(248, 197, 85, 0.8);
+}
+
+.festival-tag--film {
+    border-color: rgba(132, 209, 255, 0.85);
+}
+
+.festival-tag--speech {
+    border-color: rgba(197, 169, 255, 0.85);
+}
+
+.awards-strip-viewport.is-dragging {
+    cursor: grabbing;
+}
+
+/* Автоскролл ленты наград для всех экранов */
+.awards-strip--auto .awards-strip-inner {
+    --awards-shift: -50%;
+    animation: awards-strip-scroll 40s linear infinite;
+    will-change: transform;
+}
+
+.awards-strip--auto:hover .awards-strip-inner {
+    animation-play-state: paused;
+}
+
+.awards-strip--auto.awards-strip--manual-control .awards-strip-inner {
+    animation: none !important;
+    transform: translateX(0) !important;
+}
+
+.awards-strip--manual-control .awards-strip-viewport::-webkit-scrollbar {
+    height: 6px;
+}
+
+.awards-strip--manual-control .awards-strip-viewport::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+}
+
+@keyframes awards-strip-scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(var(--awards-shift, -50%));
+    }
+}
+
+@media (max-width: 1023px) {
+    .awards-strip--auto .awards-strip-inner {
+        animation: none;
+        transform: none;
+    }
+
+    .awards-strip-viewport {
+        overflow-x: auto;
+        touch-action: pan-x;
+    }
+
+    .awards-strip-viewport::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .awards-strip-viewport::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.35);
+        border-radius: 999px;
+    }
+}
+
+/* Уважение к системной настройке уменьшения анимации */
+@media (prefers-reduced-motion: reduce) {
+    .awards-strip--auto .awards-strip-inner {
+        animation: none;
+        transform: none;
+    }
+}
