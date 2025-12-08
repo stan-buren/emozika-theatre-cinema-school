@@ -12,6 +12,13 @@
     name="description"
     content="Детский театр и студия «Эмоцика» в Санкт-Петербурге. Спектакль «Любовь у сливного бачка», афиша, фото и видео, документы и контакты для родителей."
   />
+  <meta name="theme-color" content="#0f1224" />
+  <meta property="og:title" content="Детский театр «Эмоцика» — спектакли и занятия для детей" />
+  <meta property="og:description" content="Спектакли, новогодние программы и студия для детей 4–16 лет в Санкт-Петербурге. Билеты и запись через администратора." />
+  <meta property="og:image" content="assets/img/posters/love-tank-hero.png" />
+  <meta property="og:url" content="https://emozia.ru" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ru_RU" />
   <link rel="icon" type="image/png" href="assets/img/ui/favicon.png">
   <link rel="shortcut icon" href="assets/img/ui/favicon.png" type="image/png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/ui/favicon-32.png">
@@ -23,6 +30,10 @@
 
   <body>
     <a href="#main-content" class="skip-link">Перейти к содержимому</a>
+    <div class="scroll-progress" aria-hidden="true">
+      <div class="scroll-progress__bar" data-scroll-progress></div>
+    </div>
+    <div class="page-bg" aria-hidden="true"></div>
   <header class="site-header">
     <div class="container header-inner">
       <a href="#hero" class="logo-badge" data-scroll-to="hero">
@@ -34,26 +45,22 @@
         <span class="logo-text">Театр «Эмоцика»</span>
       </a>
 
-      <!-- <nav class="main-nav" aria-label="Основная навигация">
-        <button type="button" class="nav-link" data-scroll-to="afisha">Афиша</button>
-        <button type="button" class="nav-link" data-scroll-to="snow-queen">Новый год</button>
-        <button type="button" class="nav-link" data-scroll-to="studio">Студия</button>
-        <button type="button" class="nav-link" data-scroll-to="films">Фильмы</button>
-        <button type="button" class="nav-link" data-scroll-to="people">Люди</button>
-        <button type="button" class="nav-link" data-scroll-to="casting">Кастинг</button>
-        <button type="button" class="nav-link" data-scroll-to="about">О театре</button>
-        <a href="#play" class="nav-link">О спектакле</a>
-        <a href="#gallery" class="nav-link">Галерея</a>
-        <button type="button" class="nav-link nav-link-cta" data-scroll-to="contacts">
-          Записаться
-        </button>
-      </nav> -->
-
       <nav class="main-nav" aria-label="Основная навигация">
         <button type="button" class="nav-link" data-scroll-to="afisha">Афиша</button>
         <button type="button" class="nav-link" data-scroll-to="snow-queen">Новый год</button>
+        <button type="button" class="nav-link" data-scroll-to="tracks">Направления</button>
+        <button type="button" class="nav-link" data-scroll-to="abonements">Абонементы</button>
+        <button type="button" class="nav-link" data-scroll-to="studio">Студия</button>
+        <button type="button" class="nav-link" data-scroll-to="films">Кино</button>
         <button type="button" class="nav-link" data-scroll-to="people">Люди</button>
         <button type="button" class="nav-link" data-scroll-to="awards">Награды</button>
+        <button type="button" class="nav-link" data-scroll-to="reviews">Отзывы</button>
+        <button type="button" class="nav-link" data-scroll-to="gallery">Галерея</button>
+        <button type="button" class="nav-link" data-scroll-to="docs">Документы</button>
+        <button type="button" class="nav-link" data-scroll-to="faq">FAQ</button>
+        <button type="button" class="nav-link nav-link-pill" data-scroll-to="contacts">
+          Записаться
+        </button>
       </nav>
       <a href="https://clck.ru/3QWtC2" class="nav-link nav-link-cta header-cta" target="_blank" rel="noopener">
         Купить билеты
@@ -67,6 +74,12 @@
         <div class="hero-overlay">
             <div class="container hero-inner">
             <div class="hero-content">
+                <div class="hero-badges">
+                  <span class="hero-badge">Премьера сезона</span>
+                  <span class="hero-badge">Камерный зал 50 мест</span>
+                  <span class="hero-badge">Билеты в продаже</span>
+                  <span class="hero-badge">12+</span>
+                </div>
                 <p class="hero-tagline">Театр-студия «Эмоцика» в Санкт-Петербурге представляет</p>
                 <h1 class="hero-title">«Любовь у сливного бачка»</h1>
                 <p class="hero-desc">Комедийная драма по пьесе В. Сигарева о жильцах коммунальной квартиры, которые ищут любовь и близость в самых неожиданных обстоятельствах. Камерный спектакль о взрослении, честности и смелости говорить правду.</p>
@@ -75,10 +88,13 @@
                 <span class="hero-meta-separator">•</span>
                 <span class="hero-meta-item">12 декабря, 18:00</span>
                 <span class="hero-meta-separator">•</span>
+                <span class="hero-meta-item">Продолжительность — около 1 ч 20 минут</span>
+                <span class="hero-meta-separator">•</span>
                 <span class="hero-meta-item">Сцена театра «Эмоцика» в ТРК «Гранд Каньон»</span>
                 </div>
                 <div class="hero-actions hero-actions--desktop">
                 <a href="https://clck.ru/3QWtC2" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Купить билет</a>
+                <a href="#contacts" class="btn btn-ghost btn-lg" data-scroll-to="contacts">Задать вопрос администратору</a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -90,18 +106,22 @@
                 </figure>
                 <div class="hero-actions hero-actions--mobile">
                 <a href="https://clck.ru/3QWtC2" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Купить билет</a>
+                <a href="#contacts" class="btn btn-ghost btn-lg" data-scroll-to="contacts">Уточнить детали</a>
                 </div>
             </div>
             </div>
         </div>
+        <button class="hero-scroll" type="button" data-scroll-to="tracks" aria-label="Листнуть вниз к разделу «Два направления»">
+          ↓ Пролистать вниз
+        </button>
     </section>
 
 
     <!-- 
     ========================================================================
-    Закомментирован блок: два направления театра и студии
-    Чтобы включить блок обратно, нужно убрать комментарии вокруг этого кода.
+    Блок: два направления театра и студии
     ========================================================================
+    -->
     <section id="tracks" class="section section-tracks reveal-on-scroll">
       <div class="container">
         <header class="section-header">
@@ -112,6 +132,13 @@
             для детей и подростков.
           </p>
         </header>
+
+        <div class="tracks-highlights">
+          <div class="tracks-highlight">Театр + студия: можно совмещать</div>
+          <div class="tracks-highlight">Небольшие группы и внимание к каждому</div>
+          <div class="tracks-highlight">Премьеры, квесты и фестивальные фильмы</div>
+          <div class="tracks-highlight">Пробное занятие + знакомство со сценой</div>
+        </div>
 
         <div class="tracks-toggle" aria-label="Выбор направления">
           <button type="button"
@@ -132,11 +159,13 @@
               <span class="track-title-icon track-title-icon--theatre" aria-hidden="true"></span>
               Театр «Эмоцика»
             </h3>
+            <p class="track-tagline">Спектакли для семей и школьных классов</p>
 
             <div class="track-badges">
               <span class="track-badge badge badge--soft">Семейные спектакли</span>
               <span class="track-badge badge badge--soft">Премьеры сезона</span>
               <span class="track-badge badge badge--soft">Новогодние программы</span>
+              <span class="track-badge badge badge--soft">Показы для классов</span>
             </div>
 
             <p class="track-text">
@@ -149,6 +178,11 @@
               <li>ограниченный камерный зал, хороший обзор.</li>
             </ul>
             <a href="#afisha" class="track-link">Смотреть спектакли</a>
+            <div class="track-meta">
+              <span class="track-meta-chip">6+ / 12+</span>
+              <span class="track-meta-chip">Зал до 50 зрителей</span>
+              <span class="track-meta-chip">Показы в выходные и будни</span>
+            </div>
           </article>
 
           <article class="track-card track-card-school card-luxe">
@@ -156,6 +190,7 @@
               <span class="track-title-icon track-title-icon--school" aria-hidden="true"></span>
               Студия и киношкола
             </h3>
+            <p class="track-tagline">Занятия 1–2 раза в неделю + съёмки</p>
 
             <div class="track-badges">
               <span class="track-badge badge badge--soft">Дети 4–16 лет</span>
@@ -179,6 +214,11 @@
             >
               Смотреть абонементы и форматы
             </button>
+            <div class="track-meta">
+              <span class="track-meta-chip">Пробный урок</span>
+              <span class="track-meta-chip">15 филиалов</span>
+              <span class="track-meta-chip">Группы формируются по возрасту</span>
+            </div>
           </article>
         </div>
 
@@ -188,13 +228,12 @@
         </p>
       </div>
     </section>
-    -->
 
     <!-- 
     ========================================================================
-    Закомментирован блок: абонементы и форматы занятий в студии
-    Чтобы включить блок обратно, нужно убрать комментарии вокруг этого кода.
+    Блок: абонементы и форматы занятий в студии
     ========================================================================
+    -->
     <section id="abonements" class="section section-abonements reveal-on-scroll">
       <div class="container">
         <header class="section-header">
@@ -204,6 +243,13 @@
             В студии есть несколько форматов занятий — от пробного урока до учебного модуля на 4 месяца.
             Если сомневаетесь, оставьте заявку — поможем подобрать формат под возраст и расписание ребёнка.
           </p>
+          <div class="section-chips">
+            <span class="chip">Пробное занятие</span>
+            <span class="chip">Модуль на 4 месяца</span>
+            <span class="chip">Киноформат</span>
+            <span class="chip">Рассрочка</span>
+            <span class="chip">Рекомендации администратора</span>
+          </div>
         </header>
 
         <div class="abonements-grid" data-abonements-root></div>
@@ -238,25 +284,37 @@
               Задать вопрос по абонементам
             </button>
 
- 
+
           </div>
+          <p class="section-abonements-cta-subtitle">
+            Ответим в течение одного рабочего дня после заявки.
+          </p>
         </div>
 
-        <%--<p class="abonements-cta-footnote">
+        <!-- <p class="abonements-cta-footnote">
           Чаще всего родители выбирают абонемент на
           <strong>4 месяца</strong> — это наша главная программа студии: этого срока достаточно, чтобы увидеть,
           как ребёнок раскрепощается и чувствует себя увереннее на сцене.
-        </p>--%>
+        </p> -->
       </div>
     </section>
-    -->
 
     <section id="afisha" class="section section-afisha section-card reveal-on-scroll">
         <div class="section-inner">
-            <div class="container">
-            <header class="section-header">
-                <h2 class="section-title">Афиша театра «Эмоцика»</h2>
-                <p class="section-subtitle">Семейные спектакли, новогодние приключения и премьеры с участием детей и профессиональных актёров.</p>
+        <div class="container">
+        <header class="section-header">
+            <h2 class="section-title">Афиша театра «Эмоцика»</h2>
+            <p class="section-subtitle">Семейные спектакли, новогодние приключения и премьеры с участием детей и профессиональных актёров.</p>
+            <div class="section-chips">
+              <span class="chip chip--glass">Семейные показы</span>
+              <span class="chip chip--glass">Камерный зал</span>
+              <span class="chip chip--glass">Билеты на декабрь</span>
+              <span class="chip chip--glass">Удобная онлайн-оплата</span>
+            </div>
+            <div class="section-actions">
+              <a class="btn btn-primary btn-compact-mobile" href="https://clck.ru/3QWtC2" target="_blank" rel="noopener">Выбрать дату</a>
+              <button class="btn btn-ghost btn-compact-mobile" type="button" data-scroll-to="contacts">Нужна консультация</button>
+            </div>
             </header>
             <div class="afisha-strip-wrapper">
                 <button type="button" class="afisha-strip-arrow afisha-strip-arrow--prev" aria-label="Предыдущий спектакль">‹</button>
@@ -278,6 +336,7 @@
             <span class="badge badge--glass">Квест + спектакль</span>
             <span class="badge badge--glass">Программа ≈ 2 часа</span>
             <span class="badge badge--glass">Камерный зал до 50 зрителей</span>
+            <span class="badge badge--glass">Декабрь–январь</span>
             </div>
             <div class="snow-queen-layout">
               <figure class="snow-queen-poster">
@@ -305,6 +364,7 @@
                       <li>Рекомендованный возраст детей — 5–12 лет.</li>
                       <li>Все билеты — с местами у сцены и быстрым доступом в зал.</li>
                       <li>Можно прийти всей семьёй или небольшой компанией друзей.</li>
+                      <li>После спектакля — фото с актёрами и Снежной Королевой.</li>
                     </ul>
                   </div>
                 </div>
@@ -327,9 +387,9 @@
 
     <!-- 
     ========================================================================
-    Закомментирован блок: обучение в театральной студии и киношколе
-    Чтобы включить блок обратно, нужно убрать комментарии вокруг этого кода.
+    Блок: обучение в театральной студии и киношколе
     ========================================================================
+    -->
     <section id="studio" class="section section-studio reveal-on-scroll">
       <div class="studio-decor" aria-hidden="true"></div>
       <div class="container">
@@ -340,10 +400,15 @@
             <p class="section-subtitle">
               Два маршрута для детей: сцена и кино. Ниже — как устроены занятия и пути учеников.
             </p>
+            <div class="section-chips section-chips--left">
+              <span class="chip">4–16 лет</span>
+              <span class="chip">1–2 раза в неделю</span>
+              <span class="chip">Сцена + кино</span>
+            </div>
           </header>
         </div>
 
-        <%-- Этаж 2: две карточки "Театр" и "Студия" --%>
+        <!-- Этаж 2: две карточки "Театр" и "Студия" -->
         <div class="studio-duo reveal-on-scroll reveal-studio-2" aria-label="Театр и студия">
           <article class="studio-column studio-column--theatre">
         <header class="studio-track-header">
@@ -520,7 +585,7 @@
           </article>
         </div>
 
-        <%-- Этаж 4: как мы учим и на что опираемся --%>
+        <!-- Этаж 4: как мы учим и на что опираемся -->
         <div id="studio-values" class="studio-values reveal-on-scroll reveal-studio-4" aria-label="Как мы учим и чему уделяем внимание">
           <div class="studio-values-header">
             <h3 class="studio-values-title heading-with-scribble">Как мы учим</h3>
@@ -570,7 +635,7 @@
           </div>
         </div>
 
-        <%-- <div class="studio-meta-row">
+        <div class="studio-meta-row">
           <div class="studio-meta-block">
             <div class="studio-meta-block-title">Возрастные группы</div>
             <p>
@@ -592,9 +657,9 @@
               Летом проходят выездные театральные лагеря с подготовкой спектакля за смену.
             </p>
           </div>
-        </div> --%>
+        </div>
 
-        <%-- Блок Где проходят занятия и показы -%>
+        <!-- Блок Где проходят занятия и показы -->
         <div class="studio-theatre-intro">
             <p class="section-kicker">Театр-студия</p>
 
@@ -631,7 +696,7 @@
           После пробного урока ребёнка распределяют в подходящую группу по возрасту и опыту.
         </p>
 
-        <%-- Этаж 6: финальный CTA-блок --%>
+        <!-- Этаж 6: финальный CTA-блок -->
         <div class="studio-cta reveal-on-scroll reveal-studio-6">
           <div class="studio-cta-shell">
             <p class="studio-cta-eyebrow">Готовы познакомиться ближе?</p>
@@ -643,7 +708,7 @@
             </p>
 
             <div class="studio-cta-grid">
-              <%-- Карточка 1: театральная студия --%>
+              <!-- Карточка 1: театральная студия -->
               <article class="studio-cta-card">
                 <div class="studio-cta-card-header">
                   <div class="studio-cta-icon studio-cta-icon--stage" aria-hidden="true"></div>
@@ -670,7 +735,7 @@
                 </div>
               </article>
 
-              <%-- Карточка 2: киношкола --%>
+              <!-- Карточка 2: киношкола -->
               <article class="studio-cta-card">
                 <div class="studio-cta-card-header">
                   <div class="studio-cta-icon studio-cta-icon--studio" aria-hidden="true"></div>
@@ -706,13 +771,12 @@
         </div>
       </div>
     </section>
-    -->
 
     <!-- 
     ========================================================================
-    Закомментирован блок: Фильмы и награды Киношколы «Эмоция»
-    Чтобы включить блок обратно, нужно убрать комментарии вокруг этого кода.
+    Блок: Фильмы и награды Киношколы «Эмоция»
     ========================================================================
+    -->
     <section id="films" class="section section-films section-card reveal-on-scroll">
       <div class="section-inner">
         <div class="container">
@@ -722,18 +786,23 @@
               Короткометражные фильмы Киношколы «Эмоция» и фестивальные победы — живые доказательства того,
               что дети здесь не просто «занимаются для души», а выходят на экран и получают реальные награды.
             </p>
+            <div class="section-chips">
+              <span class="chip chip--glass">VK Видео</span>
+              <span class="chip chip--glass">Фестивальные дипломы</span>
+              <span class="chip chip--glass">Премьеры в СПб и Москве</span>
+            </div>
           </header>
 
           <div class="films-shell">
-            <%-- Горизонтальная карусель с карточками фильмов --%>
+            <!-- Горизонтальная карусель с карточками фильмов -->
             <div class="films-carousel" data-films-carousel>
-              <%-- Карточки будут подставлены через JS --%>
+              <!-- Карточки будут подставлены через JS -->
             </div>
 
             <aside class="films-detail card-luxe" data-films-detail data-film-detail>
               <div class="films-detail-video">
                 <div class="films-video-frame" data-film-embed>
-                  <%-- Сюда JS вставит iframe ВК или заглушку --%>
+                  <!-- Сюда JS вставит iframe ВК или заглушку -->
                 </div>
               </div>
 
@@ -744,7 +813,7 @@
                 <div class="films-detail-authors" data-film-authors></div>
 
                 <ul class="films-detail-awards" data-film-awards>
-                  <%-- Пункты наград --%>
+                  <!-- Пункты наград -->
                 </ul>
 
                 <div class="films-detail-synopsis" data-film-synopsis></div>
@@ -766,7 +835,6 @@
         </div>
       </div>
     </section>
-    -->
 
     <section id="people" class="section section-people section-card reveal-on-scroll">
         <div class="section-inner">
@@ -774,6 +842,11 @@
             <header class="section-header">
                 <h2 class="section-title section-title--handdrawn">Люди театра</h2>
                 <p class="section-subtitle">За спектаклями и занятиями в «Эмоцике» стоят режиссёры, педагоги, актёры и юные артисты студии. Здесь только часть нашей команды и звёзд студии.</p>
+                <div class="section-chips">
+                  <span class="chip">Режиссёры</span>
+                  <span class="chip">Педагоги</span>
+                  <span class="chip">Юные артисты</span>
+                </div>
             </header>
             <div class="people-shell">
                 <div class="people-filters" data-people-filters role="tablist" aria-label="Группы людей театра"></div>
@@ -787,9 +860,9 @@
 
     <!--
     ========================================================================
-    Блок кастинга в фильмы КиноШколы «Эмоция» закомментирован для временного отключения на сайте.
-    Чтобы включить блок обратно, нужно убрать комментарии вокруг этого кода.
+    Блок кастинга в фильмы КиноШколы «Эмоция»
     ========================================================================
+    -->
     <section id="casting" class="section section-alt section-casting reveal-on-scroll">
       <div class="container section-inner">
         <div class="section-header">
@@ -798,6 +871,11 @@
           <p class="section-subtitle">
             Открываем набор детей 8–16 лет в кинопроекты театра-студии «Эмоцика» и КиноШколы «Эмоция» — съёмки короткометражных фильмов с настоящей съёмочной группой, локациями и премьерой на большом экране.
           </p>
+          <div class="section-chips">
+            <span class="chip">8–16 лет</span>
+            <span class="chip">Самопробы</span>
+            <span class="chip">3–5 смен</span>
+          </div>
         </div>
 
         <div class="casting-layout">
@@ -868,6 +946,9 @@
               <p class="casting-sidebar-note">
                 В комментарии к заявке укажите возраст ребёнка, опыт в студиях/съёмках и дни, в которые ему удобно участвовать в съёмках.
               </p>
+              <p class="casting-sidebar-note">
+                Можно задать быстрый вопрос администратору в <a href="https://wa.me/79313157787" target="_blank" rel="noopener">WhatsApp</a>.
+              </p>
             </div>
           </aside>
         </div>
@@ -888,15 +969,10 @@
         </div>
       </div>
     </section>
-    -->
 
-    <!--
-    Блок закоммметирован пока не собраны данные
-    <section id="play" class="section section-play">
-      ...блок «О спектакле» убран, так как данные подгружаются из JSON и показываются в модальном окне...
-    </section>
-    -->
-    <!--
+    <!-- Раздел «О спектакле» оставлен пустым: данные выводятся в модальном окне -->
+    <section id="play" class="section section-play" aria-hidden="true"></section>
+
     <section id="stats" class="section section-facts reveal-on-scroll">
       <div class="container">
         <h2 class="section-title">Цифры и факты</h2>
@@ -904,6 +980,11 @@
           За 12 лет студия «Эмоция» и театр «Эмоцика» выросли из маленькой студии в большую творческую семью.
           Несколько цифр, которые помогают понять масштаб.
         </p>
+        <div class="section-chips">
+          <span class="chip">12 лет опыта</span>
+          <span class="chip">15 филиалов</span>
+          <span class="chip">400+ детей</span>
+        </div>
 
         <div class="facts-grid">
           <article class="fact-card">
@@ -939,7 +1020,7 @@
         </div>
       </div>
     </section>
-    -->
+    
 
     <section id="awards" class="section section-awards reveal-on-scroll">
         <div class="container">
@@ -947,6 +1028,11 @@
             <!-- <p class="eyebrow eyebrow--dark">Часть фестивального пути</p> -->
             <h2 class="section-title">Награды и фестивали</h2>
             <p class="section-subtitle">Спектакли и фильмы «Эмоцики» регулярно получают гран-при и призы на российских и международных конкурсах.</p>
+            <div class="section-chips">
+              <span class="chip chip--glass">Гран-при</span>
+              <span class="chip chip--glass">Дипломы жюри</span>
+              <span class="chip chip--glass">Россия + мир</span>
+            </div>
             </div>
             <div class="awards-strip awards-strip--auto" aria-label="Главные фестивальные награды" data-awards-strip>
             <div class="awards-strip-viewport">
@@ -963,10 +1049,9 @@
 
     <!--
     ========================================================================
-    Блок отзывов закомментирован для временного отключения на сайте.
-    Чтобы включить блок обратно, нужно убрать комментарии вокруг этого кода.
-    и заменить комментари вида <%-- ... --%> на обычные HTML-комментарии 
+    Блок отзывов
     ========================================================================
+    -->
     <section id="reviews" class="section section-reviews reveal-on-scroll">
       <div class="container">
         <div class="section-header section-header--center">
@@ -975,6 +1060,11 @@
           <p class="section-subtitle">
             Живые впечатления мам, пап и детей после занятий и спектаклей «Эмоции».
           </p>
+          <div class="section-chips">
+            <span class="chip">Эмоции детей</span>
+            <span class="chip">Отзывы родителей</span>
+            <span class="chip">Видео 1–2 минуты</span>
+          </div>
         </div>
 
         <div class="reviews-strip-shell">
@@ -992,7 +1082,7 @@
             data-reviews-strip
             aria-label="Видеоистории родителей"
           >
-            <%-- Карточки видеоотзывов рендерятся через JavaScript --%>
+            <!-- Карточки видеоотзывов рендерятся через JavaScript -->
           </div>
 
           <button
@@ -1010,7 +1100,7 @@
         </p>
       </div>
 
-      <%-- Лайтбокс для просмотра выбранного видеоотзыва --%>
+      <!-- Лайтбокс для просмотра выбранного видеоотзыва -->
       <div
         class="review-lightbox"
         data-review-lightbox
@@ -1038,7 +1128,7 @@
           </button>
 
           <div class="review-lightbox__video">
-            <%-- Видеоплеер подставляется через JavaScript --%>
+            <!-- Видеоплеер подставляется через JavaScript -->
           </div>
 
           <div class="review-lightbox__body">
@@ -1052,14 +1142,12 @@
         </div>
       </div>
     </section>
-    -->
 
   <!--
     ========================================================================
-    Блок галереи закомментирован для временного отключения на сайте.
-    Чтобы включить блок обратно, нужно убрать комментарии вокруг этого кода.
-    и заменить комментари вида <%-- ... --%> на обычные HTML-комментарии 
+    Блок галереи
     ========================================================================
+    -->
     <section id="gallery" class="section section-gallery">
       <div class="container">
         <header class="section-header">
@@ -1067,6 +1155,11 @@
           <p class="section-subtitle section__subtitle">
             Несколько кадров с наших репетиций, спектаклей и закулисья.
           </p>
+          <div class="section-chips">
+            <span class="chip chip--glass">Сцена</span>
+            <span class="chip chip--glass">Репетиции</span>
+            <span class="chip chip--glass">Закулисье</span>
+          </div>
         </header>
 
         <div class="gallery">
@@ -1113,7 +1206,7 @@
             data-gallery-scroller
             aria-label="Фотогалерея театра"
           >
-            <%-- Карточки галереи рендерятся через JavaScript --%>
+            <!-- Карточки галереи рендерятся через JavaScript -->
           </div>
           </div>
 
@@ -1146,14 +1239,12 @@
         </div>
       </div>
     </section>
-    -->
 
     <!-- 
     ========================================================================
     Блок документов
-    Закомментирован блок с документами, так как на данный момент нет необходимости его отображать.
-    Чтобы включить блок обратно, нужно убрать комментарии вокруг этого кода.
     ========================================================================
+    -->
     <section id="docs" class="section section-docs section-card">
       <div class="section-inner">
         <div class="container">
@@ -1162,6 +1253,11 @@
           <p class="section-subtitle">
             Все официальные бумаги театра «Эмоция» доступны для скачивания.
           </p>
+          <div class="section-chips">
+            <span class="chip">Лицензия</span>
+            <span class="chip">Договор</span>
+            <span class="chip">PDF</span>
+          </div>
         </header>
 
         <div class="docs">
@@ -1206,13 +1302,12 @@
         </div>
       </div>
     </section>
-    -->
 
     <!-- 
     ========================================================================
-    Закомментирован блок FAQ
-    Чтобы включить блок обратно, нужно убрать комментарии вокруг этого кода.
+    Блок FAQ
     ========================================================================
+    -->
     <section id="faq" class="section section--faq section-card reveal-on-scroll">
       <div class="section-inner">
         <div class="container">
@@ -1221,6 +1316,11 @@
           <p class="section-subtitle">
             Мы собрали ответы на самые частые вопросы родителей о занятиях, спектаклях и записи в студию.
           </p>
+          <div class="section-chips">
+            <span class="chip">Возраст и группы</span>
+            <span class="chip">Расписание</span>
+            <span class="chip">Стоимость</span>
+          </div>
         </header>
 
         <div class="faq">
@@ -1358,13 +1458,12 @@
         </div>
       </div>
     </section>
-   -->
 
    <!-- 
     ========================================================================
-    Закомментирован блок с филиалами, так как на данный момент нет необходимости его отображать.
-    Чтобы включить блок обратно, нужно убрать комментарии вокруг этого кода.
+    Блок с филиалами
     ========================================================================
+    -->
     <section id="branches" class="section section-branches reveal-on-scroll">
       <div class="container">
         <div class="branches-top-layout">
@@ -1376,6 +1475,11 @@
                 Занятия студии «Эмоция» и театра «Эмоцика» проходят в разных районах
                 Петербурга и в Кудрово. Выберите удобную площадку и уточните расписание у администратора.
               </p>
+              <div class="section-chips section-chips--left">
+                <span class="chip">15 филиалов</span>
+                <span class="chip">Метро рядом</span>
+                <span class="chip">Кудрово</span>
+              </div>
             </header>
 
             <div class="branches-preferences">
@@ -1387,7 +1491,7 @@
                   data-branch-my-metro
                 >
                   <option value="">Не выбрано</option>
-                  <%-- варианты метро будут добавлены через JS --%>
+                  <!-- варианты метро будут добавлены через JS -->
                 </select>
               </label>
               <p class="branches-my-metro-hint">
@@ -1422,7 +1526,7 @@
             <figcaption class="branches-map-legend">
               <p class="branches-map-legend-title">Районы, где идут занятия:</p>
               <ul class="branches-area-list" data-branches-areas>
-                <%-- сюда JS подставит список районов --%>
+                <!-- сюда JS подставит список районов -->
               </ul>
             </figcaption>
           </figure>
@@ -1439,96 +1543,12 @@
         </p>
       </div>
     </section>
+
+    <!-- 
+    ========================================================================
+    Блок контактов
+    ========================================================================
     -->
-
-    <!-- <section id="contacts" class="section section--contacts section-card">
-      <div class="section-inner">
-        <div class="container contacts">
-          <div class="contacts__info card-luxe">
-        <header class="section-header section-header--left">
-          <p class="section-kicker">Как с нами связаться</p>
-          <h2 class="section-title">Контакты</h2>
-          <p class="contacts__text section-subtitle">
-            Записаться на пробное занятие, уточнить расписание или задать любой вопрос
-            можно у администратора театра и студии.
-          </p>
-        </header>
-
-        <dl class="contacts__list">
-              <div class="contacts__row">
-                <dt>Телефон:</dt>
-                <dd>
-                  <a href="tel:+79313157787">+7 (931) 315-77-87</a>
-                  <span class="contacts__note">— звонки и WhatsApp</span>
-                </dd>
-              </div>
-
-              <div class="contacts__row">
-                <dt>Email:</dt>
-                <dd>
-                  <a href="mailto:info@emozia.ru">info@emozia.ru</a>
-                </dd>
-              </div>
-
-              <div class="contacts__row">
-                <dt>Адрес сцены:</dt>
-                <dd>
-                  Санкт-Петербург, проспект Энгельса, 154, ТРК «Гранд Каньон», 3-й этаж
-                </dd>
-              </div>
-            </dl>
-
-            <p class="contacts__note">
-              Занятия студии проходят в нескольких филиалах Санкт-Петербурга —
-              подберём удобную площадку и время для вашей семьи.
-            </p>
-
-            <p class="contacts__time">
-              Мы на связи ежедневно с 11:00 до 20:00.
-            </p>
-
-            <div class="contacts__actions">
-              <a
-                href="https://wa.me/79313157787"
-                class="btn btn-primary"
-                target="_blank"
-                rel="noopener"
-              >
-                Написать в WhatsApp
-              </a>
-
-              <a
-                href="https://vk.com/teatr.emocika"
-                class="btn btn-outline"
-                target="_blank"
-                rel="noopener"
-              >
-                Мы во ВКонтакте
-              </a>
-            </div>
-          </div>
-
-          <div class="contacts__map card-luxe">
-            <%-- Здесь остаётся твой iframe Яндекс.Карт --%>
-            <iframe
-              src="https://yandex.ru/map-widget/v1/?um=constructor%3Aexample"
-              loading="lazy"
-              title="Карта проезда в театр «Эмоция»"
-              allowfullscreen
-            ></iframe>
-
-            <a
-              href="#"
-              class="contacts__map-link"
-              target="_blank"
-              rel="noopener"
-            >
-              Открыть карту и проложить маршрут
-            </a>
-          </div>
-        </div>
-      </div>
-    </section> -->
 
     <section id="contacts" class="section section--contacts section-card">
         <div class="section-inner">
@@ -1537,6 +1557,11 @@
                 <header class="section-header section-header--left">
                 <h2 class="section-title">Контакты</h2>
                 <p class="contacts__text section-subtitle">Записаться на пробное занятие, уточнить расписание или задать любой вопрос можно у администратора театра и студии.</p>
+                <div class="section-chips section-chips--left">
+                  <span class="chip">Звонки и WhatsApp</span>
+                  <span class="chip">11:00–20:00</span>
+                  <span class="chip">ТРК «Гранд Каньон»</span>
+                </div>
                 </header>
                 <dl class="contacts__list">
                 <div class="contacts__row">
@@ -1557,6 +1582,7 @@
                 </dl>
                 <p class="contacts__note">Занятия студии проходят в нескольких филиалах Санкт-Петербурга — подберём удобную площадку и время для вашей семьи.</p>
                 <p class="contacts__time">Мы на связи ежедневно с 11:00 до 20:00.</p>
+                <p class="contacts__note">В рабочие часы быстрее отвечаем в WhatsApp.</p>
                 <div class="contacts__actions">
                 <a href="https://wa.me/79313157787" class="btn btn-primary" target="_blank" rel="noopener">
                     <img src="assets/img/ui/whatsapp-icon.svg" alt="" class="icon" />
@@ -1575,42 +1601,6 @@
 
 
   </main>
-
-  <!-- <footer class="footer">
-    <div class="container">
-      <div class="footer__inner">
-        <div class="footer__brand">
-          <a href="#hero" class="footer__logo" data-scroll-to="hero">
-            <span class="footer__mark">Э</span>
-            <span class="footer__name">Театр «Эмоцика» и студия «Эмоция»</span>
-          </a>
-          <p class="footer__copy">
-            © 2014–2025, театр «Эмоцика» и студия «Эмоция». Все права защищены.
-          </p>
-        </div>
-
-        <nav class="footer__nav" aria-label="Навигация по сайту">
-          <a href="#studio" class="footer__link" data-scroll-to="studio">О театре и студии</a>
-          <a href="#afisha" class="footer__link" data-scroll-to="afisha">Афиша</a>
-          <a href="#gallery" class="footer__link" data-scroll-to="gallery">Галерея</a>
-          <a href="#docs" class="footer__link" data-scroll-to="docs">Документы</a>
-          <a href="#contacts" class="footer__link" data-scroll-to="contacts">Контакты</a>
-        </nav>
-
-        <div class="footer__meta">
-          <p class="footer__license">
-            Лицензия № ХХХХХХ от 00.00.0000
-          </p>
-          <a href="#" class="footer__link footer__link--small">
-            Политика конфиденциальности
-          </a>
-          <p class="footer__dev">
-            Сайт разработан при участии студии «Эмоция» и CS50x.
-          </p>
-        </div>
-      </div>
-    </div>
-  </footer> -->
 
     <footer class="footer">
         <div class="container">
@@ -1724,6 +1714,25 @@
         ›
       </button>
     </div>
+  </div>
+
+  <div class="cta-dock" aria-label="Быстрые действия">
+    <a
+      href="https://clck.ru/3QWtC2"
+      target="_blank"
+      rel="noopener"
+      class="cta-dock__btn cta-dock__btn--primary"
+    >
+      Купить билет
+    </a>
+    <a
+      href="https://wa.me/79313157787"
+      target="_blank"
+      rel="noopener"
+      class="cta-dock__btn cta-dock__btn--ghost"
+    >
+      Написать в WhatsApp
+    </a>
   </div>
 
   <script src="assets/js/main.js"></script>

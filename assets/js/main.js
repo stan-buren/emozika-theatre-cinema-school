@@ -90,6 +90,28 @@ document.addEventListener("DOMContentLoaded", () => {
   // 4. Общая обработка data-scroll-to
   // ======================================
 
+  // Индикатор прогресса прокрутки + сжатие хедера
+  const progressBar = document.querySelector("[data-scroll-progress]");
+  const stickyHeader = document.querySelector(".site-header");
+
+  const updateScrollUI = () => {
+    const docHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+
+    if (progressBar) {
+      progressBar.style.width = Math.min(Math.max(scrolled, 0), 100) + "%";
+    }
+
+    if (stickyHeader) {
+      stickyHeader.classList.toggle("is-scrolled", window.scrollY > 12);
+    }
+  };
+
+  updateScrollUI();
+  window.addEventListener("scroll", updateScrollUI, { passive: true });
+  window.addEventListener("resize", updateScrollUI);
+
   const scrollLinks = document.querySelectorAll("[data-scroll-to]");
 
   if (scrollLinks.length) {
