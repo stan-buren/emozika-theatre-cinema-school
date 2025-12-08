@@ -12,8 +12,8 @@
       "hall": "Камерный зал на ~50 зрителей",
       "city": "Санкт-Петербург",
       "poster": {
-        "desktop": "assets/img/posters/love-tank-hero.png",
-        "mobile": "assets/img/posters/love-tank-hero.png"
+        "desktop": "assets/img/posters/love-tank-hero.webp",
+        "mobile": "assets/img/posters/love-tank-hero.webp"
       },
       "badge": "Премьера сезона",
       "badgeType": "premiere",
@@ -43,9 +43,9 @@
       "media": {
         "video": "",
         "photos": [
-          "assets/img/posters/love-tank-hero.png",
-          "assets/img/posters/love-tank-hero.png",
-          "assets/img/posters/snow-queen-horizontal.png"
+          "assets/img/posters/love-tank-hero.webp",
+          "assets/img/posters/love-tank-hero.webp",
+          "assets/img/posters/snow-queen-horizontal.webp"
         ]
       }
     },
@@ -61,8 +61,8 @@
       "hall": "Камерный зал до 50 зрителей",
       "city": "Санкт-Петербург",
       "poster": {
-        "desktop": "assets/img/posters/snow-queen.png",
-        "mobile": "assets/img/posters/snow-queen.png"
+        "desktop": "assets/img/posters/snow-queen.webp",
+        "mobile": "assets/img/posters/snow-queen.webp"
       },
       "badge": "Новогодняя программа",
       "badgeType": "ny",

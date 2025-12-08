@@ -141,7 +141,7 @@ export function initVideoReviewsSection() {
                 "После съёмок дочь сама попросила выйти на сцену. Кино дало ей уверенность говорить вслух и не бояться крупного плана.",
             authorLabel: "Мама Алисы, 10 лет",
 
-            thumbUrl: "assets/img/posters/love-tank-hero.png",
+            thumbUrl: "assets/img/posters/love-tank-hero.webp",
             thumbAlt: "Кадр из фильма «День матери»",
 
             videoEmbedUrl:
@@ -177,7 +177,7 @@ export function initVideoReviewsSection() {
                 "Через месяц занятий она сама вышла с монологом, без шпаргалки. Педагог бережно её готовил, и страх сцену сменил азарт.",
             authorLabel: "Мама Сони, 11 лет",
 
-            thumbUrl: "assets/img/posters/snow-queen.png",
+            thumbUrl: "assets/img/posters/snow-queen.webp",
             thumbAlt: "Фото со сцены новогоднего спектакля",
 
             videoEmbedUrl: "",
@@ -212,7 +212,7 @@ export function initVideoReviewsSection() {
                 "Сын раньше прятался за мной, а теперь сам здоровается с педагогами и детьми. Мы уже готовим первый новогодний выход на сцену.",
             authorLabel: "Папа Тимофея, 6 лет",
 
-            thumbUrl: "assets/img/posters/snow-queen-horizontal.png",
+            thumbUrl: "assets/img/posters/snow-queen-horizontal.webp",
             thumbAlt: "Камерный зал перед началом спектакля",
 
             videoEmbedUrl: "",

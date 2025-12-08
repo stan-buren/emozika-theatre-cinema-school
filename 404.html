@@ -2,66 +2,90 @@
 <html lang="ru">
 
 <head>
-    <meta charset="utf-8" />
-    <title>Страница не найдена — Театр «Эмоцика»</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;500&display=swap"
         rel="stylesheet">
+    <meta charset="utf-8" />
+    <title>Страница не найдена — Театр «Эмоцика»</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0f1224" />
+    <link rel="icon" type="image/png" href="assets/img/ui/favicon.png">
+    <link rel="shortcut icon" href="assets/img/ui/favicon.png" type="image/png">
     <link rel="stylesheet" href="/assets/scss/style.scss" />
-    <style>
-        .error-page {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background: radial-gradient(circle at center, #2a1748 0, #0b0617 100%);
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .error-content {
-            max-width: 500px;
-        }
-
-        .error-code {
-            font-size: clamp(80px, 20vw, 150px);
-            font-weight: 700;
-            font-family: var(--font-heading);
-            color: rgba(255, 255, 255, 0.1);
-            line-height: 1;
-            margin: 0;
-        }
-
-        .error-title {
-            font-size: clamp(24px, 5vw, 36px);
-            margin: -0.5em 0 1rem;
-            color: #fff;
-        }
-
-        .error-text {
-            font-size: 1.1rem;
-            opacity: 0.8;
-            margin-bottom: 2rem;
-        }
-    </style>
 </head>
 
 <body>
-    <div class="error-page">
-        <div class="error-content">
-            <h1 class="error-code">404</h1>
-            <h2 class="error-title">Сцена не найдена</h2>
-            <p class="error-text">
-                Похоже, вы зашли слишком далеко за кулисы.
-                Вернемся в зрительный зал?
-            </p>
-            <a href="/" class="btn btn-primary">Вернуться на главную</a>
+    <div class="page-bg" aria-hidden="true"></div>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo-badge">
+                <img class="logo-mark" src="assets/img/ui/favicon.png" alt="Логотип театра «Эмоцика»" />
+                <span class="logo-text">Театр «Эмоцика»</span>
+            </a>
+
+            <nav class="main-nav" aria-label="Основная навигация">
+                <a href="afisha.html" class="nav-link">Афиша</a>
+                <a href="studio.html" class="nav-link">Студия</a>
+                <a href="studio.html#films" class="nav-link">Кино</a>
+                <a href="about.html" class="nav-link">О театре</a>
+                <a href="about.html#contacts" class="nav-link nav-link-pill">
+                    Записаться
+                </a>
+            </nav>
+            <a href="https://clck.ru/3QWtC2" class="nav-link nav-link-cta header-cta" target="_blank" rel="noopener">
+                Купить билеты
+            </a>
         </div>
-    </div>
+    </header>
+
+    <main id="main-content">
+        <section class="section section-error">
+            <div class="container error-content">
+                <div class="error-code">404</div>
+                <h1 class="error-title">Сцена не найдена</h1>
+                <p class="error-text">
+                    Похоже, вы зашли слишком далеко за кулисы.
+                    Этой страницы не существует или она переехала.
+                </p>
+                <div class="error-actions">
+                    <a href="/" class="btn btn-primary">На главную</a>
+                    <a href="afisha.html" class="btn btn-outline">В афишу</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <div class="footer__brand">
+                    <a href="/" class="footer__logo">
+                        <img class="footer__mark" src="assets/img/ui/favicon.png" alt="Логотип театра «Эмоцика»" />
+                        <span class="footer__name">Театр «Эмоцика»</span>
+                    </a>
+                    <p class="footer__copy">© 2014–2025, театр «Эмоцика» и студия «Эмоция». Все права защищены.</p>
+                </div>
+                <nav class="footer__nav" aria-label="Навигация по сайту">
+                    <a href="afisha.html" class="footer__link">Афиша</a>
+                    <a href="afisha.html#snow-queen" class="footer__link">Новый год</a>
+                    <a href="about.html#people" class="footer__link">Люди театра</a>
+                    <a href="about.html#awards" class="footer__link">Награды</a>
+                    <a href="about.html#docs" class="footer__link">Документы</a>
+                    <a href="about.html#contacts" class="footer__link">Контакты</a>
+                </nav>
+                <div class="footer__meta">
+                    <p class="footer__license">Лицензия на образовательную деятельность № 03-21-6065/24-0-3 от
+                        05.11.2024, рег.
+                        № 1035-01271-78/01491532, ИП Бурундукова Е. А.</p>
+                    <a href="about.html#docs" class="footer__link footer__link--small">Политика конфиденциальности</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/assets/js/main.js"></script>
 </body>
 
 </html>
