@@ -93,6 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Индикатор прогресса прокрутки + сжатие хедера
   const progressBar = document.querySelector("[data-scroll-progress]");
   const stickyHeader = document.querySelector(".site-header");
+  const heroSection = document.querySelector("#hero");
+  const ctaDock = document.querySelector(".cta-dock");
 
   const updateScrollUI = () => {
     const docHeight =
@@ -106,11 +108,28 @@ document.addEventListener("DOMContentLoaded", () => {
     if (stickyHeader) {
       stickyHeader.classList.toggle("is-scrolled", window.scrollY > 12);
     }
+
+    if (ctaDock) {
+      const heroRect = heroSection
+        ? heroSection.getBoundingClientRect()
+        : null;
+      const heroPassed = heroRect
+        ? heroRect.bottom < 80
+        : window.scrollY > 260;
+
+      ctaDock.classList.toggle("cta-dock--hidden", !heroPassed);
+    }
   };
 
   updateScrollUI();
   window.addEventListener("scroll", updateScrollUI, { passive: true });
   window.addEventListener("resize", updateScrollUI);
+
+  if (ctaDock) {
+    ctaDock.addEventListener("focusin", () => {
+      ctaDock.classList.remove("cta-dock--hidden");
+    });
+  }
 
   const scrollLinks = document.querySelectorAll("[data-scroll-to]");
 
@@ -405,21 +424,56 @@ document.addEventListener("DOMContentLoaded", () => {
       return parts.join(" • ");
     }
 
+    function renderAfishaFallback(message) {
+      if (!stripEl) return;
+
+      const text =
+        message ||
+        "Афиша обновляется. Напишите администратору, если нужна консультация или бронирование.";
+
+      stripEl.innerHTML =
+        '<article class="afisha-card afisha-card--empty card-luxe">' +
+        '<div class="afisha-card-empty-body">' +
+        '<p class="afisha-empty-title">Афиша скоро обновится</p>' +
+        '<p class="afisha-empty-text">' +
+        text +
+        "</p>" +
+        '<div class="afisha-empty-actions">' +
+        '<button type="button" class="btn btn-outline btn-lg" data-scroll-to="contacts">Спросить администратора</button>' +
+        '<a class="btn btn-primary btn-lg" href="https://clck.ru/3QWtC2" target="_blank" rel="noopener">Купить билет</a>' +
+        "</div>" +
+        "</div>" +
+        "</article>";
+    }
+
     function renderAfishaStrip() {
       if (!stripEl) return;
 
       const afishaPlays = getAfishaPlays();
       if (!afishaPlays.length) {
-        stripEl.innerHTML =
-          '<p class="afisha-empty">Скоро здесь появятся спектакли театра «Эмоцика».</p>';
+        renderAfishaFallback(
+          "Скоро здесь появятся спектакли театра «Эмоцика». Напишите нам, если хотите забронировать заранее."
+        );
         return;
       }
 
       const html = afishaPlays
         .map(function (play) {
           const posterDesktop =
-            play.poster && play.poster.desktop ? play.poster.desktop : "";
+            (play.poster && play.poster.desktop) ||
+            (play.poster && play.poster.mobile) ||
+            "";
           const subline = buildAfishaSubline(play);
+          const note = play.afishaNote
+            ? '<p class="afisha-card-note">' + play.afishaNote + "</p>"
+            : "";
+          const posterHtml = posterDesktop
+            ? '<img class="afisha-card-poster-image" src="' +
+              posterDesktop +
+              '" alt="Постер спектакля ' +
+              play.title +
+              '">'
+            : '<div class="afisha-card-poster-placeholder">Фото появится позже</div>';
 
           let badgeHtml = "";
           if (play.badge) {
@@ -431,23 +485,15 @@ document.addEventListener("DOMContentLoaded", () => {
               '<span class="' + badgeClass + '">' + play.badge + "</span>";
           }
 
-          return (
+            return (
             '<article class="afisha-card afisha-card--strip card-luxe" data-play-id="' +
             play.id +
             '">' +
             '<div class="afisha-card-poster-wrapper">' +
-            (posterDesktop
-              ? '<img class="afisha-card-poster-image" src="' +
-                posterDesktop +
-                '" alt="Постер спектакля ' +
-                play.title +
-                '">' +
-                (badgeHtml
-                  ? '<div class="afisha-card-badge-wrap">' +
-                    badgeHtml +
-                  "</div>"
-                : "")
-            : "") +
+            posterHtml +
+            (badgeHtml
+              ? '<div class="afisha-card-badge-wrap">' + badgeHtml + "</div>"
+              : "") +
             "</div>" +
             '<div class="afisha-card-footer">' +
             (subline
@@ -456,6 +502,7 @@ document.addEventListener("DOMContentLoaded", () => {
             '<h3 class="afisha-title">' +
             play.title +
             "</h3>" +
+            note +
             '<div class="afisha-buttons afisha-buttons--strip">' +
             (play.ticketUrl
               ? '<a class="btn btn-primary btn-lg" href="' +
@@ -570,18 +617,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (mediaPhotosEl) {
         mediaPhotosEl.innerHTML = "";
-        if (
+
+        const photos =
           play.media &&
           Array.isArray(play.media.photos) &&
-          play.media.photos.length
-        ) {
-          play.media.photos.forEach(function (src) {
+          play.media.photos.filter(Boolean).length
+            ? play.media.photos.filter(Boolean)
+            : [];
+
+        if (!photos.length && play.poster && play.poster.desktop) {
+          photos.push(play.poster.desktop);
+        }
+
+        if (photos.length) {
+          photos.forEach(function (src) {
             const img = document.createElement("img");
             img.src = src;
             img.alt = "Фотография спектакля " + play.title;
             img.className = "play-modal-photo";
             mediaPhotosEl.appendChild(img);
           });
+        } else {
+          const placeholder = document.createElement("div");
+          placeholder.className = "play-modal-photo-placeholder";
+          placeholder.textContent = "Фотографии спектакля появятся здесь после ближайшего показа.";
+          mediaPhotosEl.appendChild(placeholder);
         }
       }
 
@@ -694,6 +754,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then(function (data) {
         if (!data || !Array.isArray(data.plays)) {
+          renderAfishaFallback("Не удалось загрузить афишу. Напишите администратору, мы подскажем расписание.");
           return;
         }
         playsData = data.plays.slice();
@@ -702,6 +763,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch(function (error) {
         console.error("Не удалось загрузить данные спектаклей:", error);
+        renderAfishaFallback("Не удалось загрузить спектакли. Свяжитесь с нами, мы подскажем ближайшие даты.");
       });
   }
 
@@ -998,42 +1060,59 @@ document.addEventListener("DOMContentLoaded", () => {
     // один массив объектов — его потом легко вынести в JSON
     const galleryItems = [
       {
-        id: "rehearsal-1",
-        category: "rehearsal",
-        categoryLabel: "Репетиции",
-        src: "assets/gallery/rehearsal-1.jpg",
-        full: "assets/gallery/rehearsal-1.jpg",
-        alt: "Репетиция в студии «Эмоция»",
-        caption: "Репетиция в студии «Эмоция»",
-      },
-      {
-        id: "show-1",
+        id: "stage-love-tank",
         category: "stage",
         categoryLabel: "Сцена",
-        src: "assets/gallery/show-1.jpg",
-        full: "assets/gallery/show-1.jpg",
-        alt: "Юные актёры на сцене",
-        caption: "Юные актёры на сцене",
+        src: "assets/img/posters/love-tank-hero.png",
+        full: "assets/img/posters/love-tank-hero.png",
+        alt: "Постер спектакля «Любовь у сливного бачка»",
+        caption: "Премьера «Любовь у сливного бачка» в камерном зале",
       },
       {
-        id: "backstage-1",
-        category: "backstage",
-        categoryLabel: "Закулисье",
-        src: "assets/gallery/backstage-1.jpg",
-        full: "assets/gallery/backstage-1.jpg",
-        alt: "Закулисье перед спектаклем",
-        caption: "Закулисье перед спектаклем",
+        id: "stage-snow-queen",
+        category: "stage",
+        categoryLabel: "Сцена",
+        src: "assets/img/posters/snow-queen.png",
+        full: "assets/img/posters/snow-queen.png",
+        alt: "Постер новогоднего квест-спектакля «Снежная королева»",
+        caption: "Новогодний квест-спектакль «Снежная Королева»",
       },
       {
-        id: "rehearsal-2",
+        id: "rehearsal-elena",
         category: "rehearsal",
         categoryLabel: "Репетиции",
-        src: "assets/gallery/rehearsal-2.jpg",
-        full: "assets/gallery/rehearsal-2.jpg",
-        alt: "Работа над сценой",
-        caption: "Работа над сценой",
+        src: "assets/img/people/elena-molodan.jpg",
+        full: "assets/img/people/elena-molodan.jpg",
+        alt: "Педагог Елена Молудан на репетиции",
+        caption: "Рабочий момент с педагогом Еленой Молудан",
       },
-      // сюда потом просто добавляешь новые кадры
+      {
+        id: "rehearsal-maria",
+        category: "rehearsal",
+        categoryLabel: "Репетиции",
+        src: "assets/img/people/maria-suvorova.jpg",
+        full: "assets/img/people/maria-suvorova.jpg",
+        alt: "Юная актриса Мария Суворова готовит роль",
+        caption: "Работа над ролью: Мария Суворова",
+      },
+      {
+        id: "backstage-evgeny",
+        category: "backstage",
+        categoryLabel: "Закулисье",
+        src: "assets/img/people/evgeny-baranov.jpg",
+        full: "assets/img/people/evgeny-baranov.jpg",
+        alt: "Закулисье съёмочного дня с Евгением Барановым",
+        caption: "Закулисье съёмочного дня",
+      },
+      {
+        id: "stage-snow-hall",
+        category: "stage",
+        categoryLabel: "Сцена",
+        src: "assets/img/posters/snow-queen-horizontal.png",
+        full: "assets/img/posters/snow-queen-horizontal.png",
+        alt: "Камерный зал к новогодней программе «Снежная королева»",
+        caption: "Камерный зал перед новогодним показом",
+      },
     ];
 
     let currentFilter = "all";
@@ -1480,109 +1559,110 @@ function buildVideoEmbedUrl(platform, videoId) {
 
 const videoReviews = [
   {
-    id: "review-masha-9",
+    id: "review-den-materi",
     kind: "video",
 
-    title: "Маша, 9 лет — перестала бояться сцены",
+    title: "«День матери» — фильм как точка роста",
     quote:
-      "После первого спектакля мы увидели совсем другого ребёнка — уверенного и светящегося.",
-    authorLabel: "Мама Маши, 9 лет",
+      "После съёмок дочь сама попросила выйти на сцену. Кино дало ей уверенность говорить вслух и не бояться крупного плана.",
+    authorLabel: "Мама Алисы, 10 лет",
 
-    thumbUrl: "assets/img/reviews/masha-9-thumb.jpg", // TODO: подставь реальный путь
-    thumbAlt: "Кадр из видеоотзыва: мама Маши после спектакля",
+    thumbUrl: "assets/img/posters/love-tank-hero.png",
+    thumbAlt: "Кадр из фильма «День матери»",
 
-    videoEmbedUrl: "https://www.youtube.com/embed/XXXXXXXX", // TODO: сюда embed-ссылку
-    platform: "youtube",
-    videoId: "XXXXXXXX",
+    videoEmbedUrl:
+      "https://vk.com/video_ext.php?oid=-58293658&id=456241867",
+    platform: "vk",
+    videoId: "vk-456241867",
 
     persona: "parent",
-    childName: "Маша",
-    childAge: 9,
-    yearsInStudio: 3,
-    yearsInStudioLabel: "3 года в студии",
-    branch: "филиал у Комендантского",
+    childName: "Алиса",
+    childAge: 10,
+    yearsInStudio: 2,
+    yearsInStudioLabel: "1,5 года в студии",
+    branch: "ТРК «Гранд Каньон»",
 
-    event: "Спектакль «Любовь у сливного бачка»",
+    event: "Киношкола: съёмки фильма «День матери»",
 
-    topics: ["уверенность", "первый_спектакль", "атмосфера"],
+    topics: ["кино", "уверенность", "команда"],
 
     isFeatured: true,
-    order: 10,
+    order: 5,
     isActive: true,
 
-    durationSeconds: 75,
-    durationLabel: "01:15",
-    recordedAt: "2024-12-15",
+    durationSeconds: 140,
+    durationLabel: "02:20",
+    recordedAt: "2024-11-20",
   },
   {
-    id: "review-kirill-12",
-    kind: "video",
+    id: "review-stage-confidence",
+    kind: "quote",
 
-    title: "Кирилл, 12 лет — научился говорить вслух",
+    title: "Соня, 11 лет — перестала бояться сцены",
     quote:
-      "Учителя в школе заметили, что Кирилл стал спокойно выходить к доске и не мямлить. Для нас это огромный шаг.",
-    authorLabel: "Папа Кирилла, 12 лет",
+      "Через месяц занятий она сама вышла с монологом, без шпаргалки. Педагог бережно её готовил, и страх сцену сменил азарт.",
+    authorLabel: "Мама Сони, 11 лет",
 
-    thumbUrl: "assets/img/reviews/kirill-12-thumb.jpg",
-    thumbAlt: "Кирилл с папой после спектакля",
+    thumbUrl: "assets/img/posters/snow-queen.png",
+    thumbAlt: "Фото со сцены новогоднего спектакля",
 
-    videoEmbedUrl: "https://vk.com/video-0000000_0000000", // TODO: embed VK
-    platform: "vk",
-    videoId: "0000000_0000000",
+    videoEmbedUrl: "",
+    platform: "",
+    videoId: "",
 
     persona: "parent",
-    childName: "Кирилл",
-    childAge: 12,
-    yearsInStudio: 2,
-    yearsInStudioLabel: "2 года в студии",
-    branch: "филиал на Пионерской",
+    childName: "Соня",
+    childAge: 11,
+    yearsInStudio: 1,
+    yearsInStudioLabel: "3 месяца в студии",
+    branch: "Парнас / «Гранд Каньон»",
 
-    event: "Фестиваль «На берегах Невы»",
+    event: "Пробный спектакль на сцене «Эмоцики»",
 
-    topics: ["речь", "уверенность", "фестивали"],
+    topics: ["уверенность", "речь", "первый_опыт"],
 
     isFeatured: false,
-    order: 20,
+    order: 15,
     isActive: true,
 
-    durationSeconds: 90,
-    durationLabel: "01:30",
-    recordedAt: "2024-03-10",
+    durationSeconds: null,
+    durationLabel: "Текст",
+    recordedAt: "2024-12-05",
   },
   {
-    id: "review-montage-camp",
-    kind: "video",
+    id: "review-family-6plus",
+    kind: "quote",
 
-    title: "Лагерь «Эмоция» — как вторая семья",
+    title: "6+ группа — стала смелее общаться",
     quote:
-      "Дети возвращаются из лагеря с ощущением, что у них появилась новая семья. Это не просто отдых, а глубокий опыт.",
-    authorLabel: "Монтаж отзывов родителей",
+      "Сын раньше прятался за мной, а теперь сам здоровается с педагогами и детьми. Мы уже готовим первый новогодний выход на сцену.",
+    authorLabel: "Папа Тимофея, 6 лет",
 
-    thumbUrl: "assets/img/reviews/camp-montage-thumb.jpg",
-    thumbAlt: "Кадры из смены лагеря студии «Эмоция»",
+    thumbUrl: "assets/img/posters/snow-queen-horizontal.png",
+    thumbAlt: "Камерный зал перед началом спектакля",
 
-    videoEmbedUrl: buildVideoEmbedUrl("youtube", "YYYYYYYY"),
-    platform: "youtube",
-    videoId: "YYYYYYYY",
+    videoEmbedUrl: "",
+    platform: "",
+    videoId: "",
 
-    persona: "montage",
-    childName: "",
-    childAge: null,
-    yearsInStudio: null,
-    yearsInStudioLabel: "",
-    branch: "",
+    persona: "parent",
+    childName: "Тимофей",
+    childAge: 6,
+    yearsInStudio: 1,
+    yearsInStudioLabel: "2 месяца в студии",
+    branch: "Проспект Просвещения",
 
-    event: "Лагерь «Эмоция»",
+    event: "Занятия студии 6+",
 
-    topics: ["лагерь", "атмосфера", "команда"],
+    topics: ["первый_опыт", "атмосфера"],
 
     isFeatured: false,
-    order: 30,
+    order: 25,
     isActive: true,
 
-    durationSeconds: 120,
-    durationLabel: "02:00",
-    recordedAt: "2023-08-20",
+    durationSeconds: null,
+    durationLabel: "Текст",
+    recordedAt: "2024-10-28",
   },
 ];
 
@@ -1621,13 +1701,18 @@ function buildReviewMetaLine(review) {
 
 function createReviewVideoCard(review) {
   var card = document.createElement("article");
-  card.className = "review-video-card card card-hover";
+  var hasVideo = Boolean(review.videoEmbedUrl);
+  card.className =
+    "review-video-card card card-hover" +
+    (hasVideo ? "" : " review-video-card--text");
   card.setAttribute("data-review-id", review.id);
 
   var poster = document.createElement("div");
   poster.className = "review-video-card__poster";
   if (review.thumbUrl) {
     poster.style.backgroundImage = "url(" + review.thumbUrl + ")";
+  } else {
+    poster.classList.add("review-video-card__poster--empty");
   }
 
   if (review.durationLabel) {
@@ -1639,7 +1724,10 @@ function createReviewVideoCard(review) {
 
   var badge = document.createElement("span");
   badge.className = "review-video-card__badge";
-  badge.textContent = "Видеоотзыв";
+  badge.textContent = hasVideo ? "Видеоотзыв" : "История";
+  if (!hasVideo) {
+    badge.classList.add("review-video-card__badge--text");
+  }
 
   var title = document.createElement("h3");
   title.className = "review-video-card__title";
@@ -1675,6 +1763,12 @@ function openReviewLightbox(lightbox, review) {
       "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
     iframe.allowFullscreen = true;
     videoContainer.appendChild(iframe);
+  } else {
+    var placeholder = document.createElement("div");
+    placeholder.className = "review-lightbox__video-placeholder";
+    placeholder.textContent =
+      "Видео добавим в ближайшее время. Пока что можно прочитать историю ниже или спросить ссылку у администратора.";
+    videoContainer.appendChild(placeholder);
   }
 
   if (titleEl) {
