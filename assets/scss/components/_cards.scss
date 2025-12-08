@@ -1,0 +1,54 @@
+/* ===========================
+   2.x КОМПОНЕНТЫ: карточки
+   =========================== */
+
+.card {
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    padding: 20px 22px;
+}
+
+.card-hover {
+    transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.08);
+}
+
+/* Luxe card – общий стиль премиальных карточек */
+.card-luxe {
+    border-radius: 24px;
+    background: linear-gradient(145deg, #ffffff, #f6f0ff);
+    box-shadow: 0 20px 60px rgba(8, 2, 26, 0.12);
+    border: 1px solid rgba(122, 47, 180, 0.1);
+    padding: 22px 20px;
+    transition:
+        transform var(--motion-normal) var(--motion-ease-soft),
+        box-shadow var(--motion-normal) var(--motion-ease-soft),
+        border-color var(--motion-fast) var(--motion-ease-soft),
+        background-color var(--motion-fast) var(--motion-ease-soft);
+}
+
+/* Глобальное движение карточек – общий ховер для премиальных карточек */
+.card-luxe,
+.afisha-card,
+.abonement-card,
+.films-card,
+.gallery-card {
+    transition:
+        transform var(--motion-fast) var(--motion-ease-soft),
+        box-shadow var(--motion-fast) var(--motion-ease-soft),
+        background-color var(--motion-fast) var(--motion-ease-soft);
+}
+
+.card-luxe:hover,
+.afisha-card:hover,
+.abonement-card:hover,
+.films-card:hover,
+.gallery-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 45px rgba(8, 2, 26, 0.28);
+}

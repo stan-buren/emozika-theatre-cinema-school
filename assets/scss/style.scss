@@ -1,3 +1,19 @@
+// Base styles
 @use "base/variables";
 @use "base/reset";
+@use "base/layout";
+
+// Components
+@use "components/buttons";
+@use "components/badges";
+@use "components/cards";
+@use "components/lightbox";
+
+// Sections
+@use "sections/header";
+@use "sections/hero";
+@use "sections/contacts";
+@use "sections/footer";
+
+// Legacy styles (to be gradually removed)
 @use "legacy";

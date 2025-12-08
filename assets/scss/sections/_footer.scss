@@ -1,0 +1,185 @@
+/* ==========================
+   3.7. Footer (#footer)
+   ========================== */
+
+.footer {
+    position: relative;
+    background: radial-gradient(circle at top left, rgba(213, 154, 255, 0.24), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(255, 215, 130, 0.16), transparent 55%),
+        var(--footer-bg, #050505);
+    color: var(--footer-text, #f5f5f5);
+    padding: 2.75rem 0 2.4rem;
+    font-size: 0.87rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 -18px 40px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+}
+
+.footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 40px;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.footer__brand {
+    flex: 1 1 240px;
+    max-width: 280px;
+}
+
+.footer__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(130deg, rgba(12, 6, 30, 0.9), rgba(22, 10, 46, 0.82));
+    border: 1px solid rgba(132, 209, 255, 0.26);
+    text-decoration: none;
+    transition: background-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+    box-shadow: 0 12px 30px rgba(5, 2, 15, 0.6), 0 0 0 1px rgba(120, 200, 255, 0.12);
+}
+
+.footer__logo::after {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle at 20% 30%, rgba(150, 220, 255, 0.12), transparent 55%),
+        radial-gradient(circle at 80% 70%, rgba(245, 240, 255, 0.08), transparent 60%);
+    pointer-events: none;
+    mix-blend-mode: screen;
+    animation: footer-film-glow 10s linear infinite;
+}
+
+.footer__logo:hover,
+.footer__logo:focus-visible {
+    background: linear-gradient(130deg, rgba(18, 10, 44, 0.95), rgba(30, 16, 62, 0.9));
+    box-shadow: 0 16px 34px rgba(5, 2, 15, 0.7), 0 0 0 1px rgba(150, 220, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.footer__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(213, 154, 255, 0.4), rgba(122, 47, 180, 0.18));
+    padding: 2px;
+    object-fit: cover;
+    box-shadow: 0 0 0 1px rgba(120, 200, 255, 0.1), 0 3px 10px rgba(74, 23, 123, 0.16);
+}
+
+.footer__name {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 14px;
+    color: #d9ebff;
+    letter-spacing: 0.01em;
+}
+
+@keyframes footer-film-glow {
+    0% {
+        transform: translate3d(0, 0, 0);
+        opacity: 0.45;
+    }
+
+    100% {
+        transform: translate3d(-6%, -6%, 0);
+        opacity: 0.65;
+    }
+}
+
+.footer__copy {
+    margin: 10px 0 0;
+    opacity: 0.8;
+}
+
+.footer__nav {
+    flex: 1.4 1 320px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    justify-content: center;
+}
+
+.footer__link {
+    color: #f5edff;
+    text-decoration: none;
+    padding: 2px 0;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+
+.footer__link:hover,
+.footer__link:focus-visible {
+    border-color: rgba(245, 237, 255, 0.7);
+    opacity: 1;
+}
+
+.footer__link--small {
+    opacity: 0.7;
+    font-size: 0.84rem;
+}
+
+.footer__meta {
+    flex: 1 1 220px;
+    max-width: 320px;
+    text-align: right;
+}
+
+.footer__license {
+    margin: 0 0 4px;
+    opacity: 0.75;
+}
+
+.footer__dev {
+    margin: 8px 0 0;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 1.6rem 0 1.4rem;
+        box-shadow: 0 -12px 26px rgba(0, 0, 0, 0.4);
+    }
+
+    .footer__inner {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 10px 14px;
+    }
+
+    .footer__nav {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 4px;
+        flex: 1 1 180px;
+        text-align: center;
+        order: 2;
+    }
+
+    .footer__meta {
+        text-align: left;
+        max-width: none;
+        width: 100%;
+        font-size: 0.82rem;
+        order: 3;
+    }
+
+    .footer__brand {
+        max-width: none;
+        flex: 1 1 160px;
+        order: 1;
+    }
+
+    .footer__copy {
+        margin-top: 6px;
+    }
+}

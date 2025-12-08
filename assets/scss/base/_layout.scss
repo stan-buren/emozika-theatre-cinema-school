@@ -1,0 +1,333 @@
+/* ===========================
+   2.1 ЛЕЙАУТ (общие для всего сайта)
+   =========================== */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.section {
+    padding: 64px 0;
+}
+
+.section-header {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 40px;
+}
+
+/* Вариант, если в каких-то секциях нужно выровнять заголовок влево */
+.section-header--left {
+    text-align: left;
+    margin-left: 0;
+}
+
+/* Маленький верхний бейдж над заголовком (для разделов типа «Два направления») */
+.section-kicker {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin: 0 0 8px;
+}
+
+/* Основной секционный заголовок */
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    line-height: 1.25;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-brand-dark);
+    margin: 0 0 12px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-title::after {
+    content: "";
+    height: 6px;
+    min-width: 80px;
+    border-radius: 999px;
+    background: linear-gradient(115deg, rgba(122, 47, 180, 0.18), rgba(255, 168, 88, 0.2));
+    box-shadow:
+        0 10px 24px rgba(122, 47, 180, 0.18),
+        inset 0 0 0 1px rgba(122, 47, 180, 0.08);
+}
+
+@media (min-width: 768px) {
+    .section-title {
+        font-size: 32px;
+    }
+}
+
+/* Подзаголовок / вступление под заголовком — один стиль на весь сайт */
+.section-intro,
+.section-subtitle {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    max-width: 640px;
+    margin: 0 auto 24px;
+}
+
+.section-text,
+.hero-desc,
+.two-column-text {
+    max-width: 640px;
+}
+
+.section-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 8px 0 6px;
+}
+
+.section-chips--left {
+    justify-content: flex-start;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    background: rgba(122, 47, 180, 0.08);
+    color: var(--color-brand-dark);
+    border: 1px solid rgba(122, 47, 180, 0.18);
+    box-shadow: 0 8px 18px rgba(8, 2, 26, 0.08);
+}
+
+.chip--glass {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fefefe;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 10px 24px rgba(5, 0, 20, 0.25);
+}
+
+.section-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+/* Чуть более крупное вступление для важных блоков (если используешь) */
+.section-lead {
+    max-width: 780px;
+    margin: 8px auto 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-stage-wood);
+}
+
+.section-title--handdrawn {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.section-title--handdrawn::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%) translateY(6px);
+    width: var(--hand-underline-width);
+    height: var(--hand-underline-height);
+    background: url("../img/ui/underline-hand.svg") center/contain no-repeat;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+/* привязка к уже существующему reveal-on-scroll */
+.reveal-on-scroll.is-visible .section-title--handdrawn::after {
+    opacity: var(--hand-underline-opacity);
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ===========================
+   2.x УТИЛИТЫ: декоративные заголовки, анимации появления
+   =========================== */
+
+.heading-with-scribble {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 4px;
+}
+
+.heading-with-scribble::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 8px;
+    background: url("../img/scribble-underline.svg") center/100% no-repeat;
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+        opacity 0.4s ease-out,
+        transform 0.4s ease-out;
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-studio-2 {
+    transition-delay: 0.08s;
+}
+
+.reveal-studio-3 {
+    transition-delay: 0.16s;
+}
+
+.reveal-studio-4 {
+    transition-delay: 0.24s;
+}
+
+.reveal-studio-5 {
+    transition-delay: 0.32s;
+}
+
+.reveal-studio-6 {
+    transition-delay: 0.4s;
+}
+
+.section-alt {
+    background: #fff9f4;
+}
+
+.section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.72);
+    margin: 0 0 8px;
+}
+
+.eyebrow--dark {
+    color: var(--color-text-muted);
+}
+
+.text-muted {
+    color: var(--color-text-muted);
+}
+
+.bullet-list {
+    margin: 12px 0 0;
+    padding-left: 20px;
+}
+
+.bullet-list li {
+    margin-bottom: 4px;
+}
+
+.two-column {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.two-column-text {
+    flex: 3;
+    min-width: 260px;
+}
+
+.two-column-media {
+    flex: 2;
+    min-width: 240px;
+}
+
+.media-card {
+    border-radius: 24px;
+    background-color: #fff;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    min-height: 220px;
+    padding: 24px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.placeholder-media {
+    background: radial-gradient(circle at top left, #FFCC80, #FFD1DC);
+}
+
+/* Luxe section shell – белая карточка на фоне */
+.section-card {
+    padding: 80px 0;
+}
+
+.section-card .section-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    border-radius: 32px;
+    background: var(--color-surface);
+    box-shadow: 0 22px 60px var(--border-soft);
+    border: 1px solid var(--border-brand-soft);
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    .section-card {
+        padding: 56px 0;
+    }
+
+    .section-card .section-inner {
+        padding: 24px 18px;
+    }
+
+    :root {
+        --hand-underline-width: 110px;
+    }
+}
+
+/* ВЕРТИКАЛЬНЫЙ РИТМ НА МОБИЛЕ */
+@media (max-width: 600px) {
+
+    .section-about,
+    .section-facts,
+    .section-gallery,
+    .section-docs,
+    .section--faq,
+    .section--contacts {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+}
