@@ -28,19 +28,22 @@ export function initAbonements() {
     const picker = document.querySelector('[data-abonement-picker]');
 
     if (picker) {
-        const ageSelect = picker.querySelector('[data-abonement-age]');
-        const goalSelect = picker.querySelector('[data-abonement-goal]');
-        const scheduleSelect = picker.querySelector('[data-abonement-schedule]');
-        const pickButton = picker.querySelector('[data-abonement-pick]');
+        // Helper to get checked value
+        const getValue = (name) => {
+            const checked = picker.querySelector(`input[name="${name}"]:checked`);
+            return checked ? checked.value : null;
+        };
+
         const badgeEl = picker.querySelector('[data-abonement-result-badge]');
         const titleEl = picker.querySelector('[data-abonement-result-title]');
         const textEl = picker.querySelector('[data-abonement-result-text]');
         const ctaEl = picker.querySelector('[data-abonement-cta-main]');
+        const pickButton = picker.querySelector('[data-abonement-pick]');
 
         function getRecommendation() {
-            const age = ageSelect ? ageSelect.value : '7-11';
-            const goal = goalSelect ? goalSelect.value : 'stage';
-            const schedule = scheduleSelect ? scheduleSelect.value : 'standard';
+            const age = getValue('age') || '7-11';
+            const goal = getValue('goal') || 'stage';
+            const schedule = getValue('schedule') || 'standard';
 
             const fallback = {
                 badge: 'Рекомендация',
@@ -91,6 +94,7 @@ export function initAbonements() {
         function updateRecommendation() {
             const rec = getRecommendation();
 
+            // Fade out effect could be added here
             if (badgeEl && rec.badge) badgeEl.textContent = rec.badge;
             if (titleEl) titleEl.textContent = rec.title;
             if (textEl) textEl.textContent = rec.text;
@@ -104,11 +108,13 @@ export function initAbonements() {
             });
         }
 
-        [ageSelect, goalSelect, scheduleSelect].forEach((field) => {
-            if (!field) return;
-            field.addEventListener('change', updateRecommendation);
+        // Listen to all radio inputs change
+        const allRadios = picker.querySelectorAll('input[type="radio"]');
+        allRadios.forEach(radio => {
+            radio.addEventListener('change', updateRecommendation);
         });
 
+        // Initialize state
         updateRecommendation();
     }
 }

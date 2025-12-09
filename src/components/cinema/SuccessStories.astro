@@ -1,0 +1,240 @@
+---
+import stories from '../../data/success_stories.json';
+---
+
+<section id="success-stories" class="stories-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Наши звезды</span>
+      <h2 class="section-title">Истории успеха</h2>
+      <p class="section-subtitle">
+        Наши ученики регулярно проходят кастинги и снимаются в больших проектах.
+        Вот лишь некоторые из их достижений.
+      </p>
+    </div>
+
+    <div class="stories-grid">
+      {stories.map((story) => (
+        <article class="story-card">
+          <div class="card-image-wrapper">
+             <img src={story.image} alt={story.name} class="story-image" />
+             <div class="story-overlay"></div>
+             <div class="story-content-overlay">
+                <span class="project-tag">{story.tags[0]}</span>
+                <h3 class="story-project">{story.project}</h3>
+                <p class="story-role">{story.role}</p>
+             </div>
+          </div>
+          
+          <div class="card-body">
+            <div class="student-info">
+                <h4 class="student-name">{story.name}</h4>
+                <span class="student-age">{story.age}</span>
+            </div>
+            <blockquote class="story-quote">
+                «{story.quote}»
+            </blockquote>
+          </div>
+        </article>
+      ))}
+    </div>
+    
+    <div class="actions">
+        <a href="#scout" class="btn btn-outline">Хочу так же</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stories-section {
+    padding: 6rem 0;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+  }
+
+  .eyebrow {
+    display: block;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #c084fc; /* purple-400 */
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+
+  .section-subtitle {
+    font-size: 1.125rem;
+    color: #a1a1aa; /* zinc-400 */
+    line-height: 1.6;
+  }
+
+  /* Grid */
+  .stories-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .stories-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .stories-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Card */
+  .story-card {
+    background-color: #18181b; /* zinc-900 */
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    border: 1px solid #27272a;
+  }
+
+  .story-card:hover {
+    transform: translateY(-5px);
+    border-color: #52525b;
+  }
+
+  .card-image-wrapper {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+
+  .story-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .story-card:hover .story-image {
+    transform: scale(1.05);
+  }
+
+  .story-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+    z-index: 10;
+  }
+
+  .story-content-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    z-index: 20;
+  }
+
+  .project-tag {
+    display: inline-block;
+    background-color: #c084fc;
+    color: #000;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .story-project {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: #fff;
+  }
+
+  .story-role {
+    color: #d1d5db; /* gray-300 */
+    font-size: 0.9rem;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .student-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #27272a;
+  }
+
+  .student-name {
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .student-age {
+    color: #71717a;
+    font-size: 0.875rem;
+  }
+
+  .story-quote {
+    font-style: italic;
+    color: #a1a1aa;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  .actions {
+    text-align: center;
+  }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .btn-outline {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+  }
+  
+  .btn-outline:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: white;
+  }
+</style>

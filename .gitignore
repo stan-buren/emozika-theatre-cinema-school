@@ -6,3 +6,8 @@ node_modules/
 
 # Production
 dist/
+.astro/
+
+# Testing
+playwright-report/
+test-results/

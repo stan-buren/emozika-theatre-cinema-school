@@ -1,0 +1,23 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CinemaHero from '../../components/cinema/CinemaHero.astro';
+import CastingList from '../../components/cinema/CastingList.astro';
+import SuccessStories from '../../components/cinema/SuccessStories.astro';
+import ScoutSection from '../../components/cinema/ScoutSection.astro';
+---
+
+<Layout title="Киноагентство и Киношкола | Эмоция" description="Кастинг-агентство для детей и подростков. Съемки в кино, база актеров, портфолио.">
+  <main id="main-content" class="cinema-page bg-black min-h-screen text-white">
+    <CinemaHero />
+    <CastingList />
+    <SuccessStories />
+    <ScoutSection />
+  </main>
+</Layout>
+
+<style is:global>
+  /* Force dark header/footer or overlays if needed for this page */
+  .cinema-page {
+    color-scheme: dark;
+  }
+</style>

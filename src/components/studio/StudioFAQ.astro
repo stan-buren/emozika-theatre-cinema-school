@@ -1,0 +1,136 @@
+---
+import faqData from '../../data/faq.json';
+---
+
+<section id="faq" class="section section-faq reveal-on-scroll">
+  <div class="container">
+    <header class="section-header">
+      <h2 class="section-title">Частые вопросы</h2>
+      <p class="section-subtitle">
+        Всё, что родители обычно спрашивают перед записью на пробное занятие.
+      </p>
+    </header>
+
+    <div class="faq-grid">
+      {faqData.map((item, index) => (
+        <details class="faq-item" name="faq-group">
+          <summary class="faq-question">
+            <span class="faq-question-text">{item.question}</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-answer">
+            <p>{item.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-faq {
+    background-color: #fff;
+    padding: 6rem 0;
+  }
+
+  .faq-grid {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: #fff;
+  }
+
+  .faq-item:hover {
+    border-color: rgba(162, 89, 255, 0.3);
+  }
+
+  .faq-item[open] {
+    border-color: var(--color-primary, #A259FF);
+    box-shadow: 0 4px 20px rgba(162, 89, 255, 0.1);
+  }
+
+  .faq-question {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    list-style: none; /* Hide default triangle */
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--color-text-main, #333);
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-icon {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    flex-shrink: 0;
+    margin-left: 1rem;
+    transition: transform 0.3s ease;
+  }
+
+  /* Plus icon */
+  .faq-icon::before,
+  .faq-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: var(--color-primary, #A259FF);
+    transform: translate(-50%, -50%);
+    border-radius: 2px;
+  }
+
+  .faq-icon::before {
+    width: 16px;
+    height: 2px;
+  }
+
+  .faq-icon::after {
+    width: 2px;
+    height: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  /* Rotate to minus when open */
+  details[open] .faq-icon {
+    transform: rotate(180deg);
+  }
+
+  details[open] .faq-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg); /* Make it horizontal to form minus */
+    opacity: 0; /* Or just hide it */
+  }
+
+  .faq-answer {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--color-text-muted, #666);
+    line-height: 1.6;
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

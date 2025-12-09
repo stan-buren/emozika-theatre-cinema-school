@@ -86,50 +86,70 @@
     gap: 12px;
 }
 
-.abonement-picker__field {
+.abonement-picker__group {
     display: grid;
-    gap: 6px;
-    font-size: 14px;
-    color: var(--color-text);
+    gap: 8px;
 }
 
-.abonement-picker__field span {
+.abonement-picker__label {
+    font-size: 13px;
     font-weight: 600;
+    color: var(--color-text-muted);
 }
 
-.abonement-picker__field select {
-    appearance: none;
-    /* Remove default arrow */
-    padding: 12px 16px;
-    border-radius: 12px;
-    border: 1px solid rgba(122, 47, 180, 0.15);
-    background-color: #f9f6fc;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a2fb4' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    font-size: 15px;
-    font-family: inherit;
-    color: var(--color-brand-dark);
-    transition: all 0.2s ease;
+.abonement-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.radio-chip {
     cursor: pointer;
+    position: relative;
+    user-select: none;
 }
 
-.abonement-picker__field select:hover {
-    background-color: #fff;
-    border-color: var(--color-brand);
-    box-shadow: 0 4px 12px rgba(122, 47, 180, 0.1);
+.radio-chip input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
-.abonement-picker__field select:focus-visible {
-    outline: none;
+.radio-chip__text {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: #f9f6fc;
+    border: 1px solid rgba(122, 47, 180, 0.1);
+    color: var(--color-text-main);
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.radio-chip:hover .radio-chip__text {
+    background: #fff;
     border-color: var(--color-brand);
-    box-shadow: 0 0 0 3px rgba(122, 47, 180, 0.15);
-    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(122, 47, 180, 0.08);
+    transform: translateY(-1px);
+}
+
+.radio-chip input:checked+.radio-chip__text {
+    background: var(--color-brand);
+    color: #fff;
+    border-color: var(--color-brand);
+    box-shadow: 0 4px 12px rgba(122, 47, 180, 0.25);
+    transform: translateY(-1px);
+}
+
+.radio-chip input:focus-visible+.radio-chip__text {
+    box-shadow: 0 0 0 3px rgba(122, 47, 180, 0.3);
 }
 
 .abonement-picker__submit {
-    align-self: center;
-    justify-self: flex-start;
+    align-self: end;
 }
 
 .abonement-picker__result {

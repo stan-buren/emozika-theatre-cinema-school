@@ -2,194 +2,200 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Детский театр «Эмоцика»">
+<Layout title="Театр-студия «Эмоцика» | Спектакли и обучение" description="Детский театр и киношкола в Санкт-Петербурге. Обучение актерскому мастерству, съемки в кино и спектакли для всей семьи.">
   <main id="main-content">
-    <section id="hero" class="hero">
-      <div class="hero-overlay">
-        <div class="container hero-inner">
-          <div class="hero-content">
-            <div class="hero-badges">
-              <span class="hero-badge">Премьера сезона</span>
-              <span class="hero-badge">Камерный зал 50 мест</span>
-              <span class="hero-badge">Билеты в продаже</span>
-              <span class="hero-badge">12+</span>
-            </div>
-            <p class="hero-tagline">Театр и киностудия для детей и подростков</p>
-            <h1 class="hero-title">«Любовь у сливного бачка»</h1>
-            <p class="hero-desc">Премьера сезона. Комедийная драма о поиске любви и смелости быть собой.</p>
-            <div class="hero-meta">
-              <span class="hero-meta-item">12+</span>
-              <span class="hero-meta-separator">•</span>
-              <span class="hero-meta-item">12 декабря, 18:00</span>
-              <span class="hero-meta-separator">•</span>
-              <span class="hero-meta-item">ТК «Гранд Каньон»</span>
-            </div>
-            <div class="hero-actions hero-actions--desktop">
-              <a href="https://clck.ru/3QWtC2" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
-                Купить билет
-              </a>
-            </div>
-          </div>
-          <div class="hero-visual">
-            <div class="hero-blob hero-blob-1"></div>
-            <div class="hero-blob hero-blob-2"></div>
-            <figure class="hero-poster">
-              <span class="hero-poster-badge hero-poster-badge--overlay badge badge--glass">ПРЕМЬЕРА</span>
-              <img class="hero-poster-image" src="/assets/img/posters/love-tank-hero.webp"
-                alt="Постер спектакля «Любовь у сливного бачка»" />
-            </figure>
-            <div class="hero-actions hero-actions--mobile">
-              <a href="https://clck.ru/3QWtC2" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
-                Купить билет
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="hero-scroll" type="button" data-scroll-to="tracks"
-        aria-label="Листнуть вниз к разделу «Два направления»">
-        ↓ Пролистать вниз
-      </button>
-    </section>
-
-
-    <!-- 
-    ========================================================================
-    Блок: два направления театра и студии
-    ========================================================================
-    -->
-    <section id="tracks" class="section section-tracks reveal-on-scroll">
-      <div class="container">
-        <header class="section-header">
-          <p class="section-kicker">Выберите, что вам важно сейчас</p>
-          <h2 class="section-title section-title--handdrawn">Два направления</h2>
-          <p class="section-subtitle">
-            «Эмоцика» — это одновременно независимый театр и студия с киносъёмками
-            для детей и подростков.
-          </p>
-        </header>
-
-        <div class="tracks-grid">
-          <article class="track-card track-card-theatre card-luxe">
-            <h3 class="track-title">
-              <span class="track-title-icon track-title-icon--theatre" aria-hidden="true"></span>
-              Театр «Эмоцика»
-            </h3>
-            <p class="track-tagline">Спектакли для семей и школьных классов</p>
-            <p class="track-text">
-              Камерные спектакли, новогодние квесты и премьеры сезона.
-              Зал на 50 мест, где каждый зритель — участник события.
-            </p>
-            <a href="/afisha" class="track-link">
-              Смотреть афишу
-            </a>
-            <div class="track-meta">
-              <span class="track-meta-chip">6+ / 12+</span>
-              <span class="track-meta-chip">Выходные и будни</span>
-            </div>
-          </article>
-
-          <article class="track-card track-card-school card-luxe">
-            <h3 class="track-title">
-              <span class="track-title-icon track-title-icon--school" aria-hidden="true"></span>
-              Студия и киношкола
-            </h3>
-            <p class="track-tagline">Актерское мастерство и киносъёмки</p>
-            <p class="track-text">
-              Группы для детей от 4 до 16 лет. Учимся говорить красиво, держаться на сцене и снимаем настоящее кино.
-            </p>
-            <button type="button" class="btn btn-outline track-link-button" data-scroll-to="abonements">
-              Выбрать группу
-            </button>
-            <div class="track-meta">
-              <span class="track-meta-chip">Пробный урок</span>
-              <span class="track-meta-chip">15 филиалов + Кудрово</span>
-            </div>
-          </article>
-        </div>
-
-        <p class="tracks-bridge">
-          Часто ребёнок начинает со студии, а потом выходит на сцену театра —
-          это единая творческая экосистема «Эмоцики».
+    <section class="hub-hero">
+      <div class="container hub-hero__content">
+        <h1 class="hub-hero__title">
+            <span class="hub-hero__surtitle">Творческая экосистема</span>
+            Театр. Студия. Кино.
+        </h1>
+        <p class="hub-hero__subtitle">
+            Место, где дети находят друзей, побеждают страх сцены и снимаются в настоящем кино.
         </p>
       </div>
     </section>
 
-    <!-- 
-    ========================================================================
-    Блок: абонементы и форматы занятий в студии
-    ========================================================================
-    -->
-    <section id="afisha" class="section section-afisha section-card reveal-on-scroll">
-      <div class="section-inner">
+    <section class="hub-nav">
+        <div class="container hub-nav__grid">
+            <!-- Studio -->
+            <a href="/studio" class="hub-card hub-card--studio">
+                <div class="hub-card__content">
+                    <span class="hub-card__icon" aria-hidden="true">🎭</span>
+                    <h2 class="hub-card__title">Я хочу учиться</h2>
+                    <p class="hub-card__text">Театральная студия для детей 4-16 лет. 15 филиалов.</p>
+                    <span class="hub-card__action">Выбрать группу →</span>
+                </div>
+            </a>
+
+            <!-- Cinema -->
+            <a href="/cinema" class="hub-card hub-card--cinema">
+                <div class="hub-card__content">
+                    <span class="hub-card__icon" aria-hidden="true">🎬</span>
+                    <h2 class="hub-card__title">Я хочу в кино</h2>
+                    <p class="hub-card__text">Кастинг-агентство и киношкола. Съемки и фестивали.</p>
+                    <span class="hub-card__action">Пройти кастинг →</span>
+                </div>
+            </a>
+
+            <!-- Theatre -->
+            <a href="/theatre" class="hub-card hub-card--theatre">
+                <div class="hub-card__content">
+                    <span class="hub-card__icon" aria-hidden="true">🎟</span>
+                    <h2 class="hub-card__title">Я зритель</h2>
+                    <p class="hub-card__text">Афиша спектаклей и билеты в наш камерный театр.</p>
+                    <span class="hub-card__action">Купить билет →</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="section section-map">
         <div class="container">
-          <header class="section-header">
-            <h2 class="section-title">Афиша событий</h2>
-            <p class="section-subtitle">Спектакли, показы и открытые уроки.</p>
-          </header>
-          <div class="afisha-strip-wrapper">
-            <button type="button" class="afisha-strip-arrow afisha-strip-arrow--prev"
-              aria-label="Предыдущий спектакль">‹</button>
-            <div class="afisha-strip" data-afisha-strip></div>
-            <button type="button" class="afisha-strip-arrow afisha-strip-arrow--next"
-              aria-label="Следующий спектакль">›</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contacts" class="section section--contacts section-card">
-      <div class="section-inner">
-        <div class="container contacts">
-          <div class="contacts__info card-luxe">
-            <header class="section-header section-header--left">
-              <h2 class="section-title">Контакты</h2>
-              <p class="contacts__text section-subtitle">Записаться на пробное занятие, уточнить расписание или задать
-                любой вопрос можно у администратора театра и студии.</p>
-              <div class="section-chips section-chips--left">
-                <span class="chip">Звонки и WhatsApp</span>
-                <span class="chip">11:00–20:00</span>
-                <span class="chip">ТРК «Гранд Каньон»</span>
-              </div>
-            </header>
-            <dl class="contacts__list">
-              <div class="contacts__row">
-                <dt>Телефон:</dt>
-                <dd>
-                  <a href="tel:+79313157787">+7 (931) 315-77-87</a>
-                  <span class="contacts__note">— звонки и WhatsApp</span>
-                </dd>
-              </div>
-              <div class="contacts__row">
-                <dt>Email:</dt>
-                <dd><a href="mailto:info@emozia.ru">info@emozia.ru</a></dd>
-              </div>
-              <div class="contacts__row">
-                <dt>Адрес сцены:</dt>
-                <dd>Санкт-Петербург, проспект Энгельса, 154, ТРК «Гранд Каньон», 3-й этаж</dd>
-              </div>
-            </dl>
-            <p class="contacts__note">Занятия студии проходят в нескольких филиалах Санкт-Петербурга — подберём удобную
-              площадку и время для вашей семьи.</p>
-            <p class="contacts__time">Мы на связи ежедневно с 11:00 до 20:00.</p>
-            <p class="contacts__note">В рабочие часы быстрее отвечаем в WhatsApp.</p>
-            <div class="contacts__actions">
-              <a href="https://wa.me/79313157787" class="btn btn-primary" target="_blank" rel="noopener">
-                <img src="/assets/img/ui/whatsapp-icon.svg" alt="" class="icon" />
-                Написать в WhatsApp
-              </a>
-              <a href="https://vk.com/teatr.emocika" class="btn btn-outline" target="_blank" rel="noopener">Мы
-                во ВКонтакте</a>
+            <div class="section-header">
+                <h2 class="section-title text-center">Мы рядом</h2>
+                <p class="section-subtitle text-center">15 филиалов студии в разных районах + Сцена в «Гранд Каньоне»</p>
             </div>
-          </div>
-          <div class="contacts__map card-luxe">
-            <iframe
-              src="https://yandex.ru/map-widget/v1/?ll=30.333187%2C60.059865&z=17&l=map&pt=30.333187,60.059865,pm2rdm"
-              loading="lazy" title="Карта проезда в театр «Эмоцика»" frameborder="0" allowfullscreen></iframe>
-          </div>
+            
+            <figure class="hub-map-placeholder">
+                <img src="/assets/img/branches-map.svg" alt="Карта филиалов театра-студии Эмоцика" class="img-responsive" loading="lazy" />
+            </figure>
+            
+            <div class="hub-map-actions">
+                 <a href="/studio#branches" class="btn btn-outline">Найти филиал у дома</a>
+            </div>
         </div>
-      </div>
     </section>
-
   </main>
 </Layout>
+
+<style>
+    /* Hub Hero */
+    .hub-hero {
+        padding: 6rem 0 4rem;
+        background: radial-gradient(circle at top right, rgba(162, 89, 255, 0.15), transparent 60%),
+                    radial-gradient(circle at bottom left, rgba(64, 224, 208, 0.1), transparent 60%);
+        text-align: center;
+    }
+
+    .hub-hero__content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .hub-hero__surtitle {
+        display: block;
+        font-family: var(--font-accent, sans-serif);
+        font-size: 1.1rem;
+        color: var(--color-primary, #A259FF);
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    .hub-hero__title {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        line-height: 1.1;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: var(--color-text-main, #333);
+    }
+
+    .hub-hero__subtitle {
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
+        color: var(--color-text-muted, #666);
+        line-height: 1.6;
+    }
+
+    /* Hub Nav Grid */
+    .hub-nav {
+        padding-bottom: 4rem;
+    }
+
+    .hub-nav__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .hub-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: white;
+        border-radius: 1.5rem;
+        padding: 2.5rem;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.05);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hub-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(162, 89, 255, 0.15);
+        border-color: rgba(162, 89, 255, 0.2);
+    }
+
+    .hub-card__icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .hub-card__title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .hub-card__text {
+        color: var(--color-text-muted, #666);
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+    }
+
+    .hub-card__action {
+        font-weight: 600;
+        color: var(--color-primary, #A259FF);
+        margin-top: auto;
+    }
+    
+    /* Specific card accents */
+    .hub-card--studio:hover {
+         border-top: 4px solid var(--color-primary, #A259FF);
+    }
+    .hub-card--cinema:hover {
+         border-top: 4px solid #40E0D0; /* Turquoise */
+    }
+    .hub-card--theatre:hover {
+         border-top: 4px solid #FF6B6B;
+    }
+
+    /* Map Section */
+    .section-map {
+        padding: 4rem 0;
+        background-color: #FAFAFA;
+    }
+    
+    .hub-map-placeholder {
+        margin: 2rem auto;
+        max-width: 800px;
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+    
+    .hub-map-actions {
+        text-align: center;
+        margin-top: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+        .hub-hero { padding: 4rem 0 2rem; }
+        .hub-nav__grid { grid-template-columns: 1fr; }
+    }
+</style>

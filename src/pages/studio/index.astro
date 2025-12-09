@@ -1,9 +1,10 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PeopleSection from '../components/PeopleSection.astro';
-import peopleData from '../data/people.json';
-import abonementsData from '../data/abonements.json';
-import filmsData from '../data/films.json';
+import Layout from '../../layouts/Layout.astro';
+import PeopleSection from '../../components/PeopleSection.astro';
+import peopleData from '../../data/people.json';
+import abonementsData from '../../data/abonements.json';
+import filmsData from '../../data/films.json';
+import StudioFAQ from '../../components/studio/StudioFAQ.astro';
 
 const activeFilm = filmsData[0];
 
@@ -127,37 +128,63 @@ const activeFilm = filmsData[0];
           </div>
 
           <div class="abonement-picker__form">
-            <label class="abonement-picker__field">
-              <span>Возраст</span>
-              <select name="age" data-abonement-age>
-                <option value="4-6">4–6 лет</option>
-                <option value="7-11">7–11 лет</option>
-                <option value="12-16">12–16 лет</option>
-                <option value="17plus">18+ (взрослые)</option>
-              </select>
-            </label>
+            <div class="abonement-picker__group">
+              <span class="abonement-picker__label">Возраст ребёнка</span>
+              <div class="abonement-chips" data-abonement-age>
+                <label class="radio-chip">
+                  <input type="radio" name="age" value="4-6" />
+                  <span class="radio-chip__text">4–6 лет</span>
+                </label>
+                <label class="radio-chip">
+                  <input type="radio" name="age" value="7-11" checked />
+                  <span class="radio-chip__text">7–11 лет</span>
+                </label>
+                <label class="radio-chip">
+                  <input type="radio" name="age" value="12-16" />
+                  <span class="radio-chip__text">12–16 лет</span>
+                </label>
+                <label class="radio-chip">
+                  <input type="radio" name="age" value="17plus" />
+                  <span class="radio-chip__text">Взрослые</span>
+                </label>
+              </div>
+            </div>
 
-            <label class="abonement-picker__field">
-              <span>Цель</span>
-              <select name="goal" data-abonement-goal>
-                <option value="stage">Сцена и уверенность</option>
-                <option value="cinema">Кино и съёмки</option>
-                <option value="speech">Речь и общение</option>
-              </select>
-            </label>
+            <div class="abonement-picker__group">
+              <span class="abonement-picker__label">Цель занятий</span>
+              <div class="abonement-chips" data-abonement-goal>
+                <label class="radio-chip">
+                  <input type="radio" name="goal" value="stage" checked />
+                  <span class="radio-chip__text">Сцена и уверенность</span>
+                </label>
+                <label class="radio-chip">
+                  <input type="radio" name="goal" value="cinema" />
+                  <span class="radio-chip__text">Кино и съёмки</span>
+                </label>
+                <label class="radio-chip">
+                  <input type="radio" name="goal" value="speech" />
+                  <span class="radio-chip__text">Речь и общение</span>
+                </label>
+              </div>
+            </div>
 
-            <label class="abonement-picker__field">
-              <span>График</span>
-              <select name="schedule" data-abonement-schedule>
-                <option value="light">1 раз в неделю</option>
-                <option value="standard">1–2 раза</option>
-                <option value="intense">2+ раза</option>
-              </select>
-            </label>
-
-            <button type="button" class="btn btn-primary abonement-picker__submit" data-abonement-pick>
-              Подобрать
-            </button>
+            <div class="abonement-picker__group">
+              <span class="abonement-picker__label">График</span>
+              <div class="abonement-chips" data-abonement-schedule>
+                <label class="radio-chip">
+                  <input type="radio" name="schedule" value="light" />
+                  <span class="radio-chip__text">1 раз</span>
+                </label>
+                <label class="radio-chip">
+                  <input type="radio" name="schedule" value="standard" checked />
+                  <span class="radio-chip__text">2 раза</span>
+                </label>
+                <label class="radio-chip">
+                  <input type="radio" name="schedule" value="intense" />
+                  <span class="radio-chip__text">Интенсив</span>
+                </label>
+              </div>
+            </div>
           </div>
 
           <div class="abonement-picker__result" data-abonement-result aria-live="polite">
@@ -848,6 +875,8 @@ const activeFilm = filmsData[0];
         </div>
       </div>
     </section>
+
+    <StudioFAQ />
 
   </main>
 </Layout>

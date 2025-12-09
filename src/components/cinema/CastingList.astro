@@ -1,0 +1,284 @@
+---
+import castings from '../../data/castings.json';
+
+const activeCastings = castings.filter(c => c.status !== 'archive');
+---
+
+<section id="castings" class="castings-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Актуальные кастинги</h2>
+        <p class="section-subtitle">Проекты, в которые мы ищем актеров прямо сейчас</p>
+      </div>
+      <a href="#" class="archive-link">
+        Смотреть архив →
+      </a>
+    </div>
+
+    <div class="castings-grid">
+      {activeCastings.map((project) => (
+        <article class="casting-card">
+          <!-- Image Wrapper -->
+          <div class="card-image-wrapper">
+            <div class="card-overlay"></div>
+            <img 
+              src={project.image} 
+              alt={project.title} 
+              class="card-image"
+            />
+            <div class="card-badges">
+              {project.status === 'urgent' && (
+                <span class="badge badge-urgent">СРОЧНО</span>
+              )}
+               <span class="badge badge-type">{project.type}</span>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="card-content">
+            <h3 class="card-title">{project.title}</h3>
+            
+            <div class="card-roles">
+              {project.roles.map(role => (
+                <div class="role-item">
+                  <p class="role-label">• {role.label}</p>
+                  <p class="role-desc">{role.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div class="card-footer">
+              <div class="card-tags">
+                 {project.tags.slice(0, 2).map(tag => (
+                   <span class="tag">{tag}</span>
+                 ))}
+              </div>
+              <button class="btn-sm btn-apply">
+                Подать заявку
+              </button>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .castings-section {
+    padding: 5rem 0;
+    background-color: #18181b; /* zinc-900 */
+    border-top: 1px solid #27272a; /* zinc-800 */
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-header {
+      flex-direction: row;
+    }
+  }
+
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #fff;
+  }
+
+  .section-subtitle {
+    color: #a1a1aa; /* zinc-400 */
+  }
+
+  .archive-link {
+    color: #c084fc; /* purple-400 */
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 1rem;
+    transition: color 0.2s;
+  }
+
+  .archive-link:hover {
+    color: #d8b4fe; /* purple-300 */
+  }
+
+  /* Grid */
+  .castings-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .castings-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .castings-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Card */
+  .casting-card {
+    background-color: #27272a; /* zinc-800 */
+    border-radius: 0.75rem;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .casting-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(168, 85, 247, 0.1); /* purple shadow */
+  }
+
+  .card-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .casting-card:hover .card-image {
+    transform: scale(1.05);
+  }
+
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #18181b 0%, transparent 100%);
+    opacity: 0.6;
+    z-index: 10;
+  }
+
+  .card-badges {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 20;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    backdrop-filter: blur(4px);
+  }
+
+  .badge-urgent {
+    background-color: rgba(239, 68, 68, 0.9); /* red-500 */
+    color: white;
+    font-weight: 700;
+  }
+
+  .badge-type {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Card Content */
+  .card-content {
+    padding: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .casting-card:hover .card-title {
+    color: #c084fc;
+  }
+
+  .card-roles {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .role-item {
+    font-size: 0.875rem;
+  }
+
+  .role-label {
+    color: #d4d4d8; /* zinc-300 */
+    font-weight: 500;
+  }
+
+  .role-desc {
+    color: #71717a; /* zinc-500 */
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .card-tags {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    color: #a1a1aa;
+    background-color: rgba(63, 63, 70, 0.5); /* zinc-700 */
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+  }
+
+  .btn-apply {
+    background-color: #9333ea; /* purple-600 */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .btn-apply:hover {
+    background-color: #a855f7; /* purple-500 */
+  }
+</style>
