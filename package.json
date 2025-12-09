@@ -23,6 +23,7 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
+        "@astrojs/sitemap": "^3.6.0",
         "better-sqlite3": "^12.5.0"
     }
 }
