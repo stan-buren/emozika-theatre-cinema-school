@@ -1,8 +1,8 @@
 
 export function initBranches() {
     var branchCards = document.querySelectorAll('.branch-card');
-    var filterButtons = document.querySelectorAll('.branch-filter-btn');
-    var myMetroSelect = document.querySelector('#branch-metro-select');
+    var filterButtons = document.querySelectorAll('.branches-filter');
+    var myMetroSelect = document.querySelector('[data-branch-my-metro]');
 
     var activeFilter = 'all'; // 'all' | 'adults'
     var highlightMetro = '';

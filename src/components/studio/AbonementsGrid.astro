@@ -2,7 +2,57 @@
 import abonementsData from '../../data/abonements.json';
 ---
 
-<div class="abonements-grid">
+<div class="abonements-calculator-shell reveal-on-scroll">
+  <div class="abonement-picker" data-abonement-picker>
+    <div class="picker-header">
+      <h3 class="picker-title">Подобрать формат</h3>
+      <p class="picker-subtitle">Ответьте на 3 вопроса, чтобы найти идеальную группу</p>
+    </div>
+
+    <div class="picker-form">
+      <!-- 1. Age -->
+      <div class="picker-group">
+        <label class="picker-label">Возраст ребенка:</label>
+        <div class="picker-options">
+          <label class="picker-option"><input type="radio" name="age" value="4-6" checked> <span>4-6 лет</span></label>
+          <label class="picker-option"><input type="radio" name="age" value="7-11"> <span>7-11 лет</span></label>
+          <label class="picker-option"><input type="radio" name="age" value="12-16"> <span>12-16 лет</span></label>
+        </div>
+      </div>
+
+      <!-- 2. Goal -->
+      <div class="picker-group">
+        <label class="picker-label">Цель занятий:</label>
+        <div class="picker-options">
+          <label class="picker-option"><input type="radio" name="goal" value="stage" checked> <span>Сцена и театр</span></label>
+          <label class="picker-option"><input type="radio" name="goal" value="cinema"> <span>Съемки в кино</span></label>
+          <label class="picker-option"><input type="radio" name="goal" value="speech"> <span>Уверенность и речь</span></label>
+        </div>
+      </div>
+
+      <!-- 3. Schedule -->
+      <div class="picker-group">
+        <label class="picker-label">Нагрузка:</label>
+        <div class="picker-options">
+          <label class="picker-option"><input type="radio" name="schedule" value="standard" checked> <span>1 раз в неделю</span></label>
+          <label class="picker-option"><input type="radio" name="schedule" value="intense"> <span>Профи (2-3 раза)</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="picker-result">
+      <div class="picker-result__content">
+        <span class="picker-result__badge" data-abonement-result-badge>Рекомендация</span>
+        <h4 class="picker-result__title" data-abonement-result-title>...</h4>
+        <p class="picker-result__text" data-abonement-result-text>...</p>
+      </div>
+      <button class="btn btn-primary picker-result__cta" data-abonement-cta-main data-scroll-to="contacts">Записаться</button>
+    </div>
+  </div>
+</div>
+
+<div class="abonements-grid" data-abonements-root>
   {(abonementsData || []).filter(item => !item.draft).map(item => (
     <article class="abonement-card">
       {item.badge && <span class="abonement-card__badge">{item.badge}</span>}
