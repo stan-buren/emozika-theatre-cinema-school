@@ -45,9 +45,9 @@ test.describe('Emozika Website Structure', () => {
 
         await expect(page).toHaveURL(/.*theatre/);
 
-        // Check for H1 "Афиша"
+        // Check for H1 "Репертуар" (Velvet Mode)
         await expect(page.locator('h1.page-title')).toBeVisible();
-        await expect(page.locator('h1.page-title')).toContainText(/Афиша/i);
+        await expect(page.locator('h1.page-title')).toContainText(/Репертуар/i);
     });
 
     test('Navigation Menu works', async ({ page }) => {

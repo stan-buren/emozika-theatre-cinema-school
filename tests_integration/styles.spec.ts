@@ -28,10 +28,10 @@ test.describe('Emozika Visual Regression', () => {
             expect(borderRadius).not.toBe('0px'); // Our buttons are rounded
         }
 
-        // Check for specific Theatre content
-        const title = page.locator('.theatre-page__title');
+        // Check for specific Theatre content (Brand Header)
+        const title = page.locator('.theatre-hero .page-title');
         await expect(title).toBeVisible();
-        await expect(title).toContainText('Афиша Театра');
+        await expect(title).toContainText('Репертуар');
     });
 
 });

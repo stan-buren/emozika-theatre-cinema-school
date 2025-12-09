@@ -1,14 +1,18 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import AfishaWidget from '../../components/theatre/AfishaWidget.astro';
+import TheatreHero from '../../components/theatre/TheatreHero.astro';
+import PlaybillGrid from '../../components/theatre/PlaybillGrid.astro';
 ---
 
-<Layout title="Театр Эмоцика | Спектакли и Билеты" description="Репертуарный детский театр в Гранд Каньоне. Афиша спектаклей, купить билеты." theme="light">
+<Layout title="Театр Эмоцика | Спектакли и Билеты" description="Репертуарный детский театр в Гранд Каньоне. Афиша спектаклей, купить билеты." theme="theatre">
     <main class="theatre-page">
-        <h1 class="theatre-page__title page-title">Афиша Театра</h1>
+        <!-- Brand Header (Velvet Curtain) -->
+        <TheatreHero />
         
-        <!-- Afisha Widget (Placeholder for Tickets) -->
-        <AfishaWidget />
+        <!-- Afisha / Playbill -->
+        <div class="container">
+             <PlaybillGrid />
+        </div>
         
         <div class="theatre-page__footer">
             <p>Мы играем на сцене территории развития "Гранд Каньон".</p>

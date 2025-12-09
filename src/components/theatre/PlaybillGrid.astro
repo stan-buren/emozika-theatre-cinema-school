@@ -1,0 +1,44 @@
+---
+const plays = [
+    { 
+        id: 1, 
+        title: "Снежная Королева", 
+        date: "24 декабря, 12:00", 
+        image: "https://images.unsplash.com/photo-1543596853-4881d39b35e6?auto=format&fit=crop&q=80",
+        age: "6+"
+    },
+    { 
+        id: 2, 
+        title: "Маленький Принц", 
+        date: "25 декабря, 15:00", 
+        image: "https://images.unsplash.com/photo-1478720568477-152d9b164e63?auto=format&fit=crop&q=80",
+        age: "10+"
+    },
+    { 
+        id: 3, 
+        title: "Волшебная Лампа", 
+        date: "30 декабря, 18:00", 
+        image: "https://images.unsplash.com/photo-1629255823819-215f79986b51?auto=format&fit=crop&q=80",
+        age: "5+"
+    }
+];
+---
+
+<div class="playbill-grid">
+    {plays.map(play => (
+        <article class="playbill-card">
+            <div class="playbill-card__image-wrapper">
+                 <img src={play.image} alt={play.title} class="playbill-card__image" loading="lazy" />
+            </div>
+            
+            <div class="playbill-card__content">
+                <span class="playbill-card__meta">{play.date} • {play.age}</span>
+                <h3 class="playbill-card__title">{play.title}</h3>
+                
+                <button class="btn-theatre-gold mt-4" onclick={`alert('Яндекс.Афиша: Покупка билета на ${play.title}')`}>
+                    Купить билет
+                </button>
+            </div>
+        </article>
+    ))}
+</div>

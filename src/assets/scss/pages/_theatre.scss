@@ -4,40 +4,160 @@
     background-color: var(--bg-body);
     color: var(--text-main);
     min-height: 100vh;
-    font-family: var(--font-primary); // Default body font
+    font-family: var(--font-primary);
+    overflow-x: hidden;
 
+    // --- TYPOGRAPHY (Serif & Elegant) ---
     h1,
     h2,
     h3,
-    h4 {
-        font-family: var(--font-heading); // Serif (Playfair)
+    h4,
+    .page-title,
+    .section-title {
+        font-family: var(--font-heading); // Playfair Display
     }
 
-    &__title {
-        font-family: var(--font-heading);
-        font-size: 3rem;
+    .page-title {
+        font-size: 3.5rem;
         color: var(--text-accent); // Gold
         text-transform: uppercase;
-        letter-spacing: 2px;
-        margin-bottom: 2rem;
+        letter-spacing: 0.1em;
         text-align: center;
+        margin-bottom: 2rem;
+        position: relative;
+
+        // Elegant line below
+        &::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 2px;
+            background: var(--text-accent);
+            margin: 1rem auto 0;
+        }
 
         @media (min-width: 768px) {
-            font-size: 4.5rem;
+            font-size: 5rem;
         }
     }
 
-    &__footer {
-        margin-top: 4rem;
+    .section-title {
+        font-size: 2.5rem;
+        color: var(--text-main); // Paper White
+        margin-bottom: 1.5rem;
         text-align: center;
-        color: var(--text-muted);
-        font-size: 1.125rem;
+    }
 
-        strong {
+    .text-xl {
+        font-size: 1.25rem;
+        line-height: 1.8;
+        color: var(--text-muted);
+        font-weight: 300;
+    }
+
+    // --- COMPONENTS ---
+
+    // Theatre Hero (The Curtain)
+    .theatre-hero {
+        position: relative;
+        padding: 8rem 0 4rem;
+        min-height: 60vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: radial-gradient(circle at top center, #3E1E68 0%, var(--bg-body) 70%); // Spotlight effect
+
+        &::before {
+            // Noise texture overlay (optional, adds grain)
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+    }
+
+    // Playbill Grid (Posters)
+    .playbill-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 4rem 0;
+
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+    }
+
+    .playbill-card {
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-card);
+        border-radius: 4px; // Slight rounding, almost print-like
+        overflow: hidden;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.15); // Gold glow
+            border-color: var(--text-accent);
+        }
+
+        &__image {
+            width: 100%;
+            aspect-ratio: 2/3; // Poster ratio
+            object-fit: cover;
+            filter: sepia(0.2) contrast(1.1); // Vintage vibe
+            transition: filter 0.3s;
+
+            .playbill-card:hover & {
+                filter: none;
+            }
+        }
+
+        &__content {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        &__title {
+            font-size: 1.5rem;
             color: var(--text-main);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        &__meta {
+            font-family: var(--font-primary);
+            font-size: 0.875rem;
+            color: var(--text-accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
             display: block;
-            margin-top: 0.5rem;
-            font-size: 1.25rem;
+        }
+    }
+
+    // Ticket Button (Gold)
+    .btn-theatre-gold {
+        background: linear-gradient(135deg, #D4AF37 0%, #F6E27A 50%, #D4AF37 100%);
+        color: #1A0B2E; // Dark purple text
+        font-family: var(--font-primary);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 1rem 2rem;
+        border-radius: 2px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
+            color: #000;
         }
     }
 }
