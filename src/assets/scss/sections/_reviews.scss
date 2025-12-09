@@ -210,9 +210,10 @@
 }
 
 .review-lightbox.is-open {
+    display: block;
     position: fixed;
     inset: 0;
-    z-index: 2000;
+    z-index: 9999;
 }
 
 .review-lightbox__backdrop {
