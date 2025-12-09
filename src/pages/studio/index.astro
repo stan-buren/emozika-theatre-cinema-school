@@ -4,9 +4,11 @@ import PeopleSection from '../../components/PeopleSection.astro';
 import peopleData from '../../data/people.json';
 import abonementsData from '../../data/abonements.json';
 import filmsData from '../../data/films.json';
+import vkFilmsData from '../../data/vk_films.json';
 import StudioFAQ from '../../components/studio/StudioFAQ.astro';
 
-const activeFilm = filmsData[0];
+const combinedFilms = [...filmsData, ...vkFilmsData];
+const activeFilm = combinedFilms[0];
 
 ---
 
@@ -612,7 +614,7 @@ const activeFilm = filmsData[0];
           <div class="films-shell">
             <!-- Горизонтальная карусель с карточками фильмов -->
             <div class="films-carousel" data-films-carousel>
-              {(filmsData || []).map((film, index) => {
+              {combinedFilms.map((film, index) => {
                 const awards = film.awards || [];
                 const visibleAwards = awards.slice(0, 2);
                 const extraCount = awards.length > 2 ? awards.length - 2 : 0;

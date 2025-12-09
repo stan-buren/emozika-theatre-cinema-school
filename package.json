@@ -9,7 +9,8 @@
         "build": "astro build",
         "preview": "astro preview",
         "astro": "astro",
-        "test": "playwright test"
+        "test": "playwright test",
+        "sync:vk": "node --env-file=.env src/scripts/fetch-vk-data.js"
     },
     "devDependencies": {
         "@astrojs/check": "^0.9.6",

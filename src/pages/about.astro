@@ -9,10 +9,12 @@ import ReviewsGrid from '../components/ReviewsGrid.astro';
 import BranchesGrid from '../components/BranchesGrid.astro';
 import FaqList from '../components/FaqList.astro';
 import galleryData from '../data/gallery.json';
+import vkGalleryData from '../data/vk_gallery.json';
 import reviewsData from '../data/reviews.json';
 import faqData from '../data/faq.json';
 import branchesData from '../data/branches.json';
 import awardsData from '../data/awards.json';
+// import vkAwards from '../data/vk_awards.json'; // TODO: Integrate when VK awards schema matches
 import statsData from '../data/stats.json';
 import { getTopAwards, getSortedFestivals } from '../utils/awards-helpers.js';
 
@@ -241,7 +243,7 @@ const sortedBranches = [...branches].sort((a, b) => {
 
           <div class="gallery__scroller-wrapper">
             <div class="gallery__scroller" data-gallery-scroller aria-label="Фотогалерея театра">
-              {galleryData.map((item, index) => (
+              {[...vkGalleryData, ...galleryData].map((item, index) => (
                 <button type="button" class="gallery-card" data-gallery-id={item.id} data-gallery-index={index} data-category={item.category}>
                   <div class="gallery-card__image-wrapper">
                     <img src={item.src} alt={item.alt} class="gallery-card__image" loading="lazy" />
