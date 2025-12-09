@@ -84,3 +84,13 @@
     --gradient-hero: radial-gradient(circle at top left, #531a88 0%, #2b0c4e 50%, #0d0418 100%);
     --gradient-glow: radial-gradient(circle, rgba(255, 209, 220, 0.6) 0%, rgba(255, 255, 255, 0) 70%);
 }
+
+// SCSS Variables Mapping (for use in mixins/functions or direct values if needed)
+$color-white: #ffffff;
+$color-black: #000000;
+$font-family-heading: var(--font-heading);
+$font-family-main: var(--font-main);
+$color-text-secondary: var(--color-text-soft);
+
+$z-index-header: 100;
+$z-index-modal: 1000;

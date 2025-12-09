@@ -28,10 +28,10 @@ test.describe('Emozika Visual Regression', () => {
             expect(borderRadius).not.toBe('0px'); // Our buttons are rounded
         }
 
-        // Check for specific Snow Queen content to ensure JSON is rendering with styles
-        const snowQueenHeader = page.locator('.snow-queen-header');
-        await expect(snowQueenHeader).toBeVisible();
-        await expect(snowQueenHeader).toContainText('Снежная Королева');
+        // Check for specific Theatre content
+        const title = page.locator('.theatre-page__title');
+        await expect(title).toBeVisible();
+        await expect(title).toContainText('Афиша Театра');
     });
 
 });

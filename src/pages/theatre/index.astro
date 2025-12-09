@@ -1,141 +1,18 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import plays from '../../data/plays.json';
+import AfishaWidget from '../../components/theatre/AfishaWidget.astro';
 ---
 
-<Layout title="Афиша спектаклей | Театр «Эмоцика»" description="Афиша детского театра «Эмоцика»: расписание спектаклей, билеты на «Снежную королеву» и другие постановки для детей и родителей.">
-  <main id="main-content">
-    <section class="section section-page-header">
-      <div class="container">
-        <h1 class="page-title">Афиша</h1>
-      </div>
-    </section>
-    <section id="afisha" class="section section-afisha section-card reveal-on-scroll">
-      <div class="section-inner">
-        <div class="container">
-          <header class="section-header">
-            <h2 class="section-title">Афиша событий</h2>
-            <p class="section-subtitle">Спектакли, показы и открытые уроки.</p>
-          </header>
-          <div class="afisha-strip-wrapper">
-            <button type="button" class="afisha-strip-arrow afisha-strip-arrow--prev"
-              aria-label="Предыдущий спектакль">‹</button>
-            <div class="afisha-strip" data-afisha-strip></div>
-            <button type="button" class="afisha-strip-arrow afisha-strip-arrow--next"
-              aria-label="Следующий спектакль">›</button>
-          </div>
+<Layout title="Театр Эмоцика | Спектакли и Билеты" description="Репертуарный детский театр в Гранд Каньоне. Афиша спектаклей, купить билеты." theme="light">
+    <main class="theatre-page">
+        <h1 class="theatre-page__title page-title">Афиша Театра</h1>
+        
+        <!-- Afisha Widget (Placeholder for Tickets) -->
+        <AfishaWidget />
+        
+        <div class="theatre-page__footer">
+            <p>Мы играем на сцене территории развития "Гранд Каньон".</p>
+            <strong>СПб, пр. Энгельса 154</strong>
         </div>
-      </div>
-    </section>
-
-    {plays.map((play) => (
-    <section id={play.id} class="section section-snow-queen reveal-on-scroll">
-      <div class="container">
-        <header class="section-header snow-queen-header">
-          <p class="section-kicker">Новогодняя программа</p>
-          <h2 class="section-title">{play.type} «{play.title}»</h2>
-        </header>
-
-        <div class="snow-queen-layout">
-          <figure class="snow-queen-poster">
-            <img src={play.poster} alt={`Постер «${play.title}»`} loading="lazy" />
-          </figure>
-
-          <div class="snow-queen-details card-luxe">
-            <h3 class="snow-queen-details-title">О программе</h3>
-            <p style="margin-bottom: 20px;">
-              {play.description}
-            </p>
-
-            <div class="snow-queen-details-columns">
-              <div class="snow-queen-details-column">
-                <h4 class="snow-queen-details-heading">{play.details.school.title}</h4>
-                <ul class="snow-queen-list">
-                  {play.details.school.features.map(feature => (
-                    <li>{feature}</li>
-                  ))}
-                </ul>
-                <a href={play.details.school.action.link} class="btn btn-primary btn-compact-mobile snow-queen-btn">
-                  {play.details.school.action.text}
-                </a>
-              </div>
-              <div class="snow-queen-details-column">
-                <h4 class="snow-queen-details-heading">{play.details.family.title}</h4>
-                <ul class="snow-queen-list">
-                  {play.details.family.features.map(feature => (
-                    <li>{feature}</li>
-                  ))}
-                </ul>
-                <a href={play.details.family.action.link} class="btn btn-outline btn-compact-mobile snow-queen-btn"
-                  target="_blank" rel="noopener">
-                  {play.details.family.action.text}
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    ))}
-
-
-    <!-- 
-    ========================================================================
-    Блок: обучение в театральной студии и киношколе
-    ========================================================================
-    -->
-    <section id="contacts" class="section section--contacts section-card">
-      <div class="section-inner">
-        <div class="container contacts">
-          <div class="contacts__info card-luxe">
-            <header class="section-header section-header--left">
-              <h2 class="section-title">Контакты</h2>
-              <p class="contacts__text section-subtitle">Записаться на пробное занятие, уточнить расписание или задать
-                любой вопрос можно у администратора театра и студии.</p>
-              <div class="section-chips section-chips--left">
-                <span class="chip">Звонки и WhatsApp</span>
-                <span class="chip">11:00–20:00</span>
-                <span class="chip">ТРК «Гранд Каньон»</span>
-              </div>
-            </header>
-            <dl class="contacts__list">
-              <div class="contacts__row">
-                <dt>Телефон:</dt>
-                <dd>
-                  <a href="tel:+79313157787">+7 (931) 315-77-87</a>
-                  <span class="contacts__note">— звонки и WhatsApp</span>
-                </dd>
-              </div>
-              <div class="contacts__row">
-                <dt>Email:</dt>
-                <dd><a href="mailto:info@emozia.ru">info@emozia.ru</a></dd>
-              </div>
-              <div class="contacts__row">
-                <dt>Адрес сцены:</dt>
-                <dd>Санкт-Петербург, проспект Энгельса, 154, ТРК «Гранд Каньон», 3-й этаж</dd>
-              </div>
-            </dl>
-            <p class="contacts__note">Занятия студии проходят в нескольких филиалах Санкт-Петербурга — подберём удобную
-              площадку и время для вашей семьи.</p>
-            <p class="contacts__time">Мы на связи ежедневно с 11:00 до 20:00.</p>
-            <p class="contacts__note">В рабочие часы быстрее отвечаем в WhatsApp.</p>
-            <div class="contacts__actions">
-              <a href="https://wa.me/79313157787" class="btn btn-primary" target="_blank" rel="noopener">
-                <img src="/assets/img/ui/whatsapp-icon.svg" alt="" class="icon" />
-                Написать в WhatsApp
-              </a>
-              <a href="https://vk.com/teatr.emocika" class="btn btn-outline" target="_blank" rel="noopener">Мы
-                во ВКонтакте</a>
-            </div>
-          </div>
-          <div class="contacts__map card-luxe">
-            <iframe
-              src="https://yandex.ru/map-widget/v1/?ll=30.333187%2C60.059865&z=17&l=map&pt=30.333187,60.059865,pm2rdm"
-              loading="lazy" title="Карта проезда в театр «Эмоцика»" frameborder="0" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
+    </main>
 </Layout>

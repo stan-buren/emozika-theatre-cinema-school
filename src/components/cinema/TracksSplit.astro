@@ -1,0 +1,142 @@
+---
+---
+
+<section id="tracks" class="section-dark">
+    <div class="container">
+        <h2 class="cinema-hero__title" style="text-align: center; font-size: 2.5rem;">ВЫБЕРИ СВОЙ ПУТЬ</h2>
+        
+        <div class="tracks-grid">
+            <!-- Track 1: Actor -->
+            <div class="track-card-cinema">
+                <div class="track-card-cinema__bg">
+                    <img src="https://images.unsplash.com/photo-1493612276216-9c5901955d43?auto=format&fit=crop&q=80" alt="Actor" />
+                </div>
+                <div class="track-card-cinema__content">
+                    <div class="track-card-cinema__badge">В кадре</div>
+                    <h3 class="track-card-cinema__title">ACTOR</h3>
+                    <p class="track-card-cinema__text">
+                        Ты — лицо проекта. Учись работать на камеру, проходись по красной дорожке и получай главные роли.
+                    </p>
+                    <span class="track-card-cinema__link">
+                        Стать актером →
+                    </span>
+                </div>
+            </div>
+
+            <!-- Track 2: Filmmaker -->
+            <div class="track-card-cinema">
+                <div class="track-card-cinema__bg">
+                    <img src="https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?auto=format&fit=crop&q=80" alt="Filmmaker" />
+                </div>
+                <div class="track-card-cinema__content">
+                    <div class="track-card-cinema__badge film">За кадром</div>
+                    <h3 class="track-card-cinema__title">FILMMAKER</h3>
+                    <p class="track-card-cinema__text">
+                        Ты создаешь миры. Учись снимать, монтировать, писать сценарии и продюсировать контент.
+                    </p>
+                    <span class="track-card-cinema__link film">
+                        Стать создателем →
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style lang="scss">
+    // Local styles until moved to global SCSS
+    .tracks-grid {
+        display: grid;
+        gap: 2rem;
+        padding: 0 1rem;
+        
+        @media (min-width: 768px) {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    .track-card-cinema {
+        position: relative;
+        height: 500px;
+        border-radius: 1.5rem;
+        overflow: hidden;
+        border: 1px solid #333;
+        cursor: pointer;
+        transition: border-color 0.3s;
+
+        &:hover {
+            border-color: #FFD700;
+        }
+
+        &__bg {
+            position: absolute;
+            inset: 0;
+            background-color: #111;
+            
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0.6;
+                transition: opacity 0.3s;
+            }
+        }
+
+        &:hover &__bg img {
+            opacity: 0.4;
+        }
+
+        &__content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 2.5rem;
+            width: 100%;
+            background: linear-gradient(to top, #000, transparent);
+        }
+
+        &__badge {
+            background-color: #FFD700;
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 1rem;
+
+            &.film { background-color: #22d3ee; }
+        }
+
+        &__title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        &__text {
+            color: #ccc;
+            font-size: 1.125rem;
+            margin-bottom: 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s;
+        }
+
+        &:hover &__text {
+            max-height: 10rem;
+        }
+
+        &__link {
+            color: #FFD700;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            
+            &.film { color: #22d3ee; }
+        }
+    }
+</style>

@@ -1,0 +1,75 @@
+---
+---
+
+<section class="section-dark">
+    <div class="container">
+        <h2 class="cinema-hero__title" style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">ПРОФЕССИИ БУДУЩЕГО</h2>
+        
+        <div class="professions-grid">
+            <div class="profession-card">
+                <div class="profession-card__icon">🎥</div>
+                <h3 class="profession-card__title">Шоураннер</h3>
+                <p class="profession-card__desc">Создатель сериалов и шоу</p>
+            </div>
+            <div class="profession-card">
+                <div class="profession-card__icon">📱</div>
+                <h3 class="profession-card__title">Блогер</h3>
+                <p class="profession-card__desc">Личный бренд и influence</p>
+            </div>
+            <div class="profession-card">
+                <div class="profession-card__icon">🎬</div>
+                <h3 class="profession-card__title">Режиссер</h3>
+                <p class="profession-card__desc">Постановка кадра и сцены</p>
+            </div>
+            <div class="profession-card">
+                <div class="profession-card__icon">🎙</div>
+                <h3 class="profession-card__title">Актер дубляжа</h3>
+                <p class="profession-card__desc">Голос мультфильмов</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style lang="scss">
+    .professions-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        padding: 0 1rem;
+
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+    }
+
+    .profession-card {
+        background-color: #1a1a1a;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        border: 1px solid #333;
+        transition: all 0.3s;
+        
+        &:hover {
+            border-color: #fff;
+            transform: translateY(-5px);
+        }
+
+        &__icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        &__title {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        &__desc {
+            color: #888;
+            font-size: 0.875rem;
+        }
+    }
+</style>

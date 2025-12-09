@@ -1,0 +1,30 @@
+@use "../base/variables" as *;
+
+.theatre-page {
+    padding: 3rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    &__title {
+        font-family: $font-family-heading;
+        font-size: 3rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    &__footer {
+        margin-top: 5rem;
+        text-align: center;
+
+        p {
+            color: $color-text-secondary;
+            font-size: 1.25rem;
+        }
+
+        strong {
+            display: block;
+            margin-top: 1rem;
+        }
+    }
+}

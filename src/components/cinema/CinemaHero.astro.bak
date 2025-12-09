@@ -1,0 +1,38 @@
+---
+---
+
+<section class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-black">
+    <!-- Background Video/Image Placeholder -->
+    <div class="absolute inset-0 opacity-40">
+        <div class="w-full h-full bg-gradient-to-b from-transparent to-black z-10 absolute"></div>
+        <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80" alt="Cinema Background" class="w-full h-full object-cover" />
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-20 text-center max-w-4xl px-4">
+        <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-accent-gold to-white">
+            СТАРТ ТВОЕЙ КАРЬЕРЫ
+            <br />
+            <span class="text-white">В КИНОИНДУСТРИИ</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto">
+            Эмоцика — это не кружок. Это продакшн, где ты снимаешь свое кино и получаешь роли в сериалах.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#tracks" class="px-8 py-4 bg-accent-gold text-black rounded-full font-bold text-lg hover:bg-white hover:scale-105 transition-all">
+                Выбрать профессию
+            </a>
+            <a href="#casting" class="px-8 py-4 border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white hover:text-black hover:scale-105 transition-all">
+                Попасть в базу
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Custom Gold color in case not in config yet */
+    .bg-accent-gold { background-color: #FFD700; }
+    .text-accent-gold { color: #FFD700; }
+    .from-accent-gold { --tw-gradient-from: #FFD700; }
+</style>

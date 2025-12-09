@@ -1,96 +1,61 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import PeopleSection from '../../components/PeopleSection.astro';
-import peopleData from '../../data/people.json';
 import abonementsData from '../../data/abonements.json';
-import filmsData from '../../data/films.json';
-import vkFilmsData from '../../data/vk_films.json';
 import StudioFAQ from '../../components/studio/StudioFAQ.astro';
 
-const combinedFilms = [...filmsData, ...vkFilmsData];
-const activeFilm = combinedFilms[0];
-
+// Filter out "Cinema" goal from calculator logic if needed, 
+// for now we just change the UI to focus on theatre.
 ---
 
-<Layout title="Студия и Киношкола | Театр «Эмоцика»" description="Театральная студия и киношкола для детей 4-16 лет. Занятия актерским мастерством, съемки в кино, участие в фестивалях. 15 филиалов в СПб.">
+<Layout title="Театральная Студия Эмоцика | Развитие через сцену" description="Театральная студия для детей от 4 до 16 лет. Спектакли на профессиональной сцене, костюмы включены, филиалы во всех районах СПб." theme="studio">
   <main id="main-content">
+    
+    <!-- Hero Section -->
     <section class="section section-page-header">
       <div class="container">
-        <h1 class="page-title">Студия</h1>
-      </div>
-    </section>
-    <section id="tracks" class="section section-tracks reveal-on-scroll">
-      <div class="container">
-        <header class="section-header">
-          <p class="section-kicker">Выберите, что вам важно сейчас</p>
-          <h2 class="section-title section-title--handdrawn">Два направления</h2>
-          <p class="section-subtitle">
-            «Эмоцика» — это одновременно независимый театр и студия с киносъёмками
-            для детей и подростков.
-          </p>
-        </header>
-
-        <div class="tracks-grid">
-          <article class="track-card track-card-theatre card-luxe">
-            <h3 class="track-title">
-              <span class="track-title-icon track-title-icon--theatre" aria-hidden="true"></span>
-              Театр «Эмоцика»
-            </h3>
-            <p class="track-tagline">Спектакли для семей и школьных классов</p>
-            <p class="track-text">
-              Камерные спектакли, новогодние квесты и премьеры сезона.
-              Зал на 50 мест, где каждый зритель — участник события.
-            </p>
-            <a href="/afisha" class="track-link">
-              Смотреть афишу
-            </a>
-            <div class="track-meta">
-              <span class="track-meta-chip">6+ / 12+</span>
-              <span class="track-meta-chip">Выходные и будни</span>
-            </div>
-          </article>
-
-          <article class="track-card track-card-school card-luxe">
-            <h3 class="track-title">
-              <span class="track-title-icon track-title-icon--school" aria-hidden="true"></span>
-              Студия и киношкола
-            </h3>
-            <p class="track-tagline">Актерское мастерство и киносъёмки</p>
-            <p class="track-text">
-              Группы для детей от 4 до 16 лет. Учимся говорить красиво, держаться на сцене и снимаем настоящее кино.
-            </p>
-            <button type="button" class="btn btn-outline track-link-button" data-scroll-to="abonements">
-              Выбрать группу
-            </button>
-            <div class="track-meta">
-              <span class="track-meta-chip">Пробный урок</span>
-              <span class="track-meta-chip">15 филиалов + Кудрово</span>
-            </div>
-          </article>
-        </div>
-
-        <p class="tracks-bridge">
-          Часто ребёнок начинает со студии, а потом выходит на сцену театра —
-          это единая творческая экосистема «Эмоцики».
+        <h1 class="page-title">Театральная Студия</h1>
+        <p class="text-xl mt-4 max-w-2xl">
+            Место, где ребенок обретает уверенность, друзей и веру в себя через магию театра.
         </p>
       </div>
     </section>
 
-    <!-- 
-    ========================================================================
-    Блок: абонементы и форматы занятий в студии
-    ========================================================================
-    -->
+    <!-- NEW: Pain Points Solver (All Inclusive) -->
+    <section class="section bg-white py-16">
+        <div class="container">
+            <div class="bg-[#fcfbf9] border border-[#eec550]/20 rounded-3xl p-8 md:p-12 shadow-sm">
+                <h2 class="text-3xl font-bold mb-8 text-center">Почему мамы выбирают «Эмоцику»?</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="text-4xl mb-4">👗</div>
+                        <h3 class="font-bold text-xl mb-2">Костюмерная включена</h3>
+                        <p class="text-gray-600">Вам не нужно шить костюмы ночами или искать реквизит. Мы всё предоставляем сами.</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="text-4xl mb-4">📸</div>
+                        <h3 class="font-bold text-xl mb-2">Контент в подарок</h3>
+                        <p class="text-gray-600">Профессиональные фото и видео со спектаклей уже включены в абонемент.</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="text-4xl mb-4">🎭</div>
+                        <h3 class="font-bold text-xl mb-2">Своя сцена</h3>
+                        <p class="text-gray-600">Мы не арендуем ДК. Дети выступают на профессиональной сцене в Гранд Каньоне.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Abonements & Calculator -->
     <section id="abonements" class="section section-abonements reveal-on-scroll">
       <div class="container">
         <header class="section-header">
-          <p class="section-kicker">Форматы занятий</p>
+          <p class="section-kicker">Форматы обучения</p>
           <h2 class="section-title">Абонементы студии</h2>
           <p class="section-subtitle">
-            От разовых мастер-классов до годового обучения. Подберем группу под возраст и опыт ребёнка.
+            Группы разделены по возрасту. В каждой — не более 15 человек, чтобы уделить внимание каждому.
           </p>
-        </header>
-
         </header>
 
         <div class="abonements-grid" data-abonements-root>
@@ -98,7 +63,6 @@ const activeFilm = combinedFilms[0];
             <article 
               class={`abonement-card ${item.highlight || item.isHero ? 'abonement-card--highlight' : ''} ${item.isHero ? 'abonement-card--hero' : ''}`}
               data-abonement-id={item.id}
-              aria-label={item.isHero ? `${item.name}. Чаще всего родители выбирают именно этот формат.` : undefined}
             >
               {item.tagLine && <p class="abonement-tagline">{item.tagLine}</p>}
               <h3 class="abonement-name">{item.name}</h3>
@@ -121,11 +85,12 @@ const activeFilm = combinedFilms[0];
           ))}
         </div>
 
+        <!-- Calculator (Simplified for Studio) -->
         <section class="abonement-picker card-luxe" data-abonement-picker>
           <div class="abonement-picker__intro">
-            <h3 class="abonement-picker__title">Подобрать формат</h3>
+            <h3 class="abonement-picker__title">Подобрать группу</h3>
             <p class="abonement-picker__text">
-              Укажите параметры — подскажем, с чего лучше начать.
+              Укажите возраст ребёнка — мы подскажем расписание.
             </p>
           </div>
 
@@ -145,731 +110,128 @@ const activeFilm = combinedFilms[0];
                   <input type="radio" name="age" value="12-16" />
                   <span class="radio-chip__text">12–16 лет</span>
                 </label>
-                <label class="radio-chip">
+                 <label class="radio-chip">
                   <input type="radio" name="age" value="17plus" />
                   <span class="radio-chip__text">Взрослые</span>
                 </label>
               </div>
             </div>
 
-            <div class="abonement-picker__group">
-              <span class="abonement-picker__label">Цель занятий</span>
-              <div class="abonement-chips" data-abonement-goal>
-                <label class="radio-chip">
-                  <input type="radio" name="goal" value="stage" checked />
-                  <span class="radio-chip__text">Сцена и уверенность</span>
-                </label>
-                <label class="radio-chip">
-                  <input type="radio" name="goal" value="cinema" />
-                  <span class="radio-chip__text">Кино и съёмки</span>
-                </label>
-                <label class="radio-chip">
-                  <input type="radio" name="goal" value="speech" />
-                  <span class="radio-chip__text">Речь и общение</span>
-                </label>
-              </div>
-            </div>
-
-            <div class="abonement-picker__group">
-              <span class="abonement-picker__label">График</span>
-              <div class="abonement-chips" data-abonement-schedule>
-                <label class="radio-chip">
-                  <input type="radio" name="schedule" value="light" />
-                  <span class="radio-chip__text">1 раз</span>
-                </label>
-                <label class="radio-chip">
-                  <input type="radio" name="schedule" value="standard" checked />
-                  <span class="radio-chip__text">2 раза</span>
-                </label>
-                <label class="radio-chip">
-                  <input type="radio" name="schedule" value="intense" />
-                  <span class="radio-chip__text">Интенсив</span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div class="abonement-picker__result" data-abonement-result aria-live="polite">
-            <div class="abonement-picker__badge" data-abonement-result-badge>Рекомендация</div>
-            <div>
-              <p class="abonement-picker__result-title" data-abonement-result-title>Пробное занятие</p>
-              <p class="abonement-picker__result-text" data-abonement-result-text>
-                Начните с пробного урока.
-              </p>
-              <div class="abonement-picker__actions">
-                <a href="/about#contacts" class="btn btn-secondary btn-compact-mobile" data-scroll-to="contacts"
-                  data-abonement-cta-main>
-                  Записаться
+             <!-- Removed "Goal" and "Schedule" for simplicity in this version, can add back if needed -->
+             
+             <div class="abonement-picker__actions mt-6">
+                <a href="/about#contacts" class="btn btn-primary w-full md:w-auto" data-scroll-to="contacts">
+                  Записаться на пробное
                 </a>
-              </div>
-            </div>
+             </div>
           </div>
         </section>
-
-        <div class="section-abonements-cta">
-          <div class="section-abonements-cta-text">
-            <h3 class="section-abonements-cta-title">
-              Нужна помощь с выбором?
-            </h3>
-            <p class="section-abonements-cta-subtitle">
-              Оставьте заявку — администратор свяжется и подскажет лучшую группу.
-            </p>
-          </div>
-
-          <div class="section-abonements-cta-actions">
-            <button type="button" class="btn btn-primary section-abonements-cta-main" data-scroll-to="contacts"
-              data-cta="abonements-main">
-              Оставить заявку
-            </button>
-          </div>
-        </div>
       </div>
     </section>
 
-    <section id="studio" class="section section-studio reveal-on-scroll">
-      <div class="studio-decor" aria-hidden="true"></div>
+    <!-- Studio Journey (Only Theatre Track) -->
+    <section id="studio-journey" class="section reveal-on-scroll">
       <div class="container">
-        <div id="studio-hero" class="studio-hero reveal-on-scroll reveal-studio-1">
-          <header class="section-header section-header--left">
-            <p class="section-kicker eyebrow eyebrow--dark">Оглавление</p>
-            <h2 class="section-title">Обучение в театральной студии и киношколе</h2>
-            <p class="section-subtitle">
-              Два маршрута для детей: сцена и кино. Ниже — как устроены занятия и пути учеников.
-            </p>
-            <div class="section-chips section-chips--left">
-              <span class="chip">4–16 лет</span>
-              <span class="chip">1–2 раза в неделю</span>
-              <span class="chip">Сцена + кино</span>
-            </div>
-          </header>
-        </div>
-
-        <!-- Этаж 2: две карточки "Театр" и "Студия" -->
-        <div class="studio-duo reveal-on-scroll reveal-studio-2" aria-label="Театр и студия">
-          <article class="studio-column studio-column--theatre">
-            <header class="studio-track-header">
-              <div class="studio-track-icon studio-track-icon--theatre" aria-hidden="true"></div>
+          <div class="studio-column studio-column--theatre mx-auto max-w-4xl">
+            <header class="studio-track-header text-center mb-12">
               <div class="studio-track-title">
-                <h3 class="studio-track-name">Театральная студия</h3>
-                <p class="studio-track-caption">
-                  Регулярные занятия и спектакли на сцене нашего театра.
+                <h2 class="text-3xl font-bold mb-4">Путь вашего ребенка</h2>
+                <p class="text-xl text-gray-600">
+                  От первого шага в зал до премьеры на большой сцене
                 </p>
               </div>
             </header>
 
-            <div class="studio-track-overview">
-              <p>
-                Дети занимаются актёрским мастерством, речью и пластикой в группах по возрасту,
-                репетируют сцены и готовят спектакли.
-              </p>
-              <p>
-                В конце сезона ребята выходят на сцену нашего театра в настоящем спектакле.
-              </p>
-            </div>
-
-            <section class="studio-track-path" aria-label="Путь ученика в театральной студии" data-timeline="theatre"
-              data-autoplay="true">
-              <h4 class="studio-track-path-title">
-                Путь ученика в студии
-              </h4>
-
-              <ol class="timeline timeline--vertical">
-                <li class="timeline-step timeline-step--active" data-step="1">
-                  <div class="timeline-step-marker">
-                    <span class="timeline-step-number">1</span>
-                  </div>
+            <section class="studio-track-path" aria-label="Путь ученика" data-timeline="theatre">
+               <ol class="timeline timeline--vertical">
+                <li class="timeline-step timeline-step--active">
+                  <div class="timeline-step-marker"><span class="timeline-step-number">1</span></div>
                   <div class="timeline-step-body">
-                    <h5 class="timeline-step-title">Первое знакомство</h5>
-                    <p class="timeline-step-text">
-                      Пробное занятие, знакомство с педагогом, группой и сценой через игровые упражнения.
-                    </p>
+                    <h5 class="timeline-step-title">Знакомство (Сентябрь)</h5>
+                    <p class="timeline-step-text">Игровой тренинг, снятие зажимов, поиск друзей.</p>
                   </div>
                 </li>
-
-                <li class="timeline-step" data-step="2">
-                  <div class="timeline-step-marker">
-                    <span class="timeline-step-number">2</span>
-                  </div>
+                 <li class="timeline-step">
+                  <div class="timeline-step-marker"><span class="timeline-step-number">2</span></div>
                   <div class="timeline-step-body">
-                    <h5 class="timeline-step-title">Занятия и тренинг</h5>
-                    <p class="timeline-step-text">
-                      Регулярные уроки по актёрскому мастерству, речи и пластике,
-                      работа в сценах и этюдах.
-                    </p>
+                    <h5 class="timeline-step-title">Показ этюдов (Декабрь)</h5>
+                    <p class="timeline-step-text">Первый выход к зрителю. Открытый урок для родителей.</p>
                   </div>
                 </li>
-
-                <li class="timeline-step" data-step="3">
-                  <div class="timeline-step-marker">
-                    <span class="timeline-step-number">3</span>
-                  </div>
+                 <li class="timeline-step">
+                  <div class="timeline-step-marker"><span class="timeline-step-number">3</span></div>
                   <div class="timeline-step-body">
-                    <h5 class="timeline-step-title">Репетиции спектакля</h5>
-                    <p class="timeline-step-text">
-                      Сборка спектакля: репетируем сцены, примеряем костюмы,
-                      привыкаем к сцене, свету и залу.
-                    </p>
+                    <h5 class="timeline-step-title">Большая репетиция (Весна)</h5>
+                    <p class="timeline-step-text">Работа над ролью, примерка костюмов (которые мы сшили!).</p>
                   </div>
                 </li>
-
-                <li class="timeline-step" data-step="4">
-                  <div class="timeline-step-marker">
-                    <span class="timeline-step-number">4</span>
-                  </div>
+                 <li class="timeline-step">
+                  <div class="timeline-step-marker"><span class="timeline-step-number">4</span></div>
                   <div class="timeline-step-body">
-                    <h5 class="timeline-step-title">Премьера на сцене</h5>
-                    <p class="timeline-step-text">
-                      Показ спектакля для зрителей на сцене театра —
-                      первый большой сценический опыт ребёнка.
-                    </p>
+                    <h5 class="timeline-step-title">Премьера спектакля (Май)</h5>
+                    <p class="timeline-step-text">Профессиональная сцена, свет, звук, аплодисменты и цветы.</p>
                   </div>
                 </li>
               </ol>
             </section>
-          </article>
-
-          <article class="studio-column studio-column--films">
-            <header class="studio-track-header">
-              <div class="studio-track-icon studio-track-icon--films" aria-hidden="true"></div>
-              <div class="studio-track-title">
-                <h3 class="studio-track-name">Киношкола</h3>
-                <p class="studio-track-caption">
-                  Съёмки с детьми и готовые фильмы в Петербурге и Москве.
-                </p>
-              </div>
-            </header>
-
-            <div class="studio-track-overview">
-              <p>
-                Дети попадают в съёмочную команду, пробуют себя в кадре
-                и учатся работать перед камерой.
-              </p>
-              <p>
-                Мы снимаем короткие фильмы и проекты, которые монтируем
-                и показываем зрителям в Санкт-Петербурге и Москве.
-              </p>
-            </div>
-
-            <section class="studio-track-path" aria-label="Путь ученика в киношколе" data-timeline="films"
-              data-autoplay="true">
-              <h4 class="studio-track-path-title">
-                Путь ученика в киношколе
-              </h4>
-
-              <ol class="timeline timeline--vertical">
-                <li class="timeline-step timeline-step--active" data-step="1">
-                  <div class="timeline-step-marker">
-                    <span class="timeline-step-number">1</span>
-                  </div>
-                  <div class="timeline-step-body">
-                    <h5 class="timeline-step-title">Знакомство и пробы</h5>
-                    <p class="timeline-step-text">
-                      Пробы, первые упражнения перед камерой, знакомство
-                      с командой и форматом съёмок.
-                    </p>
-                  </div>
-                </li>
-
-                <li class="timeline-step" data-step="2">
-                  <div class="timeline-step-marker">
-                    <span class="timeline-step-number">2</span>
-                  </div>
-                  <div class="timeline-step-body">
-                    <h5 class="timeline-step-title">Подготовка и сценарий</h5>
-                    <p class="timeline-step-text">
-                      Обсуждаем историю и роли, разбираем сцены,
-                      репетируем перед съёмочным днём.
-                    </p>
-                  </div>
-                </li>
-
-                <li class="timeline-step" data-step="3">
-                  <div class="timeline-step-marker">
-                    <span class="timeline-step-number">3</span>
-                  </div>
-                  <div class="timeline-step-body">
-                    <h5 class="timeline-step-title">Съёмочный день</h5>
-                    <p class="timeline-step-text">
-                      Работа на площадке: камера, свет, несколько дублей,
-                      команды «мотор» и «стоп», живой съёмочный процесс.
-                    </p>
-                  </div>
-                </li>
-
-                <li class="timeline-step" data-step="4">
-                  <div class="timeline-step-marker">
-                    <span class="timeline-step-number">4</span>
-                  </div>
-                  <div class="timeline-step-body">
-                    <h5 class="timeline-step-title">Монтаж и премьера</h5>
-                    <p class="timeline-step-text">
-                      Фильм монтируется, и ребёнок видит себя на экране
-                      на показе или фестивальном просмотре.
-                    </p>
-                  </div>
-                </li>
-              </ol>
-            </section>
-          </article>
-        </div>
-
-        <!-- Этаж 4: как мы учим и на что опираемся -->
-        <div id="studio-values" class="studio-values reveal-on-scroll reveal-studio-4"
-          aria-label="Как мы учим и чему уделяем внимание">
-          <div class="studio-values-header">
-            <h3 class="studio-values-title heading-with-scribble">Как мы учим</h3>
-            <p class="studio-values-lead">
-              В основе занятий — игра, бережное отношение к психике ребёнка и проектный формат.
-              Всё это помогает детям безопасно пробовать себя на сцене и в кадре.
-            </p>
           </div>
-
-          <div class="studio-values-grid">
-            <article class="studio-value-card">
-              <div class="studio-value-badge badge badge--soft">Через игру</div>
-              <h4 class="studio-value-title">Живое действие вместо «занятий по учебнику»</h4>
-              <p class="studio-value-text">
-                Ребёнок осваивает актёрские навыки через игры, этюды и маленькие сцены.
-                Никаких сухих упражнений — только живое действие, эмоции и партнёрство.
-              </p>
-            </article>
-
-            <article class="studio-value-card">
-              <div class="studio-value-badge badge badge--soft">Бережно</div>
-              <h4 class="studio-value-title">Безопасная атмосфера и поддержка</h4>
-              <p class="studio-value-text">
-                Педагоги следят за эмоциональным состоянием детей,
-                не ломают характер и не заставляют «играть через страх».
-                Важнее доверие, чем идеальный текст.
-              </p>
-            </article>
-
-            <article class="studio-value-card">
-              <div class="studio-value-badge badge badge--soft">Проектно</div>
-              <h4 class="studio-value-title">Спектакли, фильмы и лагерные проекты</h4>
-              <p class="studio-value-text">
-                Учебный год строится вокруг больших проектов: спектаклей, кинолент,
-                показов в лагере. Ребёнок видит результат своей работы и гордится им.
-              </p>
-            </article>
-
-            <article class="studio-value-card">
-              <div class="studio-value-badge badge badge--soft">Команда</div>
-              <h4 class="studio-value-title">Практикующие артисты и педагоги</h4>
-              <p class="studio-value-text">
-                С детьми работают режиссёры, актёры и педагоги, которые сами выходят на сцену
-                и снимаются в кино. Они делятся не только знаниями, но и живым профессиональным опытом.
-              </p>
-            </article>
-          </div>
-        </div>
-
-        <div class="studio-meta-row">
-          <div class="studio-meta-block">
-            <div class="studio-meta-block-title">Возрастные группы</div>
-            <p>
-              Занятия для детей от 3 до 16 лет и взрослых 18+. Группы формируются по возрасту и уровню
-              подготовки: 3–5 лет, младшие школьники, подростки и отдельная группа для взрослых.
-            </p>
-          </div>
-          <div class="studio-meta-block">
-            <div class="studio-meta-block-title">Формат и расписание</div>
-            <p>
-              Занятия проходят 1–2 раза в неделю по будням после школы или в выходные.
-              Продолжительность занятия — около 1,5 часа.
-            </p>
-          </div>
-          <div class="studio-meta-block">
-            <div class="studio-meta-block-title">Филиалы и лагеря</div>
-            <p>
-              У студии около 15 филиалов по Санкт-Петербургу, родители выбирают удобную локацию.
-              Летом проходят выездные театральные лагеря с подготовкой спектакля за смену.
-            </p>
-          </div>
-        </div>
-
-        <!-- Блок Где проходят занятия и показы -->
-        <div class="studio-theatre-intro">
-          <p class="section-kicker">Театр-студия</p>
-
-          <h3 class="studio-theatre-heading">
-            Где проходят занятия и показы
-          </h3>
-
-          <div class="studio-theatre-text">
-            <p>
-              Мы работаем с детьми от 3,5 до 16 лет уже 10,5 лет.
-            </p>
-            <p>
-              Занятия театральной студии проходят в 15 филиалах по Санкт-Петербургу.
-            </p>
-            <p>
-              Показы спектаклей проходят на сцене нашего театра.
-            </p>
-            <p>
-              Кино с детьми мы снимаем в Санкт-Петербурге и Москве.
-            </p>
-          </div>
-
-          <button type="button" class="btn btn-outline studio-theatre-branches" data-scroll-to="branches">
-            Посмотреть филиалы
-          </button>
-        </div>
-
-        <p class="studio-note">
-          Первое занятие обычно пробное — можно прийти, познакомиться с педагогами и форматом работы.
-          После пробного урока ребёнка распределяют в подходящую группу по возрасту и опыту.
-        </p>
-
-        <!-- Этаж 6: финальный CTA-блок -->
-        <div class="studio-cta reveal-on-scroll reveal-studio-6">
-          <div class="studio-cta-shell">
-            <p class="studio-cta-eyebrow">Готовы познакомиться ближе?</p>
-            <h3 class="studio-cta-title">Сделаем первый шаг вместе</h3>
-
-            <p class="studio-cta-text">
-              У нас дети сначала пробуют себя на занятиях, выходят на сцену в спектаклях, попадают в фильмы
-              и фестивали. Можно начать с театральной студии — или сразу с киношколы.
-            </p>
-
-            <div class="studio-cta-grid">
-              <!-- Карточка 1: театральная студия -->
-              <article class="studio-cta-card">
-                <div class="studio-cta-card-header">
-                  <div class="studio-cta-icon studio-cta-icon--stage" aria-hidden="true"></div>
-                  <div>
-                    <h4 class="studio-cta-card-title">Хочу в театральную студию</h4>
-                    <p class="studio-cta-card-tags">
-                      Группы 4–16 лет • 1–2 раза в неделю • спектакли на сцене
-                    </p>
-                  </div>
-                </div>
-
-                <p class="studio-cta-card-text">
-                  Поможем выбрать филиал, группу и педагога, расскажем про расписание и пригласим на пробное занятие.
-                </p>
-
-                <div class="studio-cta-card-actions">
-                  <a href="/about#contacts" class="btn btn-primary" data-scroll-to="contacts">
-                    Записаться в студию
-                  </a>
-                </div>
-              </article>
-
-              <!-- Карточка 2: киношкола -->
-              <article class="studio-cta-card">
-                <div class="studio-cta-card-header">
-                  <div class="studio-cta-icon studio-cta-icon--studio" aria-hidden="true"></div>
-                  <div>
-                    <h4 class="studio-cta-card-title">Хочу в киношколу</h4>
-                    <p class="studio-cta-card-tags">
-                      Съёмки короткометражек • фестивали • кинолагеря
-                    </p>
-                  </div>
-                </div>
-
-                <p class="studio-cta-card-text">
-                  Расскажем про съёмки, проекты и фестивали, подскажем, с какого формата лучше начать именно вашему
-                  ребёнку.
-                </p>
-
-                <div class="studio-cta-card-actions">
-                  <a href="/about#contacts" class="btn btn-secondary btn-secondary--dark" data-scroll-to="contacts">
-                    Обсудить киноформат
-                  </a>
-                </div>
-              </article>
-            </div>
-
-            <p class="studio-cta-note">
-              Вы школа, лагерь или площадка?
-              <a href="/about#contacts" data-scroll-to="contacts">Написать о сотрудничестве</a>.
-            </p>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- 
-    ========================================================================
-    Блок: Фильмы и награды Киношколы «Эмоция»
-    ========================================================================
-    -->
-    <section id="films" class="section section-films section-card reveal-on-scroll">
-      <div class="section-inner">
-        <div class="container">
-          <header class="section-header">
-            <h2 class="section-title">Фильмы и награды</h2>
-            <p class="section-subtitle">
-              Короткометражные фильмы Киношколы «Эмоция» и фестивальные победы — живые доказательства того,
-              что дети здесь не просто «занимаются для души», а выходят на экран и получают реальные награды.
-            </p>
-            <div class="section-chips">
-              <span class="chip chip--glass">VK Видео</span>
-              <span class="chip chip--glass">Фестивальные дипломы</span>
-              <span class="chip chip--glass">Премьеры в СПб и Москве</span>
-            </div>
-          </header>
-
-          <div class="films-shell">
-            <!-- Горизонтальная карусель с карточками фильмов -->
-            <div class="films-carousel" data-films-carousel>
-              {combinedFilms.map((film, index) => {
-                const awards = film.awards || [];
-                const visibleAwards = awards.slice(0, 2);
-                const extraCount = awards.length > 2 ? awards.length - 2 : 0;
-                
-                return (
-                  <button 
-                    type="button" 
-                    class={`films-card ${index === 0 ? 'films-card--active' : ''}`}
-                    data-film-id={film.id}
-                  >
-                    <div class="films-card-poster">
-                      <div class="films-card-poster-inner">
-                        {film.title.charAt(0)}
-                      </div>
-                    </div>
-                    <div class="films-card-main">
-                      <h4 class="films-card-title">{film.title}</h4>
-                      <p class="films-card-meta">{(film.year || 'Добавить данные') + ' · ' + (film.city || 'Добавить данные')}</p>
-                      <p class="films-card-logline">{film.logline}</p>
-                      <div class="films-card-awards">
-                        {visibleAwards.map(a => {
-                           let pillClass = "films-card-award-pill badge badge--soft";
-                           if (a.status && /гран[- ]?при/i.test(a.status)) {
-                               pillClass = "films-card-award-pill badge badge--gold";
-                           }
-                           const text = [a.status, a.festival].filter(Boolean).join(" ");
-                           return <span class={pillClass}>{text}</span>;
-                        })}
-                        {extraCount > 0 && (
-                           <span class="films-card-award-pill films-card-award-pill--more badge badge--outline">+{extraCount} фестиваля</span>
-                        )}
-                      </div>
-                    </div>
-                  </button>
-                )
-              })}
-            </div>
-
-            <aside class="films-detail card-luxe" data-films-detail data-film-detail>
-              <div class="films-detail-video">
-                <div class="films-video-frame" data-film-embed>
-                   {activeFilm.vkEmbedUrl 
-                     ? <iframe src={activeFilm.vkEmbedUrl} frameborder="0" allowfullscreen loading="lazy"></iframe>
-                     : <div class="films-video-placeholder">Видео появится позже</div>
-                   }
-                </div>
-              </div>
-
-              <div class="films-detail-body">
-                <h3 class="films-detail-title" data-film-title>{activeFilm.title}</h3>
-                <p class="films-detail-meta" data-film-meta>{(activeFilm.year || 'Добавить данные') + ' · ' + (activeFilm.city || 'Добавить данные')}</p>
-
-                <div class="films-detail-authors" data-film-authors>
-                    <span class="films-detail-author">Сценарий: {activeFilm.writer || "Добавить данные"}</span>
-                    <span class="films-detail-author">Режиссура: {activeFilm.directors && activeFilm.directors.length ? activeFilm.directors.join(", ") : "Добавить данные"}</span>
-                    <span class="films-detail-author">Оператор: {activeFilm.dop || "Добавить данные"}</span>
-                    {activeFilm.editor && <span class="films-detail-author">Редактор: {activeFilm.editor}</span>}
-                </div>
-
-                <ul class="films-detail-awards" data-film-awards>
-                  {activeFilm.awards && activeFilm.awards.length > 0 ? (
-                    (activeFilm && activeFilm.awards ? activeFilm.awards : []).map(award => (
-                        <li class="films-detail-award">
-                            {[award.status, award.festival, award.city && `(${award.city})`, award.year].filter(Boolean).join(", ")}
-                        </li>
-                    ))
-                  ) : (
-                    <li class="films-detail-award films-detail-award--empty">Награды будут добавлены позже.</li>
-                  )}
-                </ul>
-
-                <div class="films-detail-synopsis" data-film-synopsis>{activeFilm.synopsis}</div>
-
-                <a 
-                    class="btn btn-ghost films-detail-vk" 
-                    data-film-vk-link 
-                    target="_blank" 
-                    rel="noopener"
-                    href={activeFilm.vkPageUrl || activeFilm.vkEmbedUrl}
-                    style={!(activeFilm.vkPageUrl || activeFilm.vkEmbedUrl) ? "display: none;" : ""}
-                >
-                  Смотреть на ВК
-                </a>
-              </div>
-            </aside>
+    <!-- Values Section -->
+    <section id="studio-values" class="section reveal-on-scroll">
+       <div class="container">
+          <div class="studio-values-header text-center mb-12">
+            <h2 class="text-3xl font-bold">Наши ценности</h2>
           </div>
-
-          <p class="films-summary">
-            Ученики студии регулярно становятся лауреатами фестивалей, а фильмы и спектакли
-            получают десятки дипломов и гран-при — для родителей это наглядный показатель уровня подготовки.
-          </p>
-        </div>
-      </div>
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+             <article class="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
+               <h4 class="font-bold text-lg mb-2">Безопасность</h4>
+               <p class="text-sm text-gray-600">Бережная экологичная среда. Мы не ломаем личности.</p>
+             </article>
+             <article class="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
+               <h4 class="font-bold text-lg mb-2">Игра</h4>
+               <p class="text-sm text-gray-600">Учимся играючи. Никакой скучной зубрежки.</p>
+             </article>
+             <article class="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
+               <h4 class="font-bold text-lg mb-2">Команда</h4>
+               <p class="text-sm text-gray-600">Театр — это искусство взаимодействия. Учим дружить.</p>
+             </article>
+             <article class="p-6 bg-white rounded-xl shadow-sm border border-gray-100">
+               <h4 class="font-bold text-lg mb-2">Результат</h4>
+               <p class="text-sm text-gray-600">Мы нацелены на реальный продукт — спектакль.</p>
+             </article>
+          </div>
+       </div>
     </section>
 
     <PeopleSection class="reveal-on-scroll" />
 
-
-
-    <!--
-    ========================================================================
-    Блок кастинга в фильмы КиноШколы «Эмоция»
-    ========================================================================
-    -->
-    <section id="casting" class="section section-alt section-casting reveal-on-scroll">
-      <div class="container section-inner">
-        <div class="section-header">
-          <p class="section-kicker">Для детей из других студий</p>
-          <h2 class="section-title">Кастинг в фильмы КиноШколы «Эмоция»</h2>
-          <p class="section-subtitle">
-            Открываем набор детей 8–16 лет в кинопроекты театра-студии «Эмоцика» и КиноШколы «Эмоция» — съёмки
-            короткометражных фильмов с настоящей съёмочной группой, локациями и премьерой на большом экране.
-          </p>
-          <div class="section-chips">
-            <span class="chip">8–16 лет</span>
-            <span class="chip">Самопробы</span>
-            <span class="chip">3–5 смен</span>
-          </div>
-        </div>
-
-        <div class="casting-layout">
-          <div class="casting-text">
-            <p class="casting-lead">
-              Кастинг подходит детям, которые мечтают о кино, готовы работать в команде и попробовать себя в настоящем
-              съёмочном процессе.
-              Наши фильмы уже выходили на экраны, участвовали в фестивалях и приносили ребятам награды — например,
-              «Скорая детская помощь», отмеченная на Международном кинофестивале CINEMA KIDS.
-            </p>
-
-            <div class="casting-columns">
-              <div class="casting-column">
-                <h3 class="casting-subtitle">Для кого</h3>
-                <ul class="casting-list">
-                  <li>ребёнок мечтает сниматься в кино, любит камеру и хочет попробовать себя в серьёзном проекте;</li>
-                  <li>есть опыт театральной студии, блогов, школьных спектаклей или кинолагеря — или просто сильный
-                    интерес к кино;</li>
-                  <li>семья готова к плотным съёмочным дням и регулярным репетициям;</li>
-                  <li>родители хотят понять, готов ли ребёнок к съёмкам в кино и работе с кастинг-директорами.</li>
-                </ul>
-              </div>
-
-              <div class="casting-column">
-                <h3 class="casting-subtitle">Что даёт участие</h3>
-                <ul class="casting-list">
-                  <li>роль в авторском фильме КиноШколы «Эмоция»</li>
-                  <li>реальный опыт работы на съёмочной площадке: репетиции, дубли, метки, взаимодействие с режиссёром,
-                    оператором и всей командой</li>
-                  <li>готовый короткометражный фильм с участием ребёнка, и подача на детские кинофестивали</li>
-                  <li>возможность попасть в базу детского актёрского агентства студии для дальнейших съёмок в рекламе,
-                    сериалах и кино</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <aside class="casting-sidebar card-luxe">
-            <div class="casting-card">
-              <p class="casting-small-badge">Проектные съёмки 3–5 смен</p>
-              <p class="casting-sidebar-kicker">Ближайший кинопроект</p>
-              <p class="casting-sidebar-text">
-                Набор в фильмы идёт сезонами. Оставьте контакты — мы пришлём подробности о ближайшем проекте: возрастную
-                группу, даты съёмок, стоимость участия и формат ролей.
-              </p>
-              <p class="casting-sidebar-text">
-                Ребят ждут самопробы, очный кастинг, репетиции и несколько съёмочных дней на профессиональной площадке.
-              </p>
-
-              <div class="casting-tags-row">
-                <span class="badge badge--soft casting-tag">8–16 лет</span>
-                <span class="badge badge--soft casting-tag">опыт не обязателен</span>
-                <span class="badge badge--soft casting-tag">самопробы и очный кастинг</span>
-                <span class="badge badge--soft casting-tag">короткий метр</span>
-              </div>
-
-              <div class="casting-actions">
-                <button type="button" class="btn btn-primary casting-btn-main" data-scroll-to="contacts">
-                  Оставить контакты на кастинг в фильм
-                </button>
-
-                <a href="https://vk.com/teatr.emocika" class="btn btn-ghost casting-btn-secondary" target="_blank"
-                  rel="noopener">
-                  Подписаться на новости кинопроектов
-                </a>
-              </div>
-
-              <p class="casting-sidebar-note">
-                В комментарии к заявке укажите возраст ребёнка, опыт в студиях/съёмках и дни, в которые ему удобно
-                участвовать в съёмках.
-              </p>
-              <p class="casting-sidebar-note">
-                Можно задать быстрый вопрос администратору в <a href="https://wa.me/79313157787" target="_blank"
-                  rel="noopener">WhatsApp</a>.
-              </p>
-            </div>
-          </aside>
-        </div>
-
-        <div class="casting-journey">
-          <span class="casting-journey-label">Путь ребёнка в кино:</span>
-          <span class="casting-journey-step">Заявка</span>
-          <span class="casting-journey-separator">→</span>
-          <span class="casting-journey-step">Самопробы</span>
-          <span class="casting-journey-separator">→</span>
-          <span class="casting-journey-step">Очный кастинг</span>
-          <span class="casting-journey-separator">→</span>
-          <span class="casting-journey-step">Репетиции</span>
-        </div>
-      </div>
-    </section>
-
     <section id="contacts" class="section section--contacts section-card">
-      <div class="section-inner">
+       <div class="section-inner">
         <div class="container contacts">
           <div class="contacts__info card-luxe">
             <header class="section-header section-header--left">
               <h2 class="section-title">Контакты</h2>
-              <p class="contacts__text section-subtitle">Записаться на пробное занятие, уточнить расписание или задать
-                любой вопрос можно у администратора театра и студии.</p>
-              <div class="section-chips section-chips--left">
-                <span class="chip">Звонки и WhatsApp</span>
-                <span class="chip">11:00–20:00</span>
-                <span class="chip">ТРК «Гранд Каньон»</span>
-              </div>
+              <p class="contacts__text section-subtitle">Записаться на пробное занятие в студию.</p>
             </header>
             <dl class="contacts__list">
               <div class="contacts__row">
                 <dt>Телефон:</dt>
-                <dd>
-                  <a href="tel:+79313157787">+7 (931) 315-77-87</a>
-                  <span class="contacts__note">— звонки и WhatsApp</span>
-                </dd>
-              </div>
-              <div class="contacts__row">
-                <dt>Email:</dt>
-                <dd><a href="mailto:info@emozia.ru">info@emozia.ru</a></dd>
+                <dd><a href="tel:+79313157787">+7 (931) 315-77-87</a></dd>
               </div>
               <div class="contacts__row">
                 <dt>Адрес сцены:</dt>
-                <dd>Санкт-Петербург, проспект Энгельса, 154, ТРК «Гранд Каньон», 3-й этаж</dd>
+                <dd>Санкт-Петербург, ТРК «Гранд Каньон», 3-й этаж</dd>
               </div>
             </dl>
-            <p class="contacts__note">Занятия студии проходят в нескольких филиалах Санкт-Петербурга — подберём удобную
-              площадку и время для вашей семьи.</p>
-            <p class="contacts__time">Мы на связи ежедневно с 11:00 до 20:00.</p>
-            <p class="contacts__note">В рабочие часы быстрее отвечаем в WhatsApp.</p>
-            <div class="contacts__actions">
+             <div class="contacts__actions">
               <a href="https://wa.me/79313157787" class="btn btn-primary" target="_blank" rel="noopener">
-                <img src="/assets/img/ui/whatsapp-icon.svg" alt="" class="icon" />
                 Написать в WhatsApp
               </a>
-              <a href="https://vk.com/teatr.emocika" class="btn btn-outline" target="_blank" rel="noopener">Мы
-                во ВКонтакте</a>
             </div>
           </div>
-          <div class="contacts__map card-luxe">
+           <div class="contacts__map card-luxe">
             <iframe
               src="https://yandex.ru/map-widget/v1/?ll=30.333187%2C60.059865&z=17&l=map&pt=30.333187,60.059865,pm2rdm"
               loading="lazy" title="Карта проезда в театр «Эмоцика»" frameborder="0" allowfullscreen></iframe>
@@ -882,3 +244,9 @@ const activeFilm = combinedFilms[0];
 
   </main>
 </Layout>
+
+<style>
+    /* Add temporary styles if needed, mostly reusing existing ones */
+    .section { padding: 4rem 0; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+</style>

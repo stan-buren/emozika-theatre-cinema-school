@@ -1,240 +1,148 @@
 ---
-import stories from '../../data/success_stories.json';
 ---
 
-<section id="success-stories" class="stories-section">
-  <div class="container">
-    <div class="section-header">
-      <span class="eyebrow">Наши звезды</span>
-      <h2 class="section-title">Истории успеха</h2>
-      <p class="section-subtitle">
-        Наши ученики регулярно проходят кастинги и снимаются в больших проектах.
-        Вот лишь некоторые из их достижений.
-      </p>
-    </div>
-
-    <div class="stories-grid">
-      {stories.map((story) => (
-        <article class="story-card">
-          <div class="card-image-wrapper">
-             <img src={story.image} alt={story.name} class="story-image" />
-             <div class="story-overlay"></div>
-             <div class="story-content-overlay">
-                <span class="project-tag">{story.tags[0]}</span>
-                <h3 class="story-project">{story.project}</h3>
-                <p class="story-role">{story.role}</p>
-             </div>
-          </div>
-          
-          <div class="card-body">
-            <div class="student-info">
-                <h4 class="student-name">{story.name}</h4>
-                <span class="student-age">{story.age}</span>
+<section class="section-dark">
+    <div class="container container--center">
+        <div class="badge-gold-outline">
+            ★ HALL OF FAME
+        </div>
+        <h2 class="cinema-hero__title" style="text-align: center; font-size: 2.5rem; margin-top: 1rem; margin-bottom: 4rem;">НАШИ В БОЛЬШОМ КИНО</h2>
+        
+        <div class="success-grid">
+            <div class="video-card">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80" class="video-card__img" />
+                <div class="video-card__overlay">
+                    <div class="video-card__play"></div>
+                </div>
+                <div class="video-card__info">
+                    <p class="video-card__name">Никита М.</p>
+                    <p class="video-card__project">Сериал "Улицы разбитых фонарей"</p>
+                </div>
             </div>
-            <blockquote class="story-quote">
-                «{story.quote}»
-            </blockquote>
-          </div>
-        </article>
-      ))}
+
+            <div class="video-card">
+                <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?auto=format&fit=crop&q=80" class="video-card__img" />
+                <div class="video-card__overlay">
+                    <div class="video-card__play"></div>
+                </div>
+                <div class="video-card__info">
+                    <p class="video-card__name">Мария К.</p>
+                    <p class="video-card__project">Реклама "Сбербанк"</p>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?auto=format&fit=crop&q=80" class="video-card__img" />
+                <div class="video-card__overlay">
+                    <div class="video-card__play"></div>
+                </div>
+                <div class="video-card__info">
+                    <p class="video-card__name">Иван П.</p>
+                    <p class="video-card__project">Короткий метр "Путь"</p>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <div class="actions">
-        <a href="#scout" class="btn btn-outline">Хочу так же</a>
-    </div>
-  </div>
 </section>
 
-<style>
-  .stories-section {
-    padding: 6rem 0;
-    background-color: #000;
-    color: #fff;
-    font-family: 'Open Sans', sans-serif;
-  }
-
-  .container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-  }
-
-  .section-header {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 4rem;
-  }
-
-  .eyebrow {
-    display: block;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #c084fc; /* purple-400 */
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-  }
-
-  .section-title {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: #fff;
-  }
-
-  .section-subtitle {
-    font-size: 1.125rem;
-    color: #a1a1aa; /* zinc-400 */
-    line-height: 1.6;
-  }
-
-  /* Grid */
-  .stories-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    margin-bottom: 4rem;
-  }
-
-  @media (min-width: 768px) {
-    .stories-grid {
-      grid-template-columns: repeat(2, 1fr);
+<style lang="scss">
+    .container--center {
+        text-align: center;
     }
-  }
 
-  @media (min-width: 1024px) {
-    .stories-grid {
-      grid-template-columns: repeat(3, 1fr);
+    .badge-gold-outline {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border: 1px solid #FFD700;
+        color: #FFD700;
+        border-radius: 9999px;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.875rem;
     }
-  }
 
-  /* Card */
-  .story-card {
-    background-color: #18181b; /* zinc-900 */
-    border-radius: 1rem;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    border: 1px solid #27272a;
-  }
+    .success-grid {
+        display: grid;
+        gap: 2rem;
+        padding: 0 1rem;
+        
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
 
-  .story-card:hover {
-    transform: translateY(-5px);
-    border-color: #52525b;
-  }
+    .video-card {
+        position: relative;
+        aspect-ratio: 16/9;
+        background-color: #222;
+        border-radius: 1rem;
+        overflow: hidden;
+        cursor: pointer;
 
-  .card-image-wrapper {
-    position: relative;
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-  }
+        &__img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
 
-  .story-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
+        &:hover &__img {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
 
-  .story-card:hover .story-image {
-    transform: scale(1.05);
-  }
+        &__overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-  .story-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
-    z-index: 10;
-  }
+        &__play {
+            width: 4rem;
+            height: 4rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            backdrop-filter: blur(4px);
+            position: relative;
 
-  .story-content-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1.5rem;
-    z-index: 20;
-  }
+            &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 55%;
+                transform: translate(-50%, -50%);
+                border-left: 1rem solid #fff;
+                border-top: 0.6rem solid transparent;
+                border-bottom: 0.6rem solid transparent;
+            }
+        }
 
-  .project-tag {
-    display: inline-block;
-    background-color: #c084fc;
-    color: #000;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    margin-bottom: 0.5rem;
-  }
+        &:hover &__play {
+            transform: scale(1.1);
+            background-color: rgba(255, 255, 255, 0.4);
+        }
 
-  .story-project {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-    color: #fff;
-  }
+        &__info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            text-align: left;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
 
-  .story-role {
-    color: #d1d5db; /* gray-300 */
-    font-size: 0.9rem;
-  }
+        &__name {
+            color: #fff;
+            font-weight: 700;
+        }
 
-  .card-body {
-    padding: 1.5rem;
-  }
-
-  .student-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #27272a;
-  }
-
-  .student-name {
-    font-weight: 700;
-    font-size: 1rem;
-  }
-
-  .student-age {
-    color: #71717a;
-    font-size: 0.875rem;
-  }
-
-  .story-quote {
-    font-style: italic;
-    color: #a1a1aa;
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
-  
-  .actions {
-    text-align: center;
-  }
-  
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2.5rem;
-    border-radius: 9999px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .btn-outline {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: white;
-  }
-  
-  .btn-outline:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: white;
-  }
+        &__project {
+            color: #ccc;
+            font-size: 0.875rem;
+        }
+    }
 </style>

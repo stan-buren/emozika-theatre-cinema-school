@@ -7,13 +7,14 @@ import '/src/assets/scss/style.scss';
 interface Props {
 	title: string;
 	description?: string;
+    theme?: 'light' | 'dark' | 'studio' | 'cinema';
 }
 
-const { title, description = "Детский театр и студия «Эмоцика» в Санкт-Петербурге." } = Astro.props;
+const { title, description = "Детский театр и студия «Эмоцика» в Санкт-Петербурге.", theme = 'light' } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="ru">
+<html lang="ru" class={theme}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
@@ -26,7 +27,7 @@ const { title, description = "Детский театр и студия «Эмо
 		<title>{title}</title>
         <ViewTransitions />
 	</head>
-	<body>
+	<body class={`theme-${theme}`}>
         <Header />
 		<slot />
         <Footer />

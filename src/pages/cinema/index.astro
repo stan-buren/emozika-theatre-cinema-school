@@ -1,23 +1,31 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CinemaHero from '../../components/cinema/CinemaHero.astro';
-import CastingList from '../../components/cinema/CastingList.astro';
+import TracksSplit from '../../components/cinema/TracksSplit.astro';
+import ProfessionsGrid from '../../components/cinema/ProfessionsGrid.astro';
 import SuccessStories from '../../components/cinema/SuccessStories.astro';
-import ScoutSection from '../../components/cinema/ScoutSection.astro';
 ---
 
-<Layout title="Киноагентство и Киношкола | Эмоция" description="Кастинг-агентство для детей и подростков. Съемки в кино, база актеров, портфолио.">
-  <main id="main-content" class="cinema-page bg-black min-h-screen text-white">
-    <CinemaHero />
-    <CastingList />
-    <SuccessStories />
-    <ScoutSection />
-  </main>
+<Layout title="Киношкола Эмоцика | Старт карьеры в кино" description="Киношкола для подростков в Санкт-Петербурге. Актерское мастерство, режиссура, блогинг. Съемки в реальных проектах." theme="dark">
+    <main class="cinema-page">
+        <!-- Hero: Старт Карьеры -->
+        <CinemaHero />
+        
+        <!-- Tracks: Актер vs Фильммейкер -->
+        <TracksSplit />
+        
+        <!-- Professions: Кем я стану? -->
+        <ProfessionsGrid />
+        
+        <!-- Social Proof: Наши дети на ТВ -->
+        <SuccessStories />
+        
+        <!-- CTA Section -->
+        <section class="section-dark" style="text-align: center;">
+            <h2 class="cinema-hero__title" style="font-size: 2.5rem; margin-bottom: 2rem;">Твой первый дубль – здесь</h2>
+            <button class="btn-cinema-gold">
+                Записаться на кастинг
+            </button>
+        </section>
+    </main>
 </Layout>
-
-<style is:global>
-  /* Force dark header/footer or overlays if needed for this page */
-  .cinema-page {
-    color-scheme: dark;
-  }
-</style>
