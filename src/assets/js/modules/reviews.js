@@ -1,4 +1,10 @@
 export function initVideoReviewsSection() {
+    var section = document.getElementById("reviews");
+    if (!section) return; // Guard if module loaded but section not present
+
+    var strip = section.querySelector("[data-reviews-strip]");
+    var lightbox = document.querySelector("[data-review-lightbox]");
+
     function buildReviewMetaLine(review) {
         var parts = [];
 
@@ -130,55 +136,27 @@ export function initVideoReviewsSection() {
         document.body.classList.remove("is-lightbox-open");
     }
 
-    // Old hardcoded data removed
+    // Listener for the strip (delegation)
+    if (strip && lightbox) {
+        strip.addEventListener("click", function (event) {
+            var card = event.target.closest(".review-video-card");
+            if (!card) return;
 
+            var review = {
+                id: card.getAttribute('data-review-id'),
+                title: card.querySelector('.review-video-card__title').innerText,
+                // meta is optional for lightbox but nice to have
+                // we can grab it from card text or data attributes if we added them.
+                // for now let's just use what we have in data attributes or simple text
+                videoEmbedUrl: card.getAttribute('data-video-url'),
+                quote: card.getAttribute('data-quote'),
+            };
 
-    // Video reviews data is now rendered by Astro
-    // We just need to find the cards and attach listeners
-
-    // Support finding by attribute if we need data
-    var videoReviews = []; // We can populate this from the DOM or just rely on DOM attributes for data
-
-    // Let's rebuild the videoReviews array from the DOM elements to support finding by ID
-    var reviewCards = section.querySelectorAll('.review-video-card');
-    reviewCards.forEach(function (card) {
-        var id = card.getAttribute('data-review-id');
-        // We'll lazy-load details or just parse them if needed. 
-        // For lightbox, we need videoEmbedUrl. 
-        // We should add data-attributes to the HTML for anything the lightbox needs.
-    });
-
-    // Actually, sticking to the existing pattern: 
-    // We can just query `activeReviews` from `reviews.json` if we import it, 
-    // BUT this is a client-side module without imports (maybe). 
-    // Easier: Just look for `data-video-url` on the card.
-
-    // STEP 1: Add listener to strip
-    strip.addEventListener("click", function (event) {
-        var card = event.target.closest(".review-video-card");
-        if (!card) return;
-
-        // We need the review object for `openReviewLightbox`
-        // Construct it from the card's data attributes (which we need to add to Astro template)
-        // OR import the JSON here too? 
-        // Let's assume we can fetch it or it's on window.
-        // Simplest: Add necessary data to DOM attributes.
-
-        var review = {
-            id: card.getAttribute('data-review-id'),
-            title: card.querySelector('.review-video-card__title').textContent,
-            authorLabel: card.querySelector('.review-video-card__meta').textContent,
-            // We need to add these to the markup!
-            videoEmbedUrl: card.getAttribute('data-video-url'),
-            quote: card.getAttribute('data-quote'),
-            // ... other fields if needed
-        };
-
-        if (review.videoEmbedUrl || review.quote) {
-            openReviewLightbox(lightbox, review);
-        }
-    });
-
+            if (review.videoEmbedUrl || review.quote) {
+                openReviewLightbox(lightbox, review);
+            }
+        });
+    }
 
     // стрелки прокрутки
     var leftArrow = section.querySelector("[data-reviews-arrow='left']");
