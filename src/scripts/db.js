@@ -37,6 +37,7 @@ db.exec(`
         id INTEGER PRIMARY KEY, -- VK Photo ID
         owner_id INTEGER,
         album_id INTEGER,
+        album_title TEXT, -- [NEW]
         url TEXT,
         caption TEXT,
         date INTEGER,
@@ -54,6 +55,22 @@ db.exec(`
         updated INTEGER,
         comments_count INTEGER,
         is_closed BOOLEAN
+    );
+`);
+
+// Videos Table
+db.exec(`
+    CREATE TABLE IF NOT EXISTS videos (
+        id INTEGER PRIMARY KEY,
+        owner_id INTEGER,
+        title TEXT,
+        description TEXT,
+        duration INTEGER,
+        image_url TEXT,
+        player_url TEXT,
+        album_ids TEXT, -- JSON array of album IDs
+        date INTEGER,
+        type TEXT -- 'video', 'short_video', 'music_video'
     );
 `);
 
@@ -84,10 +101,11 @@ const insertPost = db.prepare(`
 `);
 
 const insertPhoto = db.prepare(`
-    INSERT INTO photos (id, owner_id, album_id, url, caption, date, width, height)
-    VALUES (@id, @owner_id, @album_id, @url, @caption, @date, @width, @height)
+    INSERT INTO photos (id, owner_id, album_id, album_title, url, caption, date, width, height)
+    VALUES (@id, @owner_id, @album_id, @album_title, @url, @caption, @date, @width, @height)
     ON CONFLICT(id) DO UPDATE SET
         url = excluded.url,
+        album_title = excluded.album_title,
         caption = excluded.caption;
 `);
 
@@ -108,4 +126,15 @@ const insertComment = db.prepare(`
         attachments = excluded.attachments;
 `);
 
-export { db, insertPost, insertPhoto, insertTopic, insertComment };
+const insertVideo = db.prepare(`
+    INSERT INTO videos (id, owner_id, title, description, duration, image_url, player_url, album_ids, date, type)
+    VALUES (@id, @owner_id, @title, @description, @duration, @image_url, @player_url, @album_ids, @date, @type)
+    ON CONFLICT(id) DO UPDATE SET
+        title = excluded.title,
+        description = excluded.description,
+        player_url = excluded.player_url,
+        album_ids = excluded.album_ids,
+        type = excluded.type;
+`);
+
+export { db, insertPost, insertPhoto, insertTopic, insertComment, insertVideo };

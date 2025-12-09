@@ -1,9 +1,10 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { insertPost, insertPhoto, insertTopic, insertComment, db } from './db.js';
+import { insertPost, insertPhoto, insertTopic, insertComment, insertVideo, db } from './db.js';
 
 // Configuration
-const TOKEN = process.env.VK_SERVICE_TOKEN;
+const SERVICE_TOKEN = process.env.VK_SERVICE_TOKEN;
+const USER_TOKEN = process.env.VK_USER_TOKEN;
 const GROUP_ID = process.env.VK_GROUP_ID;
 const API_VERSION = '5.199';
 
@@ -16,9 +17,15 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 async function main() {
     console.log('🔄 Starting VK -> DB Sync (Full History)...');
 
-    if (!TOKEN || !GROUP_ID) {
+    if (!SERVICE_TOKEN || !GROUP_ID) {
         console.error('❌ Error: VK_SERVICE_TOKEN or VK_GROUP_ID not found.');
         process.exit(1);
+    }
+
+    if (USER_TOKEN) {
+        console.log('   🔑 VK_USER_TOKEN found. Using it for videos and advanced access.');
+    } else {
+        console.log('   ℹ️  No VK_USER_TOKEN found. Some videos might be restricted.');
     }
 
     try {
@@ -33,6 +40,9 @@ async function main() {
         // 3. Discussions (Topics)
         await fetchAndSaveTopics();
 
+        // 4. Videos (Requires User Token for best results)
+        await fetchAndSaveVideos();
+
         console.log('✨ VK Content Sync (DB) completed successfully!');
     } catch (error) {
         console.error('❌ Error during sync:', error);
@@ -41,8 +51,14 @@ async function main() {
 }
 
 async function vkRequest(method, params = {}) {
+    // Choose token: User token for videos/users related, Service token for public group data
+    let token = SERVICE_TOKEN;
+    if (method.startsWith('video.') && USER_TOKEN) {
+        token = USER_TOKEN;
+    }
+
     const searchParams = new URLSearchParams({
-        access_token: TOKEN,
+        access_token: token,
         v: API_VERSION,
         ...params
     });
@@ -71,51 +87,81 @@ async function vkRequest(method, params = {}) {
 }
 
 async function fetchAndSavePhotos() {
-    console.log('📸 Fetching photos...');
-    // Fetch albums first
-    const albums = await vkRequest('photos.getAlbums', {
-        owner_id: OWNER_ID,
-        need_covers: 1,
-        count: 10 // Increased album fetch count
-    });
+    console.log('📸 Fetching photos (Full Album Scan)...');
 
-    if (!albums || !albums.items) return;
+    // 1. Fetch ALL Albums
+    let allAlbums = [];
+    let offset = 0;
+    let hasMoreAlbums = true;
 
-    let totalPhotos = 0;
-
-    for (const album of albums.items) {
-        // Fetch photos for each album
-        const photos = await vkRequest('photos.get', {
+    console.log('   📂 reading album list...');
+    while (hasMoreAlbums) {
+        const albumsData = await vkRequest('photos.getAlbums', {
             owner_id: OWNER_ID,
-            album_id: album.id,
-            count: 50, // Fetch more history per album
-            photo_sizes: 1
+            need_covers: 1,
+            count: 20,
+            offset: offset
         });
 
-        if (photos && photos.items) {
-            const insertTx = db.transaction((items) => {
-                for (const p of items) {
-                    const bestUrl = getBestPhotoUrl(p.sizes);
-                    insertPhoto.run({
-                        id: p.id,
-                        owner_id: p.owner_id,
-                        album_id: p.album_id,
-                        url: bestUrl,
-                        caption: p.text || album.title,
-                        date: p.date,
-                        width: 0,
-                        height: 0
-                    });
-                }
+        if (albumsData && albumsData.items && albumsData.items.length > 0) {
+            allAlbums.push(...albumsData.items);
+            offset += 20;
+            if (offset >= albumsData.count) hasMoreAlbums = false;
+        } else {
+            hasMoreAlbums = false;
+        }
+        await sleep(200);
+    }
+    console.log(`   📂 Found ${allAlbums.length} albums. Starting sync...`);
+
+    let totalPhotosSynced = 0;
+
+    // 2. Process Each Album
+    for (const album of allAlbums) {
+        console.log(`   📂 [${album.title}] (${album.size} photos)`);
+
+        let photoOffset = 0;
+        let hasMorePhotos = true;
+
+        while (hasMorePhotos) {
+            const photos = await vkRequest('photos.get', {
+                owner_id: OWNER_ID,
+                album_id: album.id,
+                count: 50, // Max 50 usually
+                offset: photoOffset,
+                photo_sizes: 1
             });
 
-            insertTx(photos.items);
-            totalPhotos += photos.items.length;
-            console.log(`   Saved ${photos.items.length} photos from album "${album.title}"`);
+            if (photos && photos.items && photos.items.length > 0) {
+                const insertTx = db.transaction((items) => {
+                    for (const p of items) {
+                        const bestUrl = getBestPhotoUrl(p.sizes);
+                        insertPhoto.run({
+                            id: p.id,
+                            owner_id: p.owner_id,
+                            album_id: p.album_id,
+                            album_title: album.title, // [NEW]
+                            url: bestUrl,
+                            caption: p.text || album.title,
+                            date: p.date,
+                            width: 0,
+                            height: 0
+                        });
+                    }
+                });
+
+                insertTx(photos.items);
+                totalPhotosSynced += photos.items.length;
+                photoOffset += 50;
+
+                if (photoOffset >= photos.count) hasMorePhotos = false;
+                await sleep(200); // Gentle delay
+            } else {
+                hasMorePhotos = false;
+            }
         }
-        await sleep(350); // Delay between albums
     }
-    console.log(`   ✅ Total photos synced: ${totalPhotos}`);
+    console.log(`   ✅ Total photos synced: ${totalPhotosSynced}`);
 }
 
 async function fetchAndSavePosts() {
@@ -299,6 +345,43 @@ async function fetchComments(topicId) {
         await sleep(200);
     }
     console.log(`      ✅ Scraped ${totalSynced} comments.`);
+}
+
+async function fetchAndSaveVideos() {
+    console.log('🎥 Fetching videos...');
+
+    // Fetch all videos (up to 200, assume enough for now, or loop if needed)
+    // We fetch ALL because "Films" album ID might change or we might want specific queries later
+    const data = await vkRequest('video.get', {
+        owner_id: OWNER_ID,
+        count: 200,
+        extended: 1 // IMPORTANT for privacy check and duration
+    });
+
+    if (!data || !data.items) return;
+
+    const insertTx = db.transaction((items) => {
+        for (const v of items) {
+            // Extract best image
+            const bestImage = getBestPhotoUrl(v.image);
+
+            insertVideo.run({
+                id: v.id,
+                owner_id: v.owner_id,
+                title: v.title,
+                description: v.description || '',
+                duration: v.duration,
+                image_url: bestImage,
+                player_url: v.player,
+                album_ids: JSON.stringify(v.album_ids || []), // Some videos have no album
+                date: v.date,
+                type: v.type || 'video'
+            });
+        }
+    });
+
+    insertTx(data.items);
+    console.log(`   ✅ Saved ${data.items.length} videos to DB.`);
 }
 
 function getBestPhotoUrl(sizes) {

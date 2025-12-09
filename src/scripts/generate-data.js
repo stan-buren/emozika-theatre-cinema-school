@@ -43,29 +43,45 @@ function generateGallery() {
 }
 
 function generateFilms() {
-    // Select posts that have video_urls populated
-    const posts = db.prepare("SELECT * FROM posts WHERE video_urls != '[]' ORDER BY date DESC LIMIT 20").all();
+    // 1. Generate Films (Duration > 5 min or explicit type 'film' if we had it)
+    // We use 300 seconds (5 mins) as a threshold for "Films" vs short promos
+    const films = db.prepare("SELECT * FROM videos WHERE duration > 300 ORDER BY date DESC").all();
 
-    const films = [];
-    posts.forEach(post => {
-        const videos = JSON.parse(post.video_urls);
-        // Each post might have multiple videos, usually one
-        videos.forEach((vUrl, idx) => {
-            films.push({
-                id: `vk-${post.id}-${idx}`,
-                title: "Видео из VK", // We might want to parse title from raw_json if available
-                year: new Date(post.date * 1000).getFullYear().toString(),
-                city: "Санкт-Петербург",
-                logline: post.text ? post.text.substring(0, 100) + '...' : '',
-                synopsis: post.text || '',
-                vkEmbedUrl: vUrl,
-                vkPageUrl: `https://vk.com/wall${post.owner_id}_${post.id}`,
-                awards: []
-            });
-        });
-    });
+    const filmItems = films.map(v => ({
+        id: `vk-video-${v.id}`,
+        title: v.title,
+        year: new Date(v.date * 1000).getFullYear().toString(),
+        city: "Санкт-Петербург",
+        logline: v.description ? v.description.substring(0, 100) + '...' : '',
+        synopsis: v.description || '',
+        vkEmbedUrl: v.player_url, // Use the proper player URL from API
+        vkPageUrl: `https://vk.com/video${v.owner_id}_${v.id}`,
+        duration: formatDuration(v.duration),
+        image: v.image_url,
+        category: 'film'
+    }));
 
-    saveData('vk_films.json', films);
+    saveData('vk_films.json', filmItems);
+
+    // 2. Generate Clips (Shorts/Promos < 60s)
+    const clips = db.prepare("SELECT * FROM videos WHERE duration <= 60 ORDER BY date DESC").all();
+
+    const clipItems = clips.map(v => ({
+        id: `vk-clip-${v.id}`,
+        title: v.title,
+        vkEmbedUrl: v.player_url,
+        image: v.image_url,
+        duration: formatDuration(v.duration),
+        category: 'clip'
+    }));
+
+    saveData('vk_clips.json', clipItems);
+}
+
+function formatDuration(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m}:${s.toString().padStart(2, '0')}`;
 }
 
 function generateAwards() {
