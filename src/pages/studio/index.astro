@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import PeopleSection from '../../components/PeopleSection.astro';
 import BenefitsGrid from '../../components/studio/BenefitsGrid.astro';
 import AbonementsGrid from '../../components/studio/AbonementsGrid.astro';
+import StudioPathway from '../../components/studio/StudioPathway.astro';
 // Migrated Components
 import BranchesSection from '../../components/studio/BranchesSection.astro';
 import ReviewsSection from '../../components/studio/ReviewsSection.astro';
@@ -39,13 +40,17 @@ import FaqSection from '../../components/studio/FaqSection.astro';
       </div>
     </section>
 
-    <!-- 3. Studio Journey (Example Pathway) -->
-    <section id="studio-journey" class="section">
+    <!-- 3. Studio Journey -->
+    <section id="studio-journey" class="section section-studio">
       <div class="container">
-          <div class="studio-column mx-auto max-w-4xl text-center">
-             <h2 class="section-title mb-8">Путь вашего ребенка</h2>
-             <img src="/assets/img/ui/pathway-placeholder.svg" alt="Путь от знакомства до премьеры" style="max-width: 100%; opacity: 0.8;" />
-             <!-- Placeholder for dedicated Pathway component later -->
+          <div class="studio-column mx-auto max-w-4xl">
+             <div class="text-center mb-10">
+                <h2 class="section-title">Путь вашего ребенка</h2>
+                <p class="text-xl">От первого робкого шага до громких аплодисментов.</p>
+             </div>
+             
+             <!-- Interactive Timeline -->
+             <StudioPathway />
           </div>
       </div>
     </section>

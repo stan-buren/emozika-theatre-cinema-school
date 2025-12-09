@@ -1,0 +1,45 @@
+---
+const steps = [
+    {
+        number: "01",
+        title: "Знакомство",
+        text: "Первое пробное занятие. Педагог смотрит на ребенка, ребенок смотрит на студию (и влюбляется)."
+    },
+    {
+        number: "02",
+        title: "Тренинги",
+        text: "Снимаем зажимы, учимся говорить громко и четко, развиваем фантазию через этюды."
+    },
+    {
+        number: "03",
+        title: "Распределение ролей",
+        text: "Режиссер подбирает роль, которая раскроет сильные стороны ребенка (или бросит вызов)."
+    },
+    {
+        number: "04",
+        title: "Репетиции",
+        text: "Погружение в материал. Читки, мизансцены, примерка костюмов. Самый насыщенный этап."
+    },
+    {
+        number: "05",
+        title: "Премьера",
+        text: "Выход на профессиональную сцену. Аплодисменты, цветы и невероятная уверенность в себе."
+    }
+];
+---
+
+<div class="studio-track-path" data-timeline data-autoplay="true">
+    <div class="studio-track-path-title">Этапы обучения</div>
+    <ul class="timeline timeline--vertical">
+        {steps.map((step, index) => (
+            <li class={`timeline-step ${index === 0 ? 'timeline-step--active' : ''}`}>
+                <div class="timeline-step-number">{step.number}</div>
+                <div class="timeline-step-marker"></div>
+                <div class="timeline-step-body">
+                    <h4 class="timeline-step-title">{step.title}</h4>
+                    <p class="timeline-step-text">{step.text}</p>
+                </div>
+            </li>
+        ))}
+    </ul>
+</div>
