@@ -5,7 +5,8 @@ const fantasyGoods = [
     title: "Худи «Режиссёр»",
     price: "3 500 ₽",
     image: "/assets/img/shop/merch_hoodie_emozika_1765370174082.png",
-    tag: "Хит"
+    tag: "Хит",
+    soldOut: true
   },
   {
     id: 2,
@@ -27,23 +28,34 @@ const fantasyGoods = [
 <section id="shop" class="section section-shop">
   <div class="container">
     <header class="section-header text-center">
-      <h2 class="section-title section-title--bold">Мерч студии</h2>
+      <h2 class="section-title section-title--serif">Мерч студии</h2>
       <p class="section-subtitle">Одежда и аксессуары для тех, кто живет театром.</p>
     </header>
 
     <div class="merch-grid">
       {fantasyGoods.map(item => (
-        <article class="merch-card">
+        <article class={`merch-card ${item.soldOut ? 'is-sold-out' : ''}`}>
           <div class="merch-card__image-wrapper">
-             {item.tag && <span class="merch-card__tag">{item.tag}</span>}
+             {item.soldOut && <div class="sold-out-overlay"><span>Sold Out</span></div>}
+             {item.tag && !item.soldOut && <span class="merch-card__tag">{item.tag}</span>}
              <img src={item.image} alt={item.title} class="merch-card__image" loading="lazy" />
           </div>
           <div class="merch-card__content">
             <h3 class="merch-card__title">{item.title}</h3>
-            <p class="merch-card__price">{item.price}</p>
-            <a href={`https://wa.me/79313157787?text=Здравствуйте! Хочу заказать ${item.title}`} target="_blank" class="btn-merch">
-                Заказать
-            </a>
+            
+            {item.soldOut ? (
+                <p class="merch-card__price price-muted">Нет в наличии</p>
+            ) : (
+                <p class="merch-card__price">{item.price}</p>
+            )}
+            
+            {item.soldOut ? (
+                <button class="btn-merch btn-disabled" disabled>Раскупили</button>
+            ) : (
+                <a href={`https://wa.me/79313157787?text=Здравствуйте! Хочу заказать ${item.title}`} target="_blank" class="btn-merch">
+                    Заказать
+                </a>
+            )}
           </div>
         </article>
       ))}
@@ -52,21 +64,22 @@ const fantasyGoods = [
 </section>
 
 <style lang="scss">
+  /* Global Font Import for component scope consistency */
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
   .section-shop {
       padding: 6rem 0;
       background: #fff;
   }
 
   .text-center { text-align: center; margin-bottom: 4rem; }
-  .section-title--bold { 
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800; 
-      font-size: 2.5rem; 
-      letter-spacing: -0.02em; 
+  
+  .section-title--serif { 
+      font-family: 'Playfair Display', serif;
+      font-weight: 700; 
+      font-size: 3rem; 
       margin-bottom: 1rem;
-      background: linear-gradient(135deg, #1a0b2e 0%, #4a1f6b 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #1a0b2e;
   }
 
   .section-subtitle {
@@ -98,6 +111,12 @@ const fantasyGoods = [
         box-shadow: 0 20px 40px rgba(0,0,0,0.08);
         border-color: rgba(197, 160, 89, 0.3); /* Muted gold border */
     }
+    
+    &.is-sold-out {
+        opacity: 0.7;
+        pointer-events: none;
+        filter: grayscale(0.8);
+    }
   }
 
   .merch-card__image-wrapper {
@@ -115,6 +134,27 @@ const fantasyGoods = [
         padding: 0; 
         transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
+  }
+  
+  .sold-out-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.6);
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      span {
+          background: #000;
+          color: #fff;
+          padding: 8px 16px;
+          text-transform: uppercase;
+          font-weight: 800;
+          font-family: 'Courier Prime', monospace;
+          transform: rotate(-10deg);
+          border: 2px solid #fff;
+      }
   }
 
   .merch-card:hover .merch-card__image { transform: scale(1.08); }
@@ -160,6 +200,12 @@ const fantasyGoods = [
     margin-bottom: 2rem;
     font-family: 'Montserrat', sans-serif;
   }
+  
+  .price-muted {
+      color: #999;
+      text-decoration: line-through;
+      font-size: 1rem;
+  }
 
   .btn-merch {
     margin-top: auto;
@@ -184,5 +230,18 @@ const fantasyGoods = [
         border-color: #1a0b2e;
         box-shadow: 0 5px 15px rgba(26, 11, 46, 0.2);
     }
+  }
+  
+  .btn-disabled {
+      border-color: #eee;
+      color: #999;
+      background: #f5f5f5;
+      cursor: not-allowed;
+      &:hover {
+          background: #f5f5f5;
+          color: #999;
+          border-color: #eee;
+          box-shadow: none;
+      }
   }
 </style>
