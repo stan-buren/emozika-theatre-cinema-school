@@ -1,84 +1,11 @@
 export function initVideoReviewsSection() {
     var section = document.getElementById("reviews");
-    if (!section) return; // Guard if module loaded but section not present
+    if (!section) return;
 
-    var strip = section.querySelector("[data-reviews-strip]");
+    var grid = section.querySelector("[data-reviews-masonry]");
     var lightbox = document.querySelector("[data-review-lightbox]");
 
-    function buildReviewMetaLine(review) {
-        var parts = [];
-
-        if (review.authorLabel) {
-            parts.push(review.authorLabel);
-        } else if (review.childName || review.childAge) {
-            var childBits = [];
-            if (review.childName) {
-                childBits.push(review.childName);
-            }
-            if (typeof review.childAge === "number") {
-                childBits.push(review.childAge + " лет");
-            }
-            if (childBits.length) {
-                parts.push(childBits.join(", "));
-            }
-        }
-
-        if (review.yearsInStudioLabel) {
-            parts.push(review.yearsInStudioLabel);
-        }
-
-        if (review.branch) {
-            parts.push(review.branch);
-        }
-
-        return parts.join(" • ");
-    }
-
-    function createReviewVideoCard(review) {
-        var card = document.createElement("article");
-        var hasVideo = Boolean(review.videoEmbedUrl);
-        card.className =
-            "review-video-card card card-hover" +
-            (hasVideo ? "" : " review-video-card--text");
-        card.setAttribute("data-review-id", review.id);
-
-        var poster = document.createElement("div");
-        poster.className = "review-video-card__poster";
-        if (review.thumbUrl) {
-            poster.style.backgroundImage = "url(" + review.thumbUrl + ")";
-        } else {
-            poster.classList.add("review-video-card__poster--empty");
-        }
-
-        if (review.durationLabel) {
-            var duration = document.createElement("span");
-            duration.className = "review-video-card__duration";
-            duration.textContent = review.durationLabel;
-            poster.appendChild(duration);
-        }
-
-        var badge = document.createElement("span");
-        badge.className = "review-video-card__badge";
-        badge.textContent = hasVideo ? "Видеоотзыв" : "История";
-        if (!hasVideo) {
-            badge.classList.add("review-video-card__badge--text");
-        }
-
-        var title = document.createElement("h3");
-        title.className = "review-video-card__title";
-        title.textContent = review.title || "";
-
-        var meta = document.createElement("p");
-        meta.className = "review-video-card__meta";
-        meta.textContent = buildReviewMetaLine(review);
-
-        card.appendChild(poster);
-        card.appendChild(badge);
-        card.appendChild(title);
-        card.appendChild(meta);
-
-        return card;
-    }
+    if (!grid || !lightbox) return;
 
     function openReviewLightbox(lightbox, review) {
         var titleEl = lightbox.querySelector(".review-lightbox__title");
@@ -99,23 +26,27 @@ export function initVideoReviewsSection() {
             iframe.allowFullscreen = true;
             videoContainer.appendChild(iframe);
         } else {
+            // Placeholder for text-only reviews or missing video
             var placeholder = document.createElement("div");
             placeholder.className = "review-lightbox__video-placeholder";
             placeholder.textContent =
-                "Видео добавим в ближайшее время. Пока что можно прочитать историю ниже или спросить ссылку у администратора.";
+                "Это текстовый отзыв. Вы можете прочитать полную историю ниже.";
+            // Only show placeholder if we really want to simulate a video slot, 
+            // but for text reviews, usually we just show the quote. 
+            // However, reusing the layout is fine.
+            // CSS might hide this or style it.
             videoContainer.appendChild(placeholder);
         }
 
         if (titleEl) {
-            titleEl.textContent = review.title || "";
+            // Prefer Author Name, fall back to Title
+            titleEl.textContent = review.author || review.title || "";
         }
         if (quoteEl) {
             quoteEl.textContent = review.quote || "";
         }
         if (metaEl) {
-            metaEl.textContent =
-                buildReviewMetaLine(review) +
-                (review.event ? " • " + review.event : "");
+            metaEl.textContent = review.meta || "";
         }
 
         lightbox.setAttribute("data-current-id", review.id);
@@ -136,54 +67,41 @@ export function initVideoReviewsSection() {
         document.body.classList.remove("is-lightbox-open");
     }
 
-    // Listener for the strip (delegation)
-    if (strip && lightbox) {
-        strip.addEventListener("click", function (event) {
-            var card = event.target.closest(".review-video-card");
-            if (!card) return;
+    // Listener for the grid (delegation)
+    grid.addEventListener("click", function (event) {
+        var card = event.target.closest(".review-card");
+        if (!card) return;
 
-            var review = {
-                id: card.getAttribute('data-review-id'),
-                title: card.querySelector('.review-video-card__title').innerText,
-                // meta is optional for lightbox but nice to have
-                // we can grab it from card text or data attributes if we added them.
-                // for now let's just use what we have in data attributes or simple text
-                videoEmbedUrl: card.getAttribute('data-video-url'),
-                quote: card.getAttribute('data-quote'),
-            };
+        // If it's a link or button inside the card, we might want to let it propagate behavior,
+        // but currently the whole card is the trigger.
 
-            if (review.videoEmbedUrl || review.quote) {
-                openReviewLightbox(lightbox, review);
+        // Prevent default if it's an anchor acting as a button
+        // event.preventDefault(); 
+
+        var review = {
+            id: card.dataset.reviewId,
+            videoEmbedUrl: card.dataset.videoUrl,
+            quote: card.dataset.quote,
+            title: card.dataset.title,
+            author: card.dataset.author,
+            meta: card.dataset.meta
+        };
+
+        openReviewLightbox(lightbox, review);
+    });
+
+    // Keyboard support for cards (Enter/Space)
+    grid.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+            var card = event.target.closest(".review-card");
+            if (card) {
+                event.preventDefault();
+                card.click();
             }
-        });
-    }
+        }
+    });
 
-    // стрелки прокрутки
-    var leftArrow = section.querySelector("[data-reviews-arrow='left']");
-    var rightArrow = section.querySelector("[data-reviews-arrow='right']");
-
-    function scrollStrip(direction) {
-        if (!strip) return;
-        var firstCard = strip.querySelector(".review-video-card");
-        var cardWidth = firstCard ? firstCard.getBoundingClientRect().width : 260;
-        strip.scrollBy({
-            left: direction * (cardWidth * 0.9 + 16),
-            behavior: "smooth",
-        });
-    }
-
-    if (leftArrow) {
-        leftArrow.addEventListener("click", function () {
-            scrollStrip(-1);
-        });
-    }
-    if (rightArrow) {
-        rightArrow.addEventListener("click", function () {
-            scrollStrip(1);
-        });
-    }
-
-    // закрытие модалки
+    // Closing Logic
     var closeBtn = lightbox.querySelector("[data-review-lightbox-close]");
     var backdrop = lightbox.querySelector("[data-review-lightbox-backdrop]");
 

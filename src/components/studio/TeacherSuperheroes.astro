@@ -17,7 +17,12 @@ const teachers = teamGroup.filter(person => person.tags && person.tags.includes(
 
     <div class="teachers-grid">
       {teachers.map((person) => (
-        <article class="teacher-card" tabindex="0">
+        <article 
+            class="teacher-card" 
+            tabindex="0"
+            data-teacher-name={person.name}
+            data-branch-ids={JSON.stringify(person.relatedBranches || [])}
+        >
           <div class="teacher-card__inner">
             <!-- Front -->
             <div class="teacher-card__front">
@@ -45,6 +50,46 @@ const teachers = teamGroup.filter(person => person.tags && person.tags.includes(
     </div>
   </div>
 </section>
+
+<script>
+  function initTeacherCards() {
+    const cards = document.querySelectorAll('.teacher-card');
+    cards.forEach(card => {
+        // Remove existing listeners if any (to avoid duplicates if re-init) - though astro:after-swap handles it usually by re-running
+        
+        card.addEventListener('click', () => {
+             const branchIdsRaw = (card as HTMLElement).dataset.branchIds;
+             const teacherName = (card as HTMLElement).dataset.teacherName;
+             
+             try {
+                const branchIds = JSON.parse(branchIdsRaw || '[]');
+                console.log(`Teacher clicked: ${teacherName}, Branches:`, branchIds);
+
+                document.dispatchEvent(new CustomEvent('find-teacher-branches', {
+                    detail: {
+                        branchIds,
+                        teacherName
+                    }
+                }));
+             } catch(e) {
+                 console.error('Error parsing branch IDs', e);
+             }
+        });
+        
+        // Keyboard support
+        card.addEventListener('keydown', (e) => {
+            if((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') {
+                e.preventDefault();
+                (card as HTMLElement).click();
+            }
+        });
+    });
+  }
+  
+  // Initialize
+  initTeacherCards();
+  document.addEventListener('astro:after-swap', initTeacherCards);
+</script>
 
 <style lang="scss">
   .teachers-grid {

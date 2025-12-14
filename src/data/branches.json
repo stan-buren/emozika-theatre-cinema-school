@@ -8,10 +8,12 @@
       "place": "ТРК «Гранд Каньон»",
       "address": "пр. Энгельса, 154, 3 этаж",
       "comment": "школа танцев SDS и «Кидбург». Группы для взрослых 18+.",
+      "id": "grand-canyon",
       "phones": [
         "+7 (921) 648-62-87"
       ],
       "isAdults": true,
+      "isCinema": true,
       "coords": [
         60.05943,
         30.3344
@@ -25,6 +27,7 @@
       "place": "частный д/с «Гнездо»",
       "address": "ул. Гжатская, 22, корп. 2",
       "comment": "",
+      "id": "akademka-gnezdo",
       "phones": [],
       "isAdults": false,
       "coords": [
@@ -40,6 +43,7 @@
       "place": "Детский центр «Солнышко»",
       "address": "ул. Гжатская, 22, корп. 1",
       "comment": "",
+      "id": "akademka-sun",
       "phones": [],
       "isAdults": false,
       "coords": [
@@ -55,6 +59,7 @@
       "place": "Пространство «ART ZONE»",
       "address": "ул. Заречная, 41, стр. 1",
       "comment": "",
+      "id": "parnas-art",
       "phones": [],
       "isAdults": false,
       "coords": [
@@ -70,6 +75,7 @@
       "place": "ДЦ «Лимпик»",
       "address": "ул. Ленинградская, 5, корп. 2",
       "comment": "район Оккервиль",
+      "id": "kudrovo-limpic",
       "phones": [],
       "isAdults": false,
       "coords": [
@@ -85,6 +91,7 @@
       "place": "Детский клуб «Эрудит»",
       "address": "ул. Столичная, 4, корп. 1",
       "comment": "",
+      "id": "kudrovo-erudit",
       "phones": [],
       "isAdults": false,
       "coords": [
@@ -100,6 +107,7 @@
       "place": "Детский клуб «Гнездо»",
       "address": "Богатырский пр., 64, корп. 1",
       "comment": "",
+      "id": "begovaya-gnezdo",
       "phones": [],
       "isAdults": false,
       "coords": [
@@ -115,6 +123,7 @@
       "place": "Детский клуб «Чудо Остров»",
       "address": "пр. Космонавтов, 61, корп. 1",
       "comment": "",
+      "id": "zvezdnaya-chudo",
       "phones": [],
       "isAdults": false,
       "coords": [
@@ -130,6 +139,7 @@
       "place": "Детский центр «Эрудит»",
       "address": "ул. Бухарестская, 80, корп. 1",
       "comment": "",
+      "id": "mezhdunarodnaya-erudit",
       "phones": [],
       "isAdults": false,
       "coords": [
@@ -145,6 +155,7 @@
       "place": "Школа «Бенуа»",
       "address": "ул. Вишерская, 22",
       "comment": "",
+      "id": "shushary-benua",
       "phones": [],
       "isAdults": false,
       "coords": [
@@ -160,6 +171,7 @@
       "place": "Детский клуб «Эрудит»",
       "address": "Комендантский пр., 8, корп. 1",
       "comment": "",
+      "id": "komenda-erudit",
       "phones": [],
       "isAdults": false,
       "coords": [
@@ -175,6 +187,7 @@
       "place": "Детский сад «Эрудит»",
       "address": "ул. Солдата Корзуна, 4",
       "comment": "",
+      "id": "veteranov-erudit",
       "phones": [],
       "isAdults": false,
       "coords": [
@@ -190,6 +203,7 @@
       "place": "Детский центр «Эрудит»",
       "address": "Ручьёвский пр., 3, корп. 3",
       "comment": "",
+      "id": "murino-erudit",
       "phones": [],
       "isAdults": false,
       "coords": [
@@ -205,6 +219,7 @@
       "place": "Учебный центр",
       "address": "Кондратьевский пр., 70, корп. 1",
       "comment": "",
+      "id": "lesnaya",
       "phones": [],
       "isAdults": false,
       "coords": [

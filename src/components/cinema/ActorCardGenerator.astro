@@ -1,259 +1,390 @@
 ---
 ---
-<section id="actor-card-generator" class="section section-dark card-generator">
-    <div class="container">
-        <header class="section-header text-center mb-12">
-            <h2 class="section-title glitch" data-text="Создай свою Карту Актера">Создай свою Карту Актера</h2>
-            <p class="section-subtitle max-w-2xl mx-auto text-gray-400">
-                Почувствуй себя частью киноимперии. Загрузи фото, впиши имя и получи профессиональную карточку для соцсетей.
-            </p>
-        </header>
 
-        <div class="generator-workspace">
-            <!-- Sidebar / Controls -->
-            <div class="generator-controls">
-                <div class="control-group">
-                    <label>Имя Фамилия</label>
-                    <input type="text" id="card-name" placeholder="Александр Петров" maxlength="20" />
-                </div>
-                
-                <div class="control-group">
-                    <label>Амплуа (Роль)</label>
-                    <select id="card-role">
-                        <option value="Action Hero">Герой Боевика</option>
-                        <option value="Drama Queen">Звезда Драмы</option>
-                        <option value="Comedy King">Король Комедии</option>
-                        <option value="Future Star">Будущая Звезда</option>
-                        <option value="Villain">Главный Злодей</option>
-                    </select>
-                </div>
+<section id="actor-card" class="section-dark section-card-generator">
+  <div class="container mobile-stack">
+    
+    <!-- Left: Controls -->
+    <div class="generator-controls reveal-on-scroll">
+      <div class="controls-header">
+        <span class="badge-gold">Интерактив</span>
+        <h2 class="section-title">Создай свою Актёрскую Карту</h2>
+        <p class="section-subtitle">Почувствуй себя звездой Эмоцики. Загрузи фото, впиши имя и скачай официальную карту резидента.</p>
+      </div>
 
-                <div class="control-group">
-                    <label>Загрузить фото</label>
-                    <label for="card-upload" class="upload-btn">
-                        <span class="icon">📷</span> Выбрать файл
-                    </label>
-                    <input type="file" id="card-upload" accept="image/*" hidden />
-                </div>
+      <div class="form-group">
+        <label for="actor-name">Твоё сценическое имя</label>
+        <input type="text" id="actor-name" class="input-dark" placeholder="Например: Александр Петров" maxlength="20" />
+      </div>
 
-                <button id="card-download" class="btn-cinema-gold mt-6 w-full">
-                    Скачать Карточку
-                </button>
-            </div>
+      <div class="form-group">
+        <label for="actor-role">Амплуа</label>
+        <select id="actor-role" class="input-dark">
+          <option value="АКТЁР">Актёр / Актриса</option>
+          <option value="РЕЖИССЁР">Режиссёр</option>
+          <option value="СЦЕНАРИСТ">Сценарист</option>
+          <option value="ОПЕРАТОР">Оператор</option>
+          <option value="ЗВЕЗДА">Звезда</option>
+        </select>
+      </div>
 
-            <!-- Preview Area -->
-            <div class="generator-preview">
-                <canvas id="card-canvas" width="600" height="800"></canvas>
-            </div>
-        </div>
+      <div class="form-group">
+        <label class="btn-upload">
+          <input type="file" id="actor-photo" accept="image/*" hidden />
+          <span class="icon">📸</span> Загрузить фото
+        </label>
+      </div>
+
+      <button id="download-btn" class="btn-cinema-gold" disabled>
+        Скачать Карту
+      </button>
+      
+      <button id="reset-btn" class="btn-reset" style="display: none;">
+        Сбросить
+      </button>
     </div>
+
+    <!-- Right: Preview (Canvas) -->
+    <div class="generator-preview reveal-on-scroll">
+      <div class="canvas-wrapper">
+        <canvas id="card-canvas" width="600" height="800"></canvas>
+        <div id="loader" class="loader hidden"></div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<script>
-    function initGenerator() {
-        const canvas = document.getElementById('card-canvas');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        
-        const nameInput = document.getElementById('card-name');
-        const roleInput = document.getElementById('card-role');
-        const uploadInput = document.getElementById('card-upload');
-        const downloadBtn = document.getElementById('card-download');
-
-        let userImage = new Image();
-        let bgImage = new Image();
-        let overlayImage = new Image();
-        
-        // Default state
-        let userName = "Имя Фамилия";
-        let userRole = "Future Star";
-        
-        // Load Assets (Ideally these should be real paths, here we simulate)
-        // We will draw generated background code-side to avoid needing external assets immediately
-        
-        function drawCard() {
-            // 1. Background (Dark Cinema Style)
-            const gradient = ctx.createLinearGradient(0, 0, 0, 800);
-            gradient.addColorStop(0, '#1a1a1a');
-            gradient.addColorStop(1, '#000000');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, 600, 800);
-            
-            // 2. User Photo
-            if (userImage.src) {
-                // Cover fit logic
-                const ratio = Math.max(600 / userImage.width, 800 / userImage.height);
-                const centerShift_x = (600 - userImage.width * ratio) / 2;
-                const centerShift_y = (800 - userImage.height * ratio) / 2;
-                ctx.drawImage(userImage, 0, 0, userImage.width, userImage.height, centerShift_x, centerShift_y, userImage.width * ratio, userImage.height * ratio);
-            }
-
-            // 3. Overlay (Vignette + Neon Borders)
-            const vignette = ctx.createRadialGradient(300, 400, 200, 300, 400, 500);
-            vignette.addColorStop(0, 'rgba(0,0,0,0)');
-            vignette.addColorStop(1, 'rgba(0,0,0,0.8)');
-            ctx.fillStyle = vignette;
-            ctx.fillRect(0, 0, 600, 800);
-
-            // Neon Border
-            ctx.strokeStyle = '#40E0D0'; // Turquoise neon
-            ctx.lineWidth = 4;
-            ctx.strokeRect(20, 20, 560, 760);
-
-            // 4. Branding
-            ctx.font = '700 40px Montserrat, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillStyle = '#FFFFFF';
-            ctx.shadowColor = "rgba(0,0,0,0.8)";
-            ctx.shadowBlur = 10;
-            ctx.fillText(userName.toUpperCase(), 300, 680);
-
-            ctx.font = '600 24px Montserrat, sans-serif';
-            ctx.fillStyle = '#FFD700'; // Gold
-            ctx.fillText(userRole.toUpperCase(), 300, 720);
-
-            // Logo Text
-            ctx.font = '600 16px sans-serif';
-            ctx.fillStyle = 'rgba(255,255,255,0.6)';
-            ctx.fillText("ЭМОЦИКА | KINOSHKOLA", 300, 760);
-        }
-
-        // Event Listeners
-        nameInput.addEventListener('input', (e) => {
-            userName = e.target.value || "Имя Фамилия";
-            drawCard();
-        });
-
-        roleInput.addEventListener('change', (e) => {
-            userRole = e.target.value;
-            drawCard();
-        });
-
-        uploadInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (evt) => {
-                    userImage.src = evt.target.result;
-                    userImage.onload = drawCard;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        downloadBtn.addEventListener('click', () => {
-             const link = document.createElement('a');
-             link.download = `emozika-actor-${userName}.png`;
-             link.href = canvas.toDataURL();
-             link.click();
-        });
-
-        // Initial Draw
-        drawCard();
-    }
-
-    document.addEventListener('astro:page-load', initGenerator);
-    document.addEventListener('DOMContentLoaded', initGenerator);
-</script>
-
 <style lang="scss">
-    .card-generator {
-        padding: 4rem 0;
-        background: #0f0f0f;
+  .section-card-generator {
+    padding: 6rem 0;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at 20% 50%, rgba(122, 47, 180, 0.1) 0%, transparent 50%);
+  }
+
+  .mobile-stack {
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+
+    @media (max-width: 900px) {
+      flex-direction: column-reverse;
+      gap: 3rem;
+    }
+  }
+
+  .generator-controls {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .controls-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .badge-gold {
+    background: var(--accent-gold);
+    color: #000;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    border-radius: 99px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: inline-block;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  .input-dark {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    outline: none;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: var(--accent-gold);
+    }
+  }
+
+  .btn-upload {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s;
+    color: white;
+    font-weight: 500;
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    width: 100%;
+    justify-content: center;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--accent-gold);
     }
 
-    .generator-workspace {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 40px;
-        justify-content: center;
-        align-items: flex-start;
+    margin-bottom: 0.5rem; // Space for reset button
+    
+    &.drop-active {
+        background: rgba(255, 215, 0, 0.1);
+        border-color: var(--accent-gold);
+        transform: scale(1.02);
+    }
+  }
+
+  .btn-reset {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-muted);
+    padding: 0.75rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 0.5rem;
+    
+    &:hover {
+        border-color: #ff4444;
+        color: #ff4444;
+    }
+  }
+
+  .generator-preview {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    perspective: 1000px;
+  }
+
+  .canvas-wrapper {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 3/4;
+    background: #000;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+    transform: rotateY(-5deg);
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: rotateY(0deg);
     }
 
-    .generator-controls {
-        flex: 1;
-        min-width: 300px;
-        max-width: 400px;
-        background: #1a1a1a;
-        padding: 2rem;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+    canvas {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
+  }
 
-    .control-group {
-        margin-bottom: 1.5rem;
-        
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        input[type="text"], select {
-            width: 100%;
-            background: #000;
-            border: 1px solid #333;
-            color: white;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 1rem;
-            
-            &:focus {
-                border-color: #40E0D0;
-                outline: none;
-            }
-        }
+  .btn-cinema-gold {
+    width: 100%;
+    margin-top: 1rem;
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      filter: grayscale(1);
     }
-
-    .upload-btn {
-        display: block;
-        width: 100%;
-        background: #2a2a2a;
-        color: white;
-        text-align: center;
-        padding: 12px;
-        border-radius: 6px;
-        cursor: pointer;
-        border: 1px dashed #444;
-        transition: all 0.2s;
-        
-        &:hover {
-            border-color: #40E0D0;
-            color: #40E0D0;
-        }
-    }
-
-    .generator-preview {
-        flex: 1;
-        min-width: 300px;
-        display: flex;
-        justify-content: center;
-        
-        canvas {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 0 30px rgba(64, 224, 208, 0.2);
-            border: 2px solid #222;
-        }
-    }
-
-    .btn-cinema-gold {
-      background: linear-gradient(135deg, #FFD700 0%, #FFAA00 100%);
-      color: #000;
-      font-weight: 700;
-      padding: 14px 24px;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-      }
-    }
+  }
 </style>
+
+<script>
+  function initGenerator() {
+    const canvas = document.getElementById('card-canvas');
+    if (!canvas) return; // Guard against missing element
+
+    const ctx = canvas.getContext('2d');
+    const nameInput = document.getElementById('actor-name');
+    const roleInput = document.getElementById('actor-role');
+    const photoInput = document.getElementById('actor-photo');
+    const downloadBtn = document.getElementById('download-btn');
+
+    let uploadedImage = null;
+
+    // Load assets (Logo, Overlay, Texture)
+    // For MVP we draw mostly code, but ideally load a png frame
+    const logoImg = new Image();
+    logoImg.src = '/logo.svg'; // Assuming standard logo exists or fallback text
+
+    function drawCard() {
+      // 1. Background
+      ctx.fillStyle = '#111';
+      ctx.fillRect(0, 0, 600, 800);
+
+      // 2. Photo
+      if (uploadedImage) {
+        // Crop/Fit image logic
+        const ratio = Math.max(600 / uploadedImage.width, 800 / uploadedImage.height);
+        const centerShift_x = (600 - uploadedImage.width * ratio) / 2;
+        const centerShift_y = (800 - uploadedImage.height * ratio) / 2;
+        
+        ctx.save();
+        ctx.globalAlpha = 0.8; // Cinematic darkness
+        ctx.filter = 'grayscale(20%) contrast(1.1)'; // Cinematic filter
+        ctx.drawImage(uploadedImage, 0, 0, uploadedImage.width, uploadedImage.height,
+                      centerShift_x, centerShift_y, uploadedImage.width * ratio, uploadedImage.height * ratio);
+        ctx.restore();
+      }
+
+      // 3. Gradient Overlay (Bottom Up)
+      const gradient = ctx.createLinearGradient(0, 400, 0, 800);
+      gradient.addColorStop(0, 'transparent');
+      gradient.addColorStop(0.7, 'rgba(10, 10, 15, 0.9)');
+      gradient.addColorStop(1, '#000');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 600, 800);
+
+      // 4. "Noise" Texture (Optional code-based noise)
+        // ... (skipping for performance)
+
+      // 5. Borders / HUD
+      ctx.strokeStyle = '#FFD700'; // Gold
+      ctx.lineWidth = 4;
+      ctx.strokeRect(20, 20, 560, 760);
+
+      // Corner Accents
+      ctx.fillStyle = '#FFD700';
+      ctx.fillRect(20, 20, 40, 4); // Top Left H
+      ctx.fillRect(20, 20, 4, 40); // Top Left V
+      ctx.fillRect(540, 776, 40, 4); // Bot Right H
+      ctx.fillRect(576, 740, 4, 40); // Bot Right V
+
+      // 6. Text Content
+      const name = nameInput.value.trim() || 'ИМЯ АКТЁРА';
+      const role = roleInput.value;
+
+      // Role
+      ctx.font = '700 24px "Inter", sans-serif';
+      ctx.fillStyle = '#FFD700';
+      ctx.letterSpacing = '4px';
+      ctx.textAlign = 'center';
+      ctx.fillText(role, 300, 680);
+
+      // Name
+      ctx.font = '700 48px "Inter", sans-serif'; // Fallback font
+      ctx.fillStyle = '#fff';
+      ctx.letterSpacing = '0px';
+      ctx.fillText(name.toUpperCase(), 300, 740);
+
+      // Logo / Brand
+      ctx.font = '16px sans-serif';
+      ctx.fillStyle = 'rgba(255,255,255,0.5)';
+      ctx.fillText('ТЕАТР «ЭМОЦИКА» | OFFICIAL CARD', 300, 780);
+    }
+
+    // Initial Draw
+    drawCard();
+
+    // Event Listeners
+    nameInput.addEventListener('input', drawCard);
+    roleInput.addEventListener('change', drawCard);
+
+ 
+    
+    // Drag and Drop
+    const uploadLabel = document.querySelector('.btn-upload');
+    
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        uploadLabel.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadLabel.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadLabel.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight(e) {
+        uploadLabel.classList.add('drop-active');
+    }
+
+    function unhighlight(e) {
+        uploadLabel.classList.remove('drop-active');
+    }
+
+    uploadLabel.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleFiles(files);
+    }
+
+    function handleFiles(files) {
+        const file = files[0];
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    uploadedImage = img;
+                    drawCard();
+                    downloadBtn.disabled = false;
+                    resetBtn.style.display = 'block';
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+    
+    // Reset Logic
+    const resetBtn = document.getElementById('reset-btn');
+    resetBtn.addEventListener('click', () => {
+        nameInput.value = '';
+        roleInput.value = 'АКТЁР';
+        uploadedImage = null;
+        photoInput.value = ''; // Clear file input
+        downloadBtn.disabled = true;
+        resetBtn.style.display = 'none';
+        drawCard();
+    });
+    
+    photoInput.addEventListener('change', (e) => {
+      handleFiles(e.target.files);
+    });
+
+    downloadBtn.addEventListener('click', () => {
+        const link = document.createElement('a');
+        link.download = `emozika-card-${Date.now()}.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+  }
+
+  // Run on load
+  document.addEventListener('astro:page-load', initGenerator);
+  // Fallback for non-view-transitions
+  if (!window.initGeneratorRun) {
+      initGenerator();
+      window.initGeneratorRun = true;
+  }
+</script>

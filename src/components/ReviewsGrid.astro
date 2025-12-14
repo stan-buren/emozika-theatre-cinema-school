@@ -15,6 +15,10 @@ const activeReviews = reviews.filter(r => r.isActive);
         class={`review-card ${review.videoEmbedUrl ? 'review-card--video' : 'review-card--text'} ${index % 5 === 0 ? 'review-card--featured' : ''}`}
         data-review-id={review.id}
         data-video-url={review.videoEmbedUrl}
+        data-quote={review.quote}
+        data-title={review.title}
+        data-author={review.authorLabel}
+        data-meta={[review.yearsInStudioLabel, review.branch].filter(Boolean).join(' • ')}
         tabindex="0"
       >
         {review.videoEmbedUrl ? (

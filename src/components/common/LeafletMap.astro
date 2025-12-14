@@ -1,0 +1,202 @@
+---
+const { branches } = Astro.props;
+---
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+<div class="map-wrapper">
+    <div id="leaflet-map-root" class="map-container"></div>
+</div>
+
+<script define:vars={{ branches }}>
+    let map;
+    let markers = {}; // Map branchId -> marker
+    let userMarker;
+    let layerGroup;
+
+    // Custom Icons configuration
+    const Icons = {
+        default: null, // Will be set in init
+        active: null,
+        user: null
+    };
+
+    function initMap() {
+        if (!L) return;
+
+        // Initialize Map
+        map = L.map('leaflet-map-root', {
+            center: [59.9386, 30.3141], // St. Petersburg center
+            zoom: 10,
+            zoomControl: false 
+        });
+
+        // Add Tile Layer (CartoDB Light with Custom Filter)
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 20,
+            className: 'map-tiles-filtered' // Add custom class for CSS filtering
+        }).addTo(map);
+
+        L.control.zoom({
+            position: 'topright'
+        }).addTo(map);
+
+        // Custom SVG Icon
+        const createPin = (color, size, scale = 1) => {
+            return L.divIcon({
+                className: 'custom-pin-wrapper',
+                html: `
+                    <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); transform: scale(${scale}); transform-origin: bottom center; transition: all 0.3s ease;">
+                        <path d="M12 0C7.58 0 4 3.58 4 8C4 14 12 24 12 24C12 24 20 14 20 8C20 3.58 16.42 0 12 0ZM12 11C10.34 11 9 9.66 9 8C9 6.34 10.34 5 12 5C13.66 5 15 6.34 15 8C15 9.66 13.66 11 12 11Z" fill="${color}"/>
+                        <circle cx="12" cy="8" r="3" fill="white"/>
+                    </svg>
+                `,
+                iconSize: [size, size],
+                iconAnchor: [size/2, size], // Bottom point
+                popupAnchor: [0, -size]
+            });
+        };
+
+        // Define Icons
+        Icons.default = createPin('#333333', 32); // Dark Grey
+        Icons.active = createPin('#d4af37', 48, 1.1); // Gold Large
+        Icons.user = createPin('#ef4444', 32); // Red
+
+
+        // Create Layer Group for markers
+        layerGroup = L.layerGroup().addTo(map);
+
+        // Add Markers
+        branches.forEach((branch, index) => {
+             const id = branch.id || `branch-${index}`;
+             const marker = L.marker(branch.coords, { icon: Icons.default })
+                .bindPopup(`
+                    <div style="font-family: var(--font-body); font-size: 14px; line-height: 1.4;">
+                        <strong style="display:block; margin-bottom:4px; color:#111;">${branch.place}</strong>
+                        ${branch.metro ? `<span style="color:#666; font-size:12px;">м. ${branch.metro}</span><br>` : ''}
+                        <span style="color:#444;">${branch.address}</span>
+                    </div>
+                `);
+            
+            marker.addTo(layerGroup);
+            markers[id] = marker;
+        });
+
+        // Event Listeners
+        document.addEventListener('find-teacher-branches', handleTeacherSelection);
+        document.addEventListener('map-geo-location', handleGeoLocation);
+        
+        // Fit bounds to show all markers initially
+        if (branches.length > 0) {
+            const group = new L.featureGroup(Object.values(markers));
+            map.fitBounds(group.getBounds(), { padding: [50, 50] });
+        }
+    }
+
+    function handleTeacherSelection(e) {
+        if (!map || !layerGroup) return;
+        const { branchIds } = e.detail;
+
+        layerGroup.clearLayers();
+
+        if (!branchIds || branchIds.length === 0) {
+            // Show all
+            Object.values(markers).forEach(m => {
+                m.setIcon(Icons.default);
+                m.addTo(layerGroup);
+            });
+            const group = new L.featureGroup(Object.values(markers));
+            map.fitBounds(group.getBounds(), { padding: [50, 50] });
+            return;
+        }
+
+        const visibleMarkers = [];
+        branchIds.forEach(id => {
+            const marker = markers[id];
+            if (marker) {
+                marker.setIcon(Icons.active); // Highlight
+                marker.addTo(layerGroup);
+                visibleMarkers.push(marker);
+            }
+        });
+
+        if (visibleMarkers.length > 0) {
+            const group = new L.featureGroup(visibleMarkers);
+            map.fitBounds(group.getBounds(), { padding: [50, 50], maxZoom: 15 });
+            if (visibleMarkers.length === 1) {
+                visibleMarkers[0].openPopup();
+            }
+        }
+    }
+
+    function handleGeoLocation(e) {
+        if (!map) return;
+        const { lat, lon } = e.detail;
+
+        if (userMarker) map.removeLayer(userMarker);
+        
+        userMarker = L.marker([lat, lon], { icon: Icons.user, zIndexOffset: 1000 }).addTo(map);
+        userMarker.bindPopup("Вы здесь").openPopup();
+
+        map.setView([lat, lon], 14, { animate: true });
+        
+        // Reset to show all markers
+        Object.values(markers).forEach(m => {
+            m.setIcon(Icons.default);
+            m.addTo(layerGroup);
+        });
+    }
+
+    // Init when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMap);
+    } else {
+        initMap(); // Or wait for scripts to load if strictly async, but inline script usually runs after.
+        // Actually, for Leaflet via CDN, we might need to wait for 'load' event of window or check L existence interval
+        const checkL = setInterval(() => {
+            if (window.L) {
+                clearInterval(checkL);
+                initMap();
+            }
+        }, 100);
+    }
+
+    // Cleanup
+    document.addEventListener('astro:before-swap', () => {
+        if (map) {
+            map.remove();
+            map = null;
+        }
+        document.removeEventListener('find-teacher-branches', handleTeacherSelection);
+        document.removeEventListener('map-geo-location', handleGeoLocation);
+    });
+</script>
+
+<style>
+    .map-wrapper {
+        width: 100%;
+        height: 100%;
+        min-height: 400px;
+        background: #f0f0f0;
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        z-index: 1; /* Ensure map is below modals but above background */
+    }
+
+    .map-container {
+        width: 100%;
+        height: 100%;
+        min-height: 400px;
+        z-index: 1;
+    }
+
+    /* Map Tile Filter: Brand Style (Not Grey) */
+    :global(.map-tiles-filtered) {
+        /* Subtle Purple/Sepia Tint - matches 'Deep Purple/Gold' theme */
+        filter: sepia(0.2) hue-rotate(240deg) saturate(1.1) contrast(1.1);
+    }
+</style>

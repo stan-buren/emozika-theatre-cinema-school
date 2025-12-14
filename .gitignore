@@ -18,7 +18,4 @@ test-results/
 .env.*
 !.env.example
 
-# Generated Data
-src/data/vk_*.json
-src/data/vk_wall_dump.json
 

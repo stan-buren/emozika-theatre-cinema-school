@@ -29,6 +29,9 @@ function getGradient(color: string) {
                 class="branch-interactive-card" 
                 data-metro={(branch.metro || "").toLowerCase()} 
                 data-adults={isAdults ? "" : undefined}
+                data-cinema={branch.isCinema ? "" : undefined}
+                data-branch-id={branch.id}
+                data-coords={JSON.stringify(branch.coords || [0,0])}
                 tabindex="0"
             >
                 <div class="card-visual" style={`background: ${gradient}`}>
@@ -68,85 +71,101 @@ function getGradient(color: string) {
 
     .branch-interactive-card {
         background: white;
-        border-radius: 12px;
+        border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border: 1px solid rgba(0,0,0,0.02);
+        border: 1px solid rgba(0,0,0,0.05);
         display: flex;
         flex-direction: column;
+        position: relative;
+        height: 100%;
 
         &:hover, &:focus {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(122, 47, 180, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(48, 16, 74, 0.15); /* Purple shadow */
+            z-index: 2;
         }
     }
 
     .card-visual {
-        height: 100px;
+        height: 120px;
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
     }
 
     .visual-icon {
-        font-size: 2.5rem;
-        opacity: 0.15;
+        font-size: 3rem;
+        opacity: 0.2;
+        mix-blend-mode: overlay;
+        transform: rotate(-10deg);
     }
 
     .badge-18 {
         position: absolute;
         top: 10px;
         right: 10px;
-        background: black;
-        color: white;
-        font-size: 0.7rem;
-        font-weight: 700;
+        background: #000;
+        color: #d4af37; /* Gold text */
+        font-size: 0.75rem;
+        font-weight: 800;
         padding: 4px 8px;
         border-radius: 4px;
+        border: 1px solid #d4af37;
     }
 
     .card-content {
-        padding: 1.5rem;
+        padding: 1.5rem 1.5rem 2rem;
         flex: 1;
         display: flex;
         flex-direction: column;
+        background: linear-gradient(to bottom, #fff 50%, #fafafa 100%);
+    }
+
+    .card-header {
+        margin-bottom: 1rem;
     }
 
     .card-title {
-        font-size: 1.1rem;
+        font-family: var(--font-heading, serif);
+        font-size: 1.25rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
-        line-height: 1.3;
-        color: #2D2D2D;
+        line-height: 1.2;
+        color: #1a0b2e; /* Deep purple */
     }
 
     .card-metro-row {
         display: flex;
         align-items: center;
         gap: 8px;
-        margin-bottom: 1rem;
     }
 
     .metro-dot {
-        width: 8px;
-        height: 8px;
-        background: #D70100; /* Generic metro red, or varied */
+        width: 10px;
+        height: 10px;
+        background: #D70100;
         border-radius: 50%;
+        box-shadow: 0 0 0 2px rgba(215, 1, 0, 0.2);
     }
 
     .card-metro {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         color: #555;
-        font-weight: 500;
+        font-weight: 600;
+        letter-spacing: 0.02em;
     }
 
     .card-address {
         font-size: 0.9rem;
-        color: #888;
+        color: #777;
         margin-bottom: 1.5rem;
-        line-height: 1.4;
+        line-height: 1.5;
+        border-top: 1px dashed rgba(0,0,0,0.1);
+        padding-top: 1rem;
     }
 
     .card-footer {
@@ -155,12 +174,34 @@ function getGradient(color: string) {
 
     .card-link {
         font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--text-accent);
+        font-weight: 700;
+        color: #7a2fb4; /* Brand purple */
         text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        transition: gap 0.2s;
         
         &:hover {
-            text-decoration: underline;
+            gap: 8px;
+            color: #4a1f6b;
         }
+    }
+
+    /* Highlight Animation */
+    :global(.highlight-pulse) {
+        animation: pulseHighlight 0.8s ease;
+        border-color: #d4af37 !important;
+        box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2), 0 15px 40px rgba(0,0,0,0.2) !important;
+        transform: scale(1.02);
+        z-index: 5;
+    }
+
+    @keyframes pulseHighlight {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+        50% { transform: scale(1.03); box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+        100% { transform: scale(1.02); }
     }
 </style>

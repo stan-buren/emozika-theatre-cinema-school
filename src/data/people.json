@@ -43,6 +43,9 @@
           "plays": [
             "love-tank"
           ],
+          "relatedBranches": [
+            "grand-canyon"
+          ],
           "order": 2
         },
         {
@@ -60,8 +63,11 @@
           ],
           "type": "adult",
           "plays": [
-            "snow-queen",
             "koshkin-dom"
+          ],
+          "relatedBranches": [
+            "akademka-sun",
+            "parnas-art"
           ],
           "order": 3
         },
@@ -80,6 +86,9 @@
           ],
           "type": "adult",
           "plays": [],
+          "relatedBranches": [
+            "grand-canyon"
+          ],
           "order": 4
         },
         {
@@ -149,6 +158,10 @@
           ],
           "type": "adult",
           "plays": [],
+          "relatedBranches": [
+            "grand-canyon",
+            "parnas-art"
+          ],
           "order": 8
         }
       ]

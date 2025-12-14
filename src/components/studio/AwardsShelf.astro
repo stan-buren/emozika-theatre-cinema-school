@@ -28,10 +28,16 @@ const displayItems = limit ? awardsData.slice(0, limit) : awardsData;
                 </div>
             </div>
             
-            <div class="diploma-plaque">
-                <span class="diploma-year">{new Date(award.date).getFullYear()}</span>
-                <h4 class="diploma-title">{award.label}</h4>
-                <p class="diploma-desc">{award.sublabel}</p>
+            <div class="award-content">
+                <div class="gold-plate">
+                    <h3 class="plate-title">{award.label}</h3>
+                    <div class="plate-divider"></div>
+                    <p class="plate-subtitle">{award.sublabel}</p>
+                    <div class="plate-screw screw-tl"></div>
+                    <div class="plate-screw screw-tr"></div>
+                    <div class="plate-screw screw-bl"></div>
+                    <div class="plate-screw screw-br"></div>
+                </div>
             </div>
         </article>
     ))}
@@ -42,23 +48,22 @@ const displayItems = limit ? awardsData.slice(0, limit) : awardsData;
     .awards-wall {
         padding: 4rem 0;
         background: 
-            linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
+            linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)),
             url("https://www.transparenttextures.com/patterns/white-wall-3.png");
     }
 
     .wall-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 3rem;
+        gap: 4rem; /* Increased gap for plates */
         justify-content: center;
         max-width: 1200px;
         margin: 0 auto;
     }
 
     .diploma-frame {
-        max-width: 350px; /* Constrain max size */
-        margin: 0 auto;   /* Center in grid cell */
-        position: relative;
+        max-width: 320px;
+        margin: 0 auto;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -66,43 +71,40 @@ const displayItems = limit ? awardsData.slice(0, limit) : awardsData;
         animation: hangOnWall 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         animation-delay: var(--delay);
         transform-origin: top center;
-
+        
         &:hover {
             z-index: 10;
-            
             .frame-wood {
-                transform: scale(1.05) rotate(0deg) !important;
-                box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+                transform: scale(1.02) translateY(-5px);
+                box-shadow: 0 25px 50px rgba(0,0,0,0.25);
             }
         }
-
-        /* Random slight tilt for realism */
-        &:nth-child(odd) .frame-wood { transform: rotate(-1deg); }
-        &:nth-child(even) .frame-wood { transform: rotate(1deg); }
-        &:nth-child(3n) .frame-wood { transform: rotate(0.5deg); }
     }
 
     .frame-wood {
-        background: #2c1e12; /* Dark wood wood */
-        padding: 12px;
+        background: #3e2723;
+        padding: 15px;
         border-radius: 4px;
         box-shadow: 
-            2px 4px 10px rgba(0,0,0,0.2),
-            inset 0 0 0 2px rgba(255,255,255,0.1);
-        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            0 15px 35px rgba(0,0,0,0.2),
+            inset 0 0 0 2px rgba(255,255,255,0.05),
+            inset 0 0 20px rgba(0,0,0,0.5);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         position: relative;
+        width: 100%;
     }
 
     .frame-matte {
-        background: #fff;
-        padding: 20px;
-        box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        background: #fdfdfd;
+        padding: 24px;
+        box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+        border: 1px solid #e0e0e0;
     }
 
     .frame-content {
         position: relative;
         width: 100%;
-        aspect-ratio: 1/1.414; /* A4 aspect ratio */
+        aspect-ratio: 1/1.414;
         overflow: hidden;
         border: 1px solid #eee;
     }
@@ -130,60 +132,72 @@ const displayItems = limit ? awardsData.slice(0, limit) : awardsData;
     .glass-reflection {
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 40%, rgba(255,255,255,0.1) 100%);
+        background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 40%, rgba(255,255,255,0.05) 100%);
         pointer-events: none;
     }
 
-    /* Little Golden Plaque below frame */
-    .diploma-plaque {
-        margin-top: 1.5rem;
-        background: linear-gradient(to bottom, #cfc09f 0%, #ffecb3 50%, #b3a076 100%);
-        padding: 8px 16px;
-        border-radius: 4px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        text-align: center;
-        min-width: 200px;
-        border: 1px solid #998866;
+    /* Gold Plate Styles */
+    .award-content {
+        margin-top: 2rem;
+        width: 100%;
+        padding: 0 10px;
         position: relative;
-        
-        /* Screws */
-        &::before, &::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 4px;
-            height: 4px;
-            background: #665544;
-            border-radius: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0 1px 0 rgba(255,255,255,0.5);
-        }
-        &::before { left: 6px; }
-        &::after { right: 6px; }
     }
 
-    .diploma-year {
-        display: block;
-        font-size: 0.7rem;
+    .gold-plate {
+        background: linear-gradient(to bottom, #f3e5ab 0%, #d4af37 50%, #c5a028 51%, #e6c86e 100%);
+        padding: 12px 16px;
+        border-radius: 4px;
+        box-shadow: 
+            0 4px 10px rgba(0,0,0,0.2),
+            inset 0 1px 0 rgba(255,255,255,0.6),
+            inset 0 -1px 0 rgba(0,0,0,0.2);
+        border: 1px solid #b8860b;
+        text-align: center;
+        position: relative;
+    }
+
+    .plate-title {
+        font-family: var(--font-heading, serif);
+        font-size: 0.85rem;
         font-weight: 800;
-        color: #5d4037;
         text-transform: uppercase;
+        color: #4a3728;
         letter-spacing: 0.05em;
-    }
-
-    .diploma-title {
-        font-family: var(--font-heading);
-        font-size: 0.95rem;
-        font-weight: 700;
-        color: #3e2723;
-        margin: 2px 0;
+        text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+        margin-bottom: 4px;
         line-height: 1.2;
     }
 
-    .diploma-desc {
-        font-size: 0.75rem;
+    .plate-divider {
+        height: 1px;
+        background: rgba(74, 55, 40, 0.3);
+        width: 60%;
+        margin: 4px auto;
+        border-bottom: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .plate-subtitle {
+        font-size: 0.7rem;
+        font-weight: 600;
         color: #5d4037;
-        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+    }
+
+    .plate-screw {
+        width: 4px;
+        height: 4px;
+        background: #3e2723;
+        border-radius: 50%;
+        position: absolute;
+        box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+        
+        &.screw-tl { top: 4px; left: 4px; }
+        &.screw-tr { top: 4px; right: 4px; }
+        &.screw-bl { bottom: 4px; left: 4px; }
+        &.screw-br { bottom: 4px; right: 4px; }
     }
 
     @keyframes hangOnWall {
