@@ -118,101 +118,43 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    <!-- СЕКЦИЯ 2: Режиссерская тетрадь (Director's Notebook Storytelling) -->
-    <section class="lt-notebook">
-      <div class="container lt-notebook__container">
-        
-        <!-- Корешок тетради (пружина) по центру -->
-        <div class="lt-notebook__spine" aria-hidden="true"></div>
-
-        <div class="lt-script__column">
-          <!-- Красная линия полей -->
-          <div class="lt-script__margin-line" aria-hidden="true"></div>
-
-          <!-- Шаг 1 -->
-          <div class="lt-script__section scroll-reveal" data-note-id="1">
-            <h3 class="lt-script__act-title">Акт I. Персонажи</h3>
-            
-            <div class="lt-script__scene-desc">
-              <span class="lt-script__character">ОНА:</span>
-              <p class="lt-script__text lt-script__text--poetess">Тонкая. Громкая. С характером, который не помещается в одну комнату. Привыкла говорить красиво, жить трудно и любить — тоже со вкусом.</p>
-            </div>
-            
-            <div class="lt-script__scene-desc">
-              <span class="lt-script__character">ОН:</span>
-              <p class="lt-script__text lt-script__text--plumber">Простой. Грубый. От него пахнет машинным маслом и чем-то таким, от чего у женщин сбивается пульс. Он не читал её стихов. Ему всё равно.</p>
-            </div>
-
-            <!-- Режиссерская заметка на левом поле -->
-            <div class="lt-script__note lt-script__note--left" id="note-1">
-              <span>У них нет ничего общего. Кроме этой ночи.</span>
-              <svg class="script-arrow script-arrow--left" viewBox="0 0 80 30" fill="none">
-                <path d="M70,5 Q35,25 5,10 M15,3 L5,10 L15,18" stroke="#D4AF37" stroke-width="1.2" stroke-linecap="round"/>
-              </svg>
-            </div>
+    <!-- СЕКЦИЯ 2: Сценическое повествование (Storytelling Narrative) -->
+    <section class="lt-narrative">
+      <div class="container lt-narrative__container">
+        <div class="lt-narrative__content scroll-reveal">
+          
+          <!-- Блок 1 -->
+          <div class="lt-narrative__block">
+            <h3 class="lt-narrative__subtitle">Как начинается?</h3>
+            <p class="lt-narrative__text">
+              Случайная поломка. Чужой мужик в её доме. Она нервная, с порога — на разрыв. 
+              Он невозмутимый — как бетонная стена. Она цепляет его словами. Он отвечает — не словами.
+            </p>
           </div>
 
-          <!-- Шаг 2 -->
-          <div class="lt-script__section scroll-reveal" data-note-id="2">
-            <h3 class="lt-script__act-title">Акт II. Как начинается</h3>
-            
-            <div class="lt-script__scene-desc">
-              <p class="lt-script__action">Случайная поломка. Чужой мужик в её доме.</p>
-              <p class="lt-script__action lt-script__action--poetess">Она нервная, с порога — на разрыв.</p>
-              <p class="lt-script__action lt-script__action--plumber">Он невозмутимый — как бетонная стена.</p>
-              <p class="lt-script__action">Она цепляет его словами. Он отвечает — не словами.</p>
-            </div>
-
-            <!-- Режиссерская заметка на правом поле -->
-            <div class="lt-script__note lt-script__note--right" id="note-2">
-              <span>Какое начало... Случайный вызов сантехника.</span>
-              <svg class="script-arrow script-arrow--right" viewBox="0 0 80 30" fill="none">
-                <path d="M10,5 Q45,25 75,10 M65,18 L75,10 L65,3" stroke="#D4AF37" stroke-width="1.2" stroke-linecap="round"/>
-              </svg>
-            </div>
+          <!-- Блок 2: Поэтический -->
+          <div class="lt-narrative__block">
+            <h3 class="lt-narrative__subtitle">Соблазнение</h3>
+            <p class="lt-narrative__text lt-narrative__text--poetic">
+              Соблазнение — не в поцелуях.<br/>
+              Оно в том, как он молчит, когда она говорит.<br/>
+              В том, как она хочет его разбудить — и вдруг просыпается сама.<br/>
+              В паузах, которые говорят больше, чем любая её рифма.
+            </p>
           </div>
 
-          <!-- Шаг 3 -->
-          <div class="lt-script__section scroll-reveal" data-note-id="3">
-            <h3 class="lt-script__act-title">Акт III. Соблазнение</h3>
-            
-            <div class="lt-script__scene-desc">
-              <p class="lt-script__action">Соблазнение — не в поцелуях.</p>
-              <p class="lt-script__action">Оно в том, как он молчит, когда она говорит.</p>
-              <p class="lt-script__action lt-script__action--poetess">В том, как она хочет его разбудить — и вдруг просыпается сама.</p>
-            </div>
-
-            <!-- Режиссерская заметка на левом поле -->
-            <div class="lt-script__note lt-script__note--left" id="note-3">
-              <span>В паузах, которые говорят больше, чем любая её рифма.</span>
-              <svg class="script-arrow script-arrow--left" viewBox="0 0 80 30" fill="none">
-                <path d="M70,5 Q35,25 5,10 M15,3 L5,10 L15,18" stroke="#D4AF37" stroke-width="1.2" stroke-linecap="round"/>
-              </svg>
-            </div>
-          </div>
-
-          <!-- Шаг 4 -->
-          <div class="lt-script__section scroll-reveal" data-note-id="4">
-            <h3 class="lt-script__act-title">Акт IV. Чем заканчивается</h3>
-            
-            <div class="lt-script__scene-desc">
-              <p class="lt-script__action lt-script__action--poetess">Тем, что стихи заканчиваются. А он остаётся.</p>
-              <p class="lt-script__action">Она привыкла всё контролировать. Прописывать. Додумывать.</p>
-              <p class="lt-script__action lt-script__action--plumber">А он — просто берёт.</p>
-              <p class="lt-script__action">И оказывается, что за грубостью — нежность. За молчанием — глубина. А за случайным вызовом сантехника — то, что она не писала в своих тетрадях.</p>
-              
-              <div class="lt-script__conclusion">
-                <span class="lt-highlight--oval">Настоящее.</span>
-              </div>
-            </div>
-
-            <!-- Режиссерская заметка на правом поле -->
-            <div class="lt-script__note lt-script__note--right" id="note-4">
-              <span>Что под этой маской? Настоящее.</span>
-              <svg class="script-arrow script-arrow--right" viewBox="0 0 80 30" fill="none">
-                <path d="M10,5 Q45,25 75,10 M65,18 L75,10 L65,3" stroke="#D4AF37" stroke-width="1.2" stroke-linecap="round"/>
-              </svg>
-            </div>
+          <!-- Блок 3 -->
+          <div class="lt-narrative__block">
+            <h3 class="lt-narrative__subtitle">Чем заканчивается?</h3>
+            <p class="lt-narrative__text">
+              Тем, что стихи заканчиваются. А он остаётся.
+            </p>
+            <p class="lt-narrative__text">
+              Она привыкла всё контролировать. Прописывать. Додумывать. А он — просто берёт. 
+              И оказывается, что за грубостью — нежность. За молчанием — глубина. А за случайным 
+              вызовом сантехника — то, что она не писала в своих тетрадях.
+            </p>
+            <p class="lt-narrative__highlight">Настоящее.</p>
           </div>
 
         </div>
@@ -253,16 +195,16 @@ import Layout from '../layouts/Layout.astro';
           
           <div class="lt-about__text-col">
             <h2 class="lt-section-title">О спектакле</h2>
-            <div class="lt-about__desc">
-              <p>Пьеса Василия Сигарева, одного из самых значительных драматургов новой русской волны, — это не просто комедия положений. Это анатомия одиночества. Мужчина и женщина. Сорок с лишним. Квартира, в которой стены давно могли бы рассказать больше, чем обитатели. Они вроде бы рядом — в тесном пространстве, у сливного бачка, — но между ними пропасть. Каждый сам по себе. В своей клетке. В своих иллюзиях, в своём прошлом, в незаживших ранах, которые кровоточат под кожей каждый день.</p>
-              
-              <p>Они не видят друг друга. Вернее, видят не того, кто рядом, а отражение собственных детских травм — тех самых, что въелись в подкорку и управляют ими, как марионетками. Невысказанные обиды. Недополученная любовь. Непрожитые потери. Они слышат не голос собеседника, а эхо того, что когда-то не смогли сказать своим родителям, миру, себе. Каждый говорит о своём — и каждый остаётся неуслышанным. И это больно. Режуще, до спазма в горле больно — потому что так живут миллионы.</p>
-              
-              <p>Это история про людей, которые не в моменте. Которые не в осознанности. Которые застряли в своих сценариях. Которые так и не повзрослели по-настоящему — просто научились хорошо прятать внутреннего ребёнка. А внутри — крик. Тихий, годами невысказанный крик.</p>
-              
-              <p>Они ищут любви — но ищут вслепую, натыкаясь не друг на друга, а на собственные боли. И это не смешно. Это страшно. Это честно. Это зеркало, в которое боишься заглянуть.</p>
-              
-              <p>Смешно — до слёз. Горько — до смеха. Потому что за каждой репликой стоит не шутка, а человек, который просто хочет быть кому-то нужным. Такой, какой есть. Без масок. Без иллюзий. Живой. Узнаваемый до дрожи. И актуальный как никогда.</p>
+            <div class="lt-about__video-wrapper">
+              <video 
+                src="/assets/video/lubov_u_slivnogo_rolik.mp4" 
+                poster="/assets/img/lubov_u_slivnogo_bochka/poetess_poster.png"
+                controls 
+                preload="metadata"
+                class="lt-about__video"
+              >
+                Ваш браузер не поддерживает встроенные видео.
+              </video>
             </div>
           </div>
         </div>
@@ -568,9 +510,9 @@ import Layout from '../layouts/Layout.astro';
         needle.style.transform = 'rotate(-140deg)'; // Давление сброшено в ноль
       }, 300);
 
-      // Плавный скролл вниз к диалогам через 500мс
+      // Плавный скролл вниз к повествованию через 500мс
       setTimeout(() => {
-        const dialogueSec = document.querySelector('.lt-notebook');
+        const dialogueSec = document.querySelector('.lt-narrative');
         if (dialogueSec) {
           dialogueSec.scrollIntoView({ behavior: 'smooth' });
         }
