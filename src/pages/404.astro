@@ -13,8 +13,8 @@ import Layout from '../layouts/Layout.astro';
           Этой страницы не существует или она переехала.
         </p>
         <div class="error-actions">
-          <a href="/" class="btn btn-primary">На главную</a>
-          <a href="/afisha" class="btn btn-outline">В афишу</a>
+          <a href={import.meta.env.BASE_URL} class="btn btn-primary">На главную</a>
+          <a href={`${import.meta.env.BASE_URL}afisha`} class="btn btn-outline">В афишу</a>
         </div>
       </div>
     </section>

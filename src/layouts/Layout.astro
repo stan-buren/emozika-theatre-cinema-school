@@ -21,7 +21,7 @@ const { title, description = "Детский театр и студия «Эмо
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/png" href="/favicon.png" />
+		<link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}favicon.png`} />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Nunito:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&family=Courier+Prime:wght@400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
@@ -71,8 +71,8 @@ const { title, description = "Детский театр и студия «Эмо
             <div class="modal-form-placeholder" style="text-align: center; padding: 20px 0;">
                 <p style="margin-bottom: 20px; color: var(--text-muted);">Выберите, куда вы хотите записаться:</p>
                 <div style="display: grid; gap: 10px;">
-                    <a href="/studio#branches" class="btn btn-primary" style="background: var(--accent); color: white; padding: 12px; border-radius: 8px; text-decoration: none; display: block;">🎭 В Театральную Студию</a>
-                    <a href="/cinema#casting" class="btn btn-secondary" style="background: #40E0D0; color: #000; padding: 12px; border-radius: 8px; text-decoration: none; display: block;">🎬 На Кастинг в Кино</a>
+                    <a href={`${import.meta.env.BASE_URL}studio#branches`} class="btn btn-primary" style="background: var(--accent); color: white; padding: 12px; border-radius: 8px; text-decoration: none; display: block;">🎭 В Театральную Студию</a>
+                    <a href={`${import.meta.env.BASE_URL}cinema#casting`} class="btn btn-secondary" style="background: #40E0D0; color: #000; padding: 12px; border-radius: 8px; text-decoration: none; display: block;">🎬 На Кастинг в Кино</a>
                 </div>
                 <p style="margin-top: 15px; font-size: 0.8em; opacity: 0.7;">Или напишите нам в <a href="https://wa.me/79313157787" style="color: #25D366; text-decoration: underline;">WhatsApp</a></p>
             </div>

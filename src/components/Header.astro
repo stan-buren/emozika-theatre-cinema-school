@@ -2,8 +2,8 @@
 ---
 <header class="site-header">
     <div class="container header-inner">
-      <a href="/" class="logo-badge" data-scroll-to="hero">
-        <img class="logo-mark" src="/favicon.png" alt="Логотип театра «Эмоцика»" />
+      <a href={import.meta.env.BASE_URL} class="logo-badge" data-scroll-to="hero">
+        <img class="logo-mark" src={`${import.meta.env.BASE_URL}favicon.png`} alt="Логотип театра «Эмоцика»" />
         <span class="logo-text">Театр «Эмоцика»</span>
       </a>
 
@@ -15,11 +15,11 @@
       </button>
 
       <nav class="main-nav" aria-label="Основная навигация" data-mobile-menu>
-        <a href="/theatre" class="nav-link">Театр</a>
-        <a href="/studio" class="nav-link">Студия</a>
-        <a href="/cinema" class="nav-link">Киношкола</a>
-        <a href="/about" class="nav-link">О нас</a>
-        <a href="/about#contacts" class="nav-link nav-link-pill">
+        <a href={`${import.meta.env.BASE_URL}theatre`} class="nav-link">Театр</a>
+        <a href={`${import.meta.env.BASE_URL}studio`} class="nav-link">Студия</a>
+        <a href={`${import.meta.env.BASE_URL}cinema`} class="nav-link">Киношкола</a>
+        <a href={`${import.meta.env.BASE_URL}about`} class="nav-link">О нас</a>
+        <a href={`${import.meta.env.BASE_URL}about#contacts`} class="nav-link nav-link-pill">
           Записаться
         </a>
         <!-- Mobile Only CTA -->

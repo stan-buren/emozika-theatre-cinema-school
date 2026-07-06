@@ -24,7 +24,7 @@ import NewsTicker from '../components/hub/NewsTicker.astro';
     <section class="hub-nav">
         <div class="container hub-nav__grid">
             <!-- Studio -->
-            <a href="/studio" class="hub-card hub-card--studio">
+            <a href={`${import.meta.env.BASE_URL}studio`} class="hub-card hub-card--studio">
                 <div class="hub-card__content">
                     <span class="hub-card__icon" aria-hidden="true">🎭</span>
                     <h2 class="hub-card__title">Я хочу учиться</h2>
@@ -34,7 +34,7 @@ import NewsTicker from '../components/hub/NewsTicker.astro';
             </a>
 
             <!-- Cinema -->
-            <a href="/cinema" class="hub-card hub-card--cinema">
+            <a href={`${import.meta.env.BASE_URL}cinema`} class="hub-card hub-card--cinema">
                 <div class="hub-card__content">
                     <span class="hub-card__icon" aria-hidden="true">🎬</span>
                     <h2 class="hub-card__title">Я хочу в кино</h2>
@@ -44,7 +44,7 @@ import NewsTicker from '../components/hub/NewsTicker.astro';
             </a>
 
             <!-- Theatre -->
-            <a href="/theatre" class="hub-card hub-card--theatre">
+            <a href={`${import.meta.env.BASE_URL}theatre`} class="hub-card hub-card--theatre">
                 <div class="hub-card__content">
                     <span class="hub-card__icon" aria-hidden="true">🎟</span>
                     <h2 class="hub-card__title">Я зритель</h2>
@@ -67,7 +67,7 @@ import NewsTicker from '../components/hub/NewsTicker.astro';
             </figure>
             
             <div class="hub-map-actions">
-                 <a href="/studio#branches" class="btn btn-outline">Найти филиал у дома</a>
+                 <a href={`${import.meta.env.BASE_URL}studio#branches`} class="btn btn-outline">Найти филиал у дома</a>
             </div>
         </div>
     </section>
