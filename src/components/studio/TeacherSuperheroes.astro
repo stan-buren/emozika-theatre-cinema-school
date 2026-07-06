@@ -27,7 +27,7 @@ const teachers = teamGroup.filter(person => person.tags && person.tags.includes(
           <div class="teacher-card__inner">
             <div class="media-wrapper">
                 {person.photoUrl 
-                    ? <img src={`/${person.photoUrl}`} alt={person.name} loading="lazy" class="teacher-photo" />
+                    ? <img src={`${import.meta.env.BASE_URL}${person.photoUrl.replace(/^\//, '')}`} alt={person.name} loading="lazy" class="teacher-photo" />
                     : <div class="placeholder">{person.name[0]}</div>
                 }
                 <div class="gradient-overlay"></div>

@@ -14,7 +14,7 @@ const displayItems = limit ? awardsData.slice(0, limit) : awardsData;
         <article class="award-card">
             <div class="award-card__icon-wrapper">
                 {award.image ? (
-                    <img src={award.image} alt={award.sublabel} class="award-card__img" loading="lazy" />
+                    <img src={award.image.startsWith('http') ? award.image : `${import.meta.env.BASE_URL}${award.image.replace(/^\//, '')}`} alt={award.sublabel} class="award-card__img" loading="lazy" />
                 ) : (
                     <div class="award-card__placeholder">🏆</div>
                 )}

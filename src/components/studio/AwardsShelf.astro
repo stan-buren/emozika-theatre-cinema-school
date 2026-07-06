@@ -44,7 +44,7 @@ const displayItems = limit ? awardsData.slice(0, limit) : awardsData;
                             <div class="matting">
                                 <div class="print-area">
                                     {award.image ? (
-                                        <img src={award.image} alt={award.label} class="diploma-img" loading="lazy" />
+                                        <img src={award.image.startsWith('http') ? award.image : `${import.meta.env.BASE_URL}${award.image.replace(/^\//, '')}`} alt={award.label} class="diploma-img" loading="lazy" />
                                     ) : (
                                         <div class="diploma-placeholder">
                                             <span class="coat-of-arms">♛</span>

@@ -17,7 +17,7 @@ import VideoLightbox from './VideoLightbox.astro';
             {filmsData.map(film => (
                 <article class="film-card" data-video-url={film.vkEmbedUrl}>
                     <div class="film-card__poster-wrapper">
-                        <img src={film.image} alt={film.title} class="film-card__poster" loading="lazy" />
+                        <img src={film.image.startsWith('http') ? film.image : `${import.meta.env.BASE_URL}${film.image.replace(/^\//, '')}`} alt={film.title} class="film-card__poster" loading="lazy" />
                         <div class="film-card__overlay">
                              <button class="btn-play" aria-label="Play video">
                                 ▶
@@ -37,7 +37,7 @@ import VideoLightbox from './VideoLightbox.astro';
              {clipsData.map(clip => (
                 <article class="clip-card" data-video-url={clip.vkEmbedUrl}>
                      <div class="clip-card__preview">
-                        <img src={clip.image} alt={clip.title} class="clip-card__img" loading="lazy" />
+                        <img src={clip.image.startsWith('http') ? clip.image : `${import.meta.env.BASE_URL}${clip.image.replace(/^\//, '')}`} alt={clip.title} class="clip-card__img" loading="lazy" />
                         <button class="clip-card__play" aria-label="Play clip"></button>
                      </div>
                      <h5 class="clip-card__title">{clip.title}</h5>

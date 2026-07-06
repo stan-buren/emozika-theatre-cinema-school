@@ -11,9 +11,9 @@ const displayItems = limit ? galleryItems.slice(0, limit) : galleryItems;
 
 <div class="masonry-grid">
   {displayItems.map((item) => (
-    <div class="masonry-item group" data-lightbox-trigger={item.full}>
+    <div class="masonry-item group" data-lightbox-trigger={item.full ? `${import.meta.env.BASE_URL}${item.full.replace(/^\//, '')}` : ''}>
       <img 
-        src={item.src} 
+        src={item.src ? `${import.meta.env.BASE_URL}${item.src.replace(/^\//, '')}` : ''} 
         alt={item.alt} 
         loading="lazy" 
         class="masonry-image"

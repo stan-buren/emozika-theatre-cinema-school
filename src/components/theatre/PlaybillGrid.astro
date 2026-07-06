@@ -6,7 +6,7 @@ import playsData from '../../data/plays.json';
     {playsData.map(play => (
         <article class="playbill-card">
             <div class="playbill-card__image-wrapper">
-                 <img src={play.image} alt={play.title} class="playbill-card__image" loading="lazy" />
+                 <img src={play.image.startsWith('http') ? play.image : `${import.meta.env.BASE_URL}${play.image.replace(/^\//, '')}`} alt={play.title} class="playbill-card__image" loading="lazy" />
                  <span class="playbill-card__age-badge">{play.age}</span>
             </div>
             

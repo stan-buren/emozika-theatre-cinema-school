@@ -15,7 +15,7 @@ import newsData from '../../data/vk_news.json';
                 <article class="news-card">
                     <a href={item.link} target="_blank" rel="noopener" class="news-card__link-wrapper">
                         <div class="news-card__image-wrapper">
-                             <img src={item.image} alt="News" class="news-card__image" loading="lazy" />
+                             <img src={item.image.startsWith('http') ? item.image : `${import.meta.env.BASE_URL}${item.image.replace(/^\//, '')}`} alt="News" class="news-card__image" loading="lazy" />
                         </div>
                         <div class="news-card__content">
                             <span class="news-card__date">{item.date}</span>

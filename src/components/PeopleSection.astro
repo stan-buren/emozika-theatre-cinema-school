@@ -44,7 +44,7 @@ const { class: className } = Astro.props;
                 >
                 <div class="person-photo">
                     {person.photoUrl 
-                    ? <img src={`/${person.photoUrl}`} alt={person.name} loading="lazy" />
+                    ? <img src={`${import.meta.env.BASE_URL}${person.photoUrl.replace(/^\//, '')}`} alt={person.name} loading="lazy" />
                     : <div class="person-placeholder">{person.name[0]}</div>
                     }
                 </div>

@@ -24,7 +24,7 @@ const activeReviews = reviews.filter(r => r.isActive);
         {review.videoEmbedUrl ? (
             <div class="card-media">
                 <div class="play-icon">▶</div>
-                <img src={review.thumbUrl || `https://source.unsplash.com/random/400x600?theatre,kid,${index}`} alt={review.title} loading="lazy" />
+                <img src={review.thumbUrl ? `${import.meta.env.BASE_URL}${review.thumbUrl.replace(/^\//, '')}` : `https://source.unsplash.com/random/400x600?theatre,kid,${index}`} alt={review.title} loading="lazy" />
                 <div class="video-overlay"></div>
             </div>
         ) : (

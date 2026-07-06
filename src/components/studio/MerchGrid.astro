@@ -38,7 +38,7 @@ const fantasyGoods = [
           <div class="merch-card__image-wrapper">
              {item.soldOut && <div class="sold-out-overlay"><span>Sold Out</span></div>}
              {item.tag && !item.soldOut && <span class="merch-card__tag">{item.tag}</span>}
-             <img src={item.image} alt={item.title} class="merch-card__image" loading="lazy" />
+             <img src={item.image.startsWith('http') ? item.image : `${import.meta.env.BASE_URL}${item.image.replace(/^\//, '')}`} alt={item.title} class="merch-card__image" loading="lazy" />
           </div>
           <div class="merch-card__content">
             <h3 class="merch-card__title">{item.title}</h3>
