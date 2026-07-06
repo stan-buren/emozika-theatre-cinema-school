@@ -1174,13 +1174,19 @@
 }
 
 .lt-member-card__photo-wrapper {
-    width: 250px;
-    min-width: 250px;
+    width: 380px;
+    min-width: 380px;
     overflow: hidden;
     position: relative;
 
+    @media (max-width: 992px) {
+        width: 300px;
+        min-width: 300px;
+    }
+
     @media (max-width: 768px) {
         width: 100%;
+        min-width: 100%;
         height: auto;
         aspect-ratio: 1 / 1.1;
     }
